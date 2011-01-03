@@ -54,5 +54,20 @@ namespace StrongChess.Model.Tests
             rank1.IsValid.Should().Be.False();
             rank2.IsValid.Should().Be.False();
         }
+
+        [Test]
+        public void BitmaskForRank1()
+        {
+            Rank rank = "1";
+            rank.Bitmask.Should().Be(0x00000000000000FF);
+        }
+
+        [Test]
+        public void BitmaskForRank7()
+        {
+            Rank rank = "7";
+            rank.Bitmask.Should().Be(0x00FF000000000000);
+        }
+
     }
 }
