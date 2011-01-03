@@ -56,25 +56,10 @@ namespace StrongChess.Model
 
 
 
-        #region object overrides
-        public override int GetHashCode()
-        {
-            return Index.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (object.ReferenceEquals(this, obj)) return true;
-            if (!(obj is Rank)) return false;
-            return Index == ((Rank)obj).Index;
-        }
-
         public override string ToString()
         {
             return ((char)(Index + '1')).ToString();
         }
-        #endregion
-
 
 
     }

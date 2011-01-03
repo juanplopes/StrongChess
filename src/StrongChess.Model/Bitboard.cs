@@ -70,9 +70,21 @@ namespace StrongChess.Model
                 yield return lead.Value;
                 bcopy = bcopy.Clear(lead);
             }
-
-
         }
 
+        public static implicit operator ulong(Bitboard board)
+        {
+            return board.Value;
+        }
+
+        public static implicit operator Bitboard(ulong board)
+        {
+            return new Bitboard(board);
+        }
+
+        public override string ToString()
+        {
+            return "[" + string.Join("; ", GetSetSquares().Select(x => x.ToString()).ToArray()) + "]";
+        }
     }
 }

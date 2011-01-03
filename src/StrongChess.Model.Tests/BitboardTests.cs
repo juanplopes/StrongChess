@@ -5,6 +5,7 @@ using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 using StrongChess.Model;
+using System.Runtime.InteropServices;
 
 namespace StrongChess.Model.Tests
 {

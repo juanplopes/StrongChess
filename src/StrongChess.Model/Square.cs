@@ -29,7 +29,7 @@ namespace StrongChess.Model
             : this(IndexOf(rank, file)) { }
 
         public Square(string name)
-            : this(name.Substring(1, 1), name.Substring(0, 1)) { }
+            : this(name[1].ToString(), name[0].ToString()) { }
 
 
         public static int IndexOf(Rank rank, File file)
@@ -66,18 +66,6 @@ namespace StrongChess.Model
         #endregion
 
         #region object overrides
-        public override int GetHashCode()
-        {
-            return Index.GetHashCode();
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (object.ReferenceEquals(this, obj)) return true;
-            if (!(obj is Square)) return false;
-            return Index == ((Square)obj).Index;
-        }
-
         public override string ToString()
         {
             return File.ToString() + Rank.ToString();
