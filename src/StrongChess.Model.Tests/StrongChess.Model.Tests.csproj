@@ -55,6 +55,7 @@
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
     <Compile Include="BitboardTests.cs" />
+    <Compile Include="BitOperationsTests.cs" />
     <Compile Include="FileTests.cs" />
     <Compile Include="KnightTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
