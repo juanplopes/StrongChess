@@ -7,11 +7,10 @@ namespace StrongChess.Model
 {
     public struct Square : IBoardUnit
     {
+        public int Index { get; private set; }
 
-        public Rank Rank { get; private set; }
-        public File File { get; private set; }
-
-        public int Index { get { return IndexOf(Rank, File); } }
+        public Rank Rank { get { return Index / 8; } }
+        public File File { get { return Index % 8; } }
 
         public bool IsValid
         {
@@ -20,12 +19,18 @@ namespace StrongChess.Model
 
         public ulong Bitmask { get { return _Bitmasks[Index]; } }
 
-        public Square(Rank rank, File file)
+        public Square(int index)
             : this()
         {
-            Rank = rank;
-            File = file;
+            Index = index;
         }
+
+        public Square(Rank rank, File file)
+            : this(IndexOf(rank, file)) { }
+
+        public Square(string name)
+            : this(name.Substring(1, 1), name.Substring(0, 1)) { }
+
 
         public static int IndexOf(Rank rank, File file)
         {
@@ -49,18 +54,15 @@ namespace StrongChess.Model
 
         public static implicit operator Square(int square)
         {
-            return Square.FromIndex(square);
+            return new Square(square);
         }
 
-        public static Square FromIndex(int index)
+        public static implicit operator Square(string square)
         {
-            return new Square(index / 8, index % 8);
+            return new Square(square);
         }
 
-        public static Square FromName(string name)
-        {
-            return new Square(Rank.FromName(name[1]), File.FromName(name[0]));
-        }
+
         #endregion
 
         #region object overrides

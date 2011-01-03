@@ -18,17 +18,17 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard();
 
             // act
-            bitboard = bitboard.Set(Rank.FromName('2'));
+            bitboard = bitboard.Set(new Rank("2"));
 
             // assert
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("A2")), "a2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("B2")), "b2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("C2")), "c2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("D2")), "d2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E2")), "e2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("F2")), "f2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("G2")), "g2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("H2")), "h2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("A2")), "a2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("B2")), "b2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("C2")), "c2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("D2")), "d2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E2")), "e2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("F2")), "f2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("G2")), "g2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("H2")), "h2 should be setted");
         }
 
         [TestMethod]
@@ -39,19 +39,19 @@ namespace StrongChess.Model.Tests
 
             // act
             bitboard = bitboard
-                .Set(File.FromName('D'), File.FromName('E'));
+                .Set(new File("D"), new File("E"));
 
-            bitboard = bitboard.Clear(File.FromName('D'));
+            bitboard = bitboard.Clear(new File("D"));
 
             // assert
-            Assert.IsTrue(bitboard.IsClear(File.FromName('A')), "A should be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('B')), "B should be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('C')), "C should be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('D')), "D should be clear");
-            Assert.IsFalse(bitboard.IsClear(File.FromName('E')), "E should not be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('F')), "F should be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('G')), "G should be clear");
-            Assert.IsTrue(bitboard.IsClear(File.FromName('H')), "H should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("A")), "A should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("B")), "B should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("C")), "C should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("D")), "D should be clear");
+            Assert.IsFalse(bitboard.IsClear(new File("E")), "E should not be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("F")), "F should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("G")), "G should be clear");
+            Assert.IsTrue(bitboard.IsClear(new File("H")), "H should be clear");
         }
 
         [TestMethod]
@@ -62,20 +62,20 @@ namespace StrongChess.Model.Tests
 
             // act
             bitboard = bitboard
-                .Set(Rank.FromName('4'))
-                .Set(Rank.FromName('5'));
+                .Set(new Rank("4"))
+                .Set(new Rank("5"));
 
-            bitboard = bitboard.Clear(Rank.FromName('5'));
+            bitboard = bitboard.Clear(new Rank("5"));
 
             // assert
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('1')), "1 should be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('2')), "2 should be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('3')), "3 should be clear");
-            Assert.IsFalse(bitboard.IsClear(Rank.FromName('4')), "4 should be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('5')), "5 should not be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('6')), "6 should be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('7')), "7 should be clear");
-            Assert.IsTrue(bitboard.IsClear(Rank.FromName('8')), "8 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("1")), "1 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("2")), "2 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("3")), "3 should be clear");
+            Assert.IsFalse(bitboard.IsClear(new Rank("4")), "4 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("5")), "5 should not be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("6")), "6 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("7")), "7 should be clear");
+            Assert.IsTrue(bitboard.IsClear(new Rank("8")), "8 should be clear");
         }
 
         [TestMethod]
@@ -85,17 +85,17 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard();
 
             // act
-            bitboard = bitboard.Set(File.FromName('E'));
+            bitboard = bitboard.Set(new File("E"));
 
             // assert
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E1")), "e1 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E2")), "e2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E3")), "e3 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E4")), "e4 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E5")), "e5 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E6")), "e6 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E7")), "e7 should be setted");
-            Assert.IsTrue(bitboard.IsSet(Square.FromName("E8")), "e8 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E1")), "e1 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E2")), "e2 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E3")), "e3 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E4")), "e4 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E5")), "e5 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E6")), "e6 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E7")), "e7 should be setted");
+            Assert.IsTrue(bitboard.IsSet(new Square("E8")), "e8 should be setted");
         }
 
         [TestMethod]
@@ -107,11 +107,11 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard.Set(Square.FromName("A1"));
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard1 = bitboard.Set(new Square("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.AreEqual(((UInt64)1 << (int)Square.FromName("A1")), bitboard1.Value);
+            Assert.AreEqual(((UInt64)1 << (int)new Square("A1")), bitboard1.Value);
             //Assert.AreEqual(0, bitboard2);
         }
 
@@ -124,8 +124,8 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("A1"));
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
             Assert.AreEqual((UInt64)0, bitboard2.Value);
@@ -140,12 +140,12 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("A1"));
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsTrue(bitboard1.IsSet(Square.FromName("A1")));
-            Assert.IsFalse(bitboard2.IsSet(Square.FromName("A1")));
+            Assert.IsTrue(bitboard1.IsSet(new Square("A1")));
+            Assert.IsFalse(bitboard2.IsSet(new Square("A1")));
         }
 
         [TestMethod]
@@ -157,12 +157,12 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("A1"));
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsFalse(bitboard1.IsClear(Square.FromName("A1")), "Should return False!");
-            Assert.IsTrue(bitboard2.IsClear(Square.FromName("A1")), "Should return true!");
+            Assert.IsFalse(bitboard1.IsClear(new Square("A1")), "Should return False!");
+            Assert.IsTrue(bitboard2.IsClear(new Square("A1")), "Should return true!");
         }
 
         [TestMethod]
@@ -174,11 +174,11 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("F5"));
-            bitboard2 = bitboard1.Clear(Square.FromName("F5"));
+            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
+            bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
-            Assert.AreEqual(((UInt64)1 << (int)Square.FromName("F5")), bitboard1.Value);
+            Assert.AreEqual(((UInt64)1 << (int)new Square("F5")), bitboard1.Value);
             //Assert.AreEqual(0, bitboard2);
         }
 
@@ -191,11 +191,11 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("F5"));
-            bitboard2 = bitboard1.Clear(Square.FromName("F5"));
+            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
+            bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
-            //Assert.AreEqual(((long)1 << (int)Square.FromName("F5")), bitboard1);
+            //Assert.AreEqual(((long)1 << (int)new Square("F5")), bitboard1);
             Assert.AreEqual((UInt64)0, bitboard2.Value);
         }
 
@@ -208,12 +208,12 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("F5"));
-            bitboard2 = bitboard1.Clear(Square.FromName("F5"));
+            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
+            bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
-            Assert.IsTrue(bitboard1.IsSet(Square.FromName("F5")));
-            Assert.IsFalse(bitboard2.IsSet(Square.FromName("F5")));
+            Assert.IsTrue(bitboard1.IsSet(new Square("F5")));
+            Assert.IsFalse(bitboard2.IsSet(new Square("F5")));
         }
 
         [TestMethod]
@@ -225,12 +225,12 @@ namespace StrongChess.Model.Tests
             Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(Square.FromName("F5"));
-            bitboard2 = bitboard1.Clear(Square.FromName("F5"));
+            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
+            bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
-            Assert.IsFalse(bitboard1.IsClear(Square.FromName("F5")));
-            Assert.IsTrue(bitboard2.IsClear(Square.FromName("F5")));
+            Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
+            Assert.IsTrue(bitboard2.IsClear(new Square("F5")));
         }
 
         [TestMethod]
@@ -243,14 +243,14 @@ namespace StrongChess.Model.Tests
 
             // act
             bitboard1 = bitboard
-                   .Set(Square.FromName("F5"))
-                   .Set(Square.FromName("A1"));
+                   .Set(new Square("F5"))
+                   .Set(new Square("A1"));
 
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsFalse(bitboard1.IsClear(Square.FromName("A1")));
-            Assert.IsTrue(bitboard2.IsClear(Square.FromName("A1")));
+            Assert.IsFalse(bitboard1.IsClear(new Square("A1")));
+            Assert.IsTrue(bitboard2.IsClear(new Square("A1")));
         }
 
         [TestMethod]
@@ -263,14 +263,14 @@ namespace StrongChess.Model.Tests
 
             // act
             bitboard1 = bitboard
-                   .Set(Square.FromName("F5"))
-                   .Set(Square.FromName("A1"));
+                   .Set(new Square("F5"))
+                   .Set(new Square("A1"));
 
-            bitboard2 = bitboard1.Clear(Square.FromName("A1"));
+            bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsFalse(bitboard1.IsClear(Square.FromName("F5")));
-            Assert.IsFalse(bitboard2.IsClear(Square.FromName("F5")));
+            Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
+            Assert.IsFalse(bitboard2.IsClear(new Square("F5")));
         }
 
 
@@ -280,13 +280,13 @@ namespace StrongChess.Model.Tests
         {
             // arrange
             var bitboard = new Bitboard();
-            bitboard = bitboard.Set(Square.FromName("A1"));
+            bitboard = bitboard.Set(new Square("A1"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("A1"), result);
+            Assert.AreEqual(new Square("A1"), result);
         }
 
         [TestMethod]
@@ -294,13 +294,13 @@ namespace StrongChess.Model.Tests
         {
             // arrange
             var bitboard = new Bitboard();
-            bitboard = bitboard.Set(Square.FromName("B1"));
+            bitboard = bitboard.Set(new Square("B1"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("B1"), result);
+            Assert.AreEqual(new Square("B1"), result);
         }
 
         [TestMethod]
@@ -308,13 +308,13 @@ namespace StrongChess.Model.Tests
         {
             // arrange
             var bitboard = new Bitboard();
-            bitboard = bitboard.Set(Square.FromName("A1"), Square.FromName("B1"));
+            bitboard = bitboard.Set(new Square("A1"), new Square("B1"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("B1"), result);
+            Assert.AreEqual(new Square("B1"), result);
         }
 
         [TestMethod]
@@ -323,14 +323,14 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A1"))
-                .Set(Square.FromName("H2"));
+                .Set(new Square("A1"))
+                .Set(new Square("H2"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("H2"), result);
+            Assert.AreEqual(new Square("H2"), result);
         }
 
         [TestMethod]
@@ -339,14 +339,14 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A3"))
-                .Set(Square.FromName("H2"));
+                .Set(new Square("A3"))
+                .Set(new Square("H2"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("A3"), result);
+            Assert.AreEqual(new Square("A3"), result);
         }
 
         [TestMethod]
@@ -355,14 +355,14 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A5"))
-                .Set(Square.FromName("H4"));
+                .Set(new Square("A5"))
+                .Set(new Square("H4"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("A5"), result);
+            Assert.AreEqual(new Square("A5"), result);
         }
 
         [TestMethod]
@@ -371,15 +371,15 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A7"))
-                .Set(Square.FromName("E8"))
-                .Set(Square.FromName("H6"));
+                .Set(new Square("A7"))
+                .Set(new Square("E8"))
+                .Set(new Square("H6"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("E8"), result);
+            Assert.AreEqual(new Square("E8"), result);
         }
 
         [TestMethod]
@@ -388,14 +388,14 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A1"))
-                .Set(Square.FromName("D5"));
+                .Set(new Square("A1"))
+                .Set(new Square("D5"));
 
             // act
             var result = bitboard.LeadingSquare;
 
             // assert
-            Assert.AreEqual(Square.FromName("D5"), result);
+            Assert.AreEqual(new Square("D5"), result);
         }
 
 
@@ -406,7 +406,7 @@ namespace StrongChess.Model.Tests
             for (int i = 63; i >= 0; i--)
             {
                 var bitboard = new Bitboard();
-                var sq = Square.FromIndex(i);
+                var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
                 Assert.AreEqual(sq, bitboard.LeadingSquare);
             }
@@ -431,7 +431,7 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard();
             for (int i = 0; i < 64; i++)
             {
-                var sq = Square.FromIndex(i);
+                var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
                 Assert.AreEqual(sq, bitboard.LeadingSquare);
             }
@@ -444,7 +444,7 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard();
             for (int i = 0; i < 64; i++)
             {
-                var sq = Square.FromIndex(i);
+                var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
                 Assert.AreEqual(i + 1, bitboard.BitCount, string.Format("Índice = {0}", i));
             }
@@ -456,7 +456,7 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard();
             for (int i = 63; i >= 0; i--)
             {
-                var sq = Square.FromIndex(i);
+                var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
                 Assert.AreEqual(64 - i, bitboard.BitCount);
             }
@@ -468,8 +468,8 @@ namespace StrongChess.Model.Tests
             // arrange
             var bitboard = new Bitboard();
             bitboard = bitboard
-                .Set(Square.FromName("A1"))
-                .Set(Square.FromName("D5"));
+                .Set(new Square("A1"))
+                .Set(new Square("D5"));
 
             // act
             var result = bitboard.BitCount;

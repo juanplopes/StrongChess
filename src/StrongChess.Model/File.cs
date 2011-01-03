@@ -22,6 +22,9 @@ namespace StrongChess.Model
             Index = index;
         }
 
+        public File(string name) 
+            : this(char.ToUpperInvariant(name[0]) - 'A') {}
+
         public int DistanceFrom(File otherFile)
         {
             return Math.Abs(Index - otherFile.Index);
@@ -37,6 +40,11 @@ namespace StrongChess.Model
         {
             return new File(file);
         }
+        public static implicit operator File(string file)
+        {
+            return new File(file);
+        }
+
 
         private static ulong[] _Bitmasks = new ulong[8];
         static File()
@@ -45,11 +53,7 @@ namespace StrongChess.Model
                 _Bitmasks[i] = 0x0101010101010101ul << i;
         }
 
-        public static File FromName(char name)
-        {
-            name = char.ToUpperInvariant(name);
-            return new File(name - 'A');
-        }
+
 
         #region object overrides
         public override int GetHashCode()

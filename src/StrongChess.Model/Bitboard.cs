@@ -57,7 +57,7 @@ namespace StrongChess.Model
             {
                 var index = BitOperations.HighestBitPosition(Value);
                 if (index == -1) return null;
-                return Square.FromIndex(index);
+                return index;
             }
         }
 

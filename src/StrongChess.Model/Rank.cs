@@ -22,6 +22,9 @@ namespace StrongChess.Model
             Index = index;
         }
 
+        public Rank(string name) 
+            : this(name[0] - '1') { }
+
         public int DistanceFrom(Rank otherRank)
         {
             return Math.Abs(Index - otherRank.Index);
@@ -39,6 +42,11 @@ namespace StrongChess.Model
             return new Rank(rank);
         }
 
+        public static implicit operator Rank(string rank)
+        {
+            return new Rank(rank);
+        }
+
         private static ulong[] _Bitmasks = new ulong[8];
         static Rank()
         {
@@ -46,10 +54,7 @@ namespace StrongChess.Model
                 _Bitmasks[i] = 0xFFul << i * 8;
         }
 
-        public static Rank FromName(char name)
-        {
-            return new Rank(name - '1');
-        }
+
 
         #region object overrides
         public override int GetHashCode()
@@ -70,7 +75,7 @@ namespace StrongChess.Model
         }
         #endregion
 
-        
+
 
     }
 }
