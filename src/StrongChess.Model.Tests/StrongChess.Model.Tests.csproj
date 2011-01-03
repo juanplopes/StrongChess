@@ -51,6 +51,9 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="..\GlobalInfo.cs">
+      <Link>Properties\GlobalInfo.cs</Link>
+    </Compile>
     <Compile Include="BitboardTests.cs" />
     <Compile Include="KnightTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
