@@ -5,23 +5,32 @@ using System.Text;
 
 namespace StrongChess.Model.Pieces
 {
-    public class Knight : IPiece
+    public struct Knight : IPiece
     {
-        public Square Location { get; private set; }
-        public Knight(Square location)
+        public Bitboard Board { get; private set; }
+        public Knight(Square location) : this(location.Bitmask)
         {
-            Location = location;
+        }
+        public Knight(Bitboard board) : this()
+        {
+            Board = board;
         }
 
-
-        public bool CanMove(Square to)
-        {
-            return _Moves[Location].IsSet(to);
-        }
 
         public Bitboard GetMoveBoard()
         {
-            return _Moves[Location];
+            return GetMoveBoard(Board);
+        }
+
+        public Bitboard GetMoveBoard(Bitboard avoid)
+        {
+            var result = new Bitboard();
+            foreach(var square in Board.GetSetSquares())
+            {
+                result = result.Set(_Moves[square.Index]);
+            }
+
+            return result & ~avoid & ~Board;
         }
 
         static readonly Bitboard[] _Moves = new Bitboard[64];

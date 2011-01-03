@@ -7,7 +7,6 @@ namespace StrongChess.Model.Pieces
 {
     public interface IPiece
     {
-        bool CanMove(Square to);
-        Bitboard GetMoveBoard();
+        Bitboard GetMoveBoard(Bitboard alsoAvoid);
     }
 }

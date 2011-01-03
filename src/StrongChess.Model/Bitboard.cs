@@ -6,7 +6,7 @@ using StrongChess.Model.Util;
 
 namespace StrongChess.Model
 {
-    public struct Bitboard
+    public struct Bitboard : IBoardUnit
     {
         public ulong Value { get; private set; }
 
@@ -86,5 +86,19 @@ namespace StrongChess.Model
         {
             return "[" + string.Join("; ", GetSetSquares().Reverse().Select(x => x.ToString()).ToArray()) + "]";
         }
+
+        #region IBoardUnit Members
+
+        ulong IBoardUnit.Bitmask
+        {
+            get { return Value; }
+        }
+
+        bool IBoardUnit.IsValid
+        {
+            get { return true; }
+        }
+
+        #endregion
     }
 }

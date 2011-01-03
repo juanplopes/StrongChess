@@ -247,52 +247,54 @@ namespace StrongChess.Model.Tests
             test.Should().Be(expected);
         }
 
-        //[Test]
-        //public void GetKnightAttacksBitboard_B1C3Bitboard_ReturnsD2A3A2A4B5D5E4E2D1()
-        //{
-        //    Bitboard test = 0;
-        //    test = test.Set(new Square("B1")).Set(new Square("C3"));
-        //    test = new Knight(test, test);
+        [Test]
+        public void GetKnightAttacksBitboard_B1C3Bitboard_ReturnsD2A3A2A4B5D5E4E2D1()
+        {
+            Bitboard test = 0;
+            test = test.Set(new Square("B1")).Set(new Square("C3"));
+            test = new Knight(test).GetMoveBoard();
 
-        //    Bitboard expected = 0;
-        //    expected = expected
-        //        .Set(new Square("D2"))
-        //        .Set(new Square("A3"))
-        //        .Set(new Square("A2"))
-        //        .Set(new Square("A4"))
-        //        .Set(new Square("B5"))
-        //        .Set(new Square("D5"))
-        //        .Set(new Square("E4"))
-        //        .Set(new Square("E2"))
-        //        .Set(new Square("D1"));
 
-        //    test.Should().Be(expected);
-        //}
 
-        //[Test]
-        //public void
-        //GetKnightAttacksBitboard_B1C3BitboardAndFriendsA4B5D5E4_ReturnsD2A3A2E2D1()
-        //{
-        //    Bitboard test = 0;
-        //    test = test.Set(new Square("B1")).Set(new Square("C3"));
+            Bitboard expected = 0;
+            expected = expected
+                .Set(new Square("D2"))
+                .Set(new Square("A3"))
+                .Set(new Square("A2"))
+                .Set(new Square("A4"))
+                .Set(new Square("B5"))
+                .Set(new Square("D5"))
+                .Set(new Square("E4"))
+                .Set(new Square("E2"))
+                .Set(new Square("D1"));
 
-        //    var friends = test
-        //        .Set(new Square("A4"))
-        //        .Set(new Square("B5"))
-        //        .Set(new Square("D5"))
-        //        .Set(new Square("E4"));
+            test.Should().Be(expected);
+        }
 
-        //    test = new Knight(test, friends);
+        [Test]
+        public void
+        GetKnightAttacksBitboard_B1C3BitboardAndFriendsA4B5D5E4_ReturnsD2A3A2E2D1()
+        {
+            Bitboard test = 0;
+            test = test.Set(new Square("B1")).Set(new Square("C3"));
 
-        //    Bitboard expected = 0;
-        //    expected = expected
-        //        .Set(new Square("D2"))
-        //        .Set(new Square("A3"))
-        //        .Set(new Square("A2"))
-        //        .Set(new Square("E2"))
-        //        .Set(new Square("D1"));
+            var friends = test
+                .Set(new Square("A4"))
+                .Set(new Square("B5"))
+                .Set(new Square("D5"))
+                .Set(new Square("E4"));
 
-        //    test.Should().Be(expected);
-        //}
+            test = new Knight(test).GetMoveBoard(friends);
+
+            Bitboard expected = 0;
+            expected = expected
+                .Set(new Square("D2"))
+                .Set(new Square("A3"))
+                .Set(new Square("A2"))
+                .Set(new Square("E2"))
+                .Set(new Square("D1"));
+
+            test.Should().Be(expected);
+        }
     }
 }
