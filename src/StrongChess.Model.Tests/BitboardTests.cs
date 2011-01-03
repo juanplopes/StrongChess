@@ -9,7 +9,7 @@ using StrongChess.Model;
 namespace StrongChess.Model.Tests
 {
     [TestClass]
-    public class BitboardTests
+    public class KnightTests
     {
 
         [TestMethod]
