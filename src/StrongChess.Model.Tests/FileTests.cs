@@ -4,12 +4,19 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using SharpTestsEx;
+using System.Runtime.InteropServices;
 
 namespace StrongChess.Model.Tests
 {
     [TestFixture]
     public class FileTests
     {
+        [Test]
+        public void SizeOfFileShouldBe4()
+        {
+            Marshal.SizeOf(new File()).Should().Be(4);
+        }
+
         [Test]
         public void ConstructFromIndex_4()
         {

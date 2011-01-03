@@ -4,12 +4,20 @@ using System.Linq;
 using System.Text;
 using NUnit.Framework;
 using SharpTestsEx;
+using System.Runtime.InteropServices;
 
 namespace StrongChess.Model.Tests
 {
     [TestFixture]
     public class RankTests
     {
+        [Test]
+        public void SizeOfRankShouldBe4()
+        {
+            Marshal.SizeOf(new Rank()).Should().Be(4);
+        }
+
+
         [Test]
         public void ConstructFromIndex_4()
         {

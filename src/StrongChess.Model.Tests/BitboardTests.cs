@@ -13,6 +13,11 @@ namespace StrongChess.Model.Tests
     [TestFixture]
     public class BitboardTests
     {
+        [Test]
+        public void SizeOfBitboardShouldBe8()
+        {
+            Marshal.SizeOf(new Bitboard()).Should().Be(8);
+        }
 
         [Test]
         public void Set_Rank2()
