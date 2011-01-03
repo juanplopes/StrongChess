@@ -10,11 +10,23 @@ namespace StrongChess.Model
         public int Index { get; private set; }
         public ulong Bitmask { get { return _Bitmasks[Index]; } }
 
+        public bool IsValid
+        {
+            get { return Index >= 0 && Index < 8; }
+        }
+
+
         public File(int index)
             : this()
         {
             Index = index;
         }
+
+        public int DistanceFrom(File otherFile)
+        {
+            return Math.Abs(Index - otherFile.Index);
+        }
+
 
         public static implicit operator int(File file)
         {
@@ -57,6 +69,8 @@ namespace StrongChess.Model
             return ((char)(Index + 'A')).ToString();
         }
         #endregion
+
+
     }
 
 }

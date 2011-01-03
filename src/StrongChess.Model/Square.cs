@@ -13,6 +13,11 @@ namespace StrongChess.Model
 
         public int Index { get { return IndexOf(Rank, File); } }
 
+        public bool IsValid
+        {
+            get { return File.IsValid && Rank.IsValid; }
+        }
+
         public ulong Bitmask { get { return _Bitmasks[Index]; } }
 
         public Square(Rank rank, File file)

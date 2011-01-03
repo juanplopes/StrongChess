@@ -38,6 +38,11 @@ namespace StrongChess.Model
             return !IsSet(unit);
         }
 
+        public bool IsEmpty
+        {
+            get { return Value == 0; }
+        }
+
         public int BitCount
         {
             get
@@ -58,9 +63,15 @@ namespace StrongChess.Model
 
         public IEnumerable<Square> GetSetSquares()
         {
-            for (Square square = 0; square < 64; square++)
-                if (IsSet(square))
-                    yield return square;
+            var bcopy = this;
+            while (!bcopy.IsEmpty)
+            {
+                var lead = bcopy.LeadingSquare;
+                yield return lead.Value;
+                bcopy = bcopy.Clear(lead);
+            }
+
+
         }
 
     }

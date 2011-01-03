@@ -9,5 +9,6 @@ namespace StrongChess.Model
     {
         int Index { get; }
         ulong Bitmask { get; }
+        bool IsValid { get; }
     }
 }

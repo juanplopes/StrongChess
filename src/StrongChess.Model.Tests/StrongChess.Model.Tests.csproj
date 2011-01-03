@@ -46,7 +46,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="BitboardTests.cs" />
-    <Compile Include="BitboardTests.Knight.cs" />
+    <Compile Include="KnightTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
