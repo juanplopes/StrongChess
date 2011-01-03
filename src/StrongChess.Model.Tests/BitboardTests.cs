@@ -2,18 +2,18 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 
 using StrongChess.Model;
 using System.Runtime.InteropServices;
 
 namespace StrongChess.Model.Tests
 {
-    [TestClass]
+    [TestFixture]
     public class BitboardTests
     {
 
-        [TestMethod]
+        [Test]
         public void Set_Rank2()
         {
             var bitboard = new Bitboard();
@@ -32,7 +32,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard.IsSet(new Square("H2")), "h2 should be setted");
         }
 
-        [TestMethod]
+        [Test]
         public void Clear_D_SettedFileDAndE()
         {
             // arrange
@@ -55,7 +55,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard.IsClear(new File("H")), "H should be clear");
         }
 
-        [TestMethod]
+        [Test]
         public void Clear_5_SettedRank4And5()
         {
             // arrange
@@ -79,7 +79,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard.IsClear(new Rank("8")), "8 should be clear");
         }
 
-        [TestMethod]
+        [Test]
         public void Set_FileE()
         {
             // arrange
@@ -99,7 +99,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard.IsSet(new Square("E8")), "e8 should be setted");
         }
 
-        [TestMethod]
+        [Test]
         public void Set_A1()
         {
             // arrange
@@ -116,7 +116,7 @@ namespace StrongChess.Model.Tests
             //Assert.AreEqual(0, bitboard2);
         }
 
-        [TestMethod]
+        [Test]
         public void Clear_A1()
         {
             // arrange
@@ -132,7 +132,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual((UInt64)0, bitboard2.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void IsSet_SettedA1_ReturnsTrue()
         {
             // arrange
@@ -149,7 +149,7 @@ namespace StrongChess.Model.Tests
             Assert.IsFalse(bitboard2.IsSet(new Square("A1")));
         }
 
-        [TestMethod]
+        [Test]
         public void IsClear_SettedA1_ReturnsFalse()
         {
             // arrange
@@ -166,7 +166,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard2.IsClear(new Square("A1")), "Should return true!");
         }
 
-        [TestMethod]
+        [Test]
         public void Set_F5()
         {
             // arrange
@@ -183,7 +183,7 @@ namespace StrongChess.Model.Tests
             //Assert.AreEqual(0, bitboard2);
         }
 
-        [TestMethod]
+        [Test]
         public void Clear_F5()
         {
             // arrange
@@ -200,7 +200,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual((UInt64)0, bitboard2.Value);
         }
 
-        [TestMethod]
+        [Test]
         public void IsSet_SettedF5_ReturnsTrue()
         {
             // arrange
@@ -217,7 +217,7 @@ namespace StrongChess.Model.Tests
             Assert.IsFalse(bitboard2.IsSet(new Square("F5")));
         }
 
-        [TestMethod]
+        [Test]
         public void IsClear_SettedF5_ReturnsFalse()
         {
             // arrange
@@ -234,7 +234,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard2.IsClear(new Square("F5")));
         }
 
-        [TestMethod]
+        [Test]
         public void IsClear_A1_SettedF5A1ClearingA1_ReturnsTrue()
         {
             // arrange
@@ -254,7 +254,7 @@ namespace StrongChess.Model.Tests
             Assert.IsTrue(bitboard2.IsClear(new Square("A1")));
         }
 
-        [TestMethod]
+        [Test]
         public void IsClear_F5_SettedF5A1ClearingA1_ReturnsFalse()
         {
             // arrange
@@ -276,7 +276,7 @@ namespace StrongChess.Model.Tests
 
 
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedA1_ReturnsA1()
         {
             // arrange
@@ -290,7 +290,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("A1"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedB1_ReturnsB1()
         {
             // arrange
@@ -304,7 +304,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("B1"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedA1andB1_ReturnsB1()
         {
             // arrange
@@ -318,7 +318,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("B1"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedA1andH2_ReturnsH2()
         {
             // arrange
@@ -334,7 +334,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("H2"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedH2andA3_ReturnsA3()
         {
             // arrange
@@ -350,7 +350,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("A3"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedH4andA5_ReturnsA5()
         {
             // arrange
@@ -366,7 +366,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("A5"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedH6andA7andE8_ReturnsE8()
         {
             // arrange
@@ -383,7 +383,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(new Square("E8"), result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_SettedD5andA1_ReturnsD5()
         {
             // arrange
@@ -400,7 +400,7 @@ namespace StrongChess.Model.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_EverySquareReverse()
         {
 
@@ -413,7 +413,7 @@ namespace StrongChess.Model.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_Empty_ReturnsINVALID()
         {
             // arrange
@@ -426,7 +426,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(null, result);
         }
 
-        [TestMethod]
+        [Test]
         public void GetLeadingSquare_EverySquare()
         {
             var bitboard = new Bitboard();
@@ -439,7 +439,7 @@ namespace StrongChess.Model.Tests
         }
 
 
-        [TestMethod]
+        [Test]
         public void GetBitCount_EverySquare()
         {
             var bitboard = new Bitboard();
@@ -451,7 +451,7 @@ namespace StrongChess.Model.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void GetBitCount_EverySquareReverse()
         {
             var bitboard = new Bitboard();
@@ -463,7 +463,7 @@ namespace StrongChess.Model.Tests
             }
         }
 
-        [TestMethod]
+        [Test]
         public void GetBitCount_SettedD5andA1_Returns2()
         {
             // arrange

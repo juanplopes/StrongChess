@@ -2,15 +2,15 @@
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
-using Microsoft.VisualStudio.TestTools.UnitTesting;
+using NUnit.Framework;
 using StrongChess.Model.Pieces;
 
 namespace StrongChess.Model.Tests
 {
-    [TestClass]
+    [TestFixture]
     public partial class KnightTests
     {
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_A1_ReturnsC2andB3()
         {
             Bitboard test = new Knight("A1").GetMoveBoard();
@@ -23,7 +23,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_H1_ReturnsF2andG3()
         {
             Bitboard test = new Knight("H1").GetMoveBoard();
@@ -36,7 +36,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_H8_ReturnsF7andG6()
         {
             Bitboard test = new Knight("H8").GetMoveBoard();
@@ -49,7 +49,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_A8_ReturnsC7andB6()
         {
             Bitboard test = new Knight("A8").GetMoveBoard();
@@ -62,7 +62,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_B1_ReturnsA3andC3andD2()
         {
             Bitboard test = new Knight("B1").GetMoveBoard();
@@ -76,7 +76,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_G8_ReturnsH6andF6andE7()
         {
             Bitboard test = new Knight("G8").GetMoveBoard();
@@ -93,7 +93,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_E4_ReturnsF6G5G3F2D2C3C5D6()
         {
             Bitboard test = new Knight("E4").GetMoveBoard();
@@ -112,7 +112,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboard_H4_ReturnsF3G2G6F5()
         {
             Bitboard test = new Knight("H4").GetMoveBoard();
@@ -129,7 +129,7 @@ namespace StrongChess.Model.Tests
 
         // ------------------------------------------------
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_A1Bitboard_ReturnsC2andB3()
         {
             Bitboard test = new Knight("A1").GetMoveBoard();
@@ -142,7 +142,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_H1Bitboard_ReturnsF2andG3()
         {
             Bitboard test= new Knight("H1").GetMoveBoard();
@@ -155,7 +155,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_H8Bitboard_ReturnsF7andG6()
         {
             Bitboard test = new Knight("H8").GetMoveBoard();
@@ -168,7 +168,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_A8Bitboard_ReturnsC7andB6()
         {
             Bitboard test = new Knight("A8").GetMoveBoard();
@@ -181,7 +181,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_B1Bitboard_ReturnsA3andC3andD2()
         {
             Bitboard test = new Knight("B1").GetMoveBoard();
@@ -195,7 +195,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_G8Bitboard_ReturnsH6andF6andE7()
         {
             Bitboard test = new Knight("G8").GetMoveBoard();
@@ -212,7 +212,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboad_E4Bitboard_ReturnsF6G5G3F2D2C3C5D6()
         {
             Bitboard test = new Knight("E4").GetMoveBoard();
@@ -231,7 +231,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        [TestMethod]
+        [Test]
         public void GetKnightAttacksBitboard_H4Bitboard_ReturnsF3G2G6F5()
         {
             Bitboard test = new Knight("H4").GetMoveBoard();
@@ -246,7 +246,7 @@ namespace StrongChess.Model.Tests
             Assert.AreEqual(expected, test);
         }
 
-        //[TestMethod]
+        //[Test]
         //public void GetKnightAttacksBitboard_B1C3Bitboard_ReturnsD2A3A2A4B5D5E4E2D1()
         //{
         //    Bitboard test = 0;
@@ -268,7 +268,7 @@ namespace StrongChess.Model.Tests
         //    Assert.AreEqual(expected, test);
         //}
 
-        //[TestMethod]
+        //[Test]
         //public void
         //GetKnightAttacksBitboard_B1C3BitboardAndFriendsA4B5D5E4_ReturnsD2A3A2E2D1()
         //{
