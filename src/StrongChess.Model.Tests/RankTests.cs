@@ -17,7 +17,6 @@ namespace StrongChess.Model.Tests
             
             rank.Index.Should().Be(4);
             rank.ToString().Should().Be("5");
-            rank.IsValid.Should().Be.True();
         }
 
         [Test]
@@ -27,7 +26,6 @@ namespace StrongChess.Model.Tests
 
             rank.Index.Should().Be(3);
             rank.ToString().Should().Be("4");
-            rank.IsValid.Should().Be.True();
         }
 
         [Test]
@@ -37,7 +35,6 @@ namespace StrongChess.Model.Tests
 
             rank.Index.Should().Be(-1);
             rank.ToString().Should().Be("#");
-            rank.IsValid.Should().Be.False();
         }
 
         [Test]
@@ -47,7 +44,15 @@ namespace StrongChess.Model.Tests
 
             rank.Index.Should().Be(8);
             rank.ToString().Should().Be("#");
-            rank.IsValid.Should().Be.False();
+        }
+
+        [Test]
+        public void ThereCanBeInvalidRanks()
+        {
+            Rank rank1 = "0";
+            Rank rank2 = "9";
+            rank1.IsValid.Should().Be.False();
+            rank2.IsValid.Should().Be.False();
         }
     }
 }
