@@ -10,11 +10,7 @@ namespace StrongChess.Model
     {
         public ulong Value { get; private set; }
 
-        public Bitboard(ulong value)
-            : this()
-        {
-            this.Value = value;
-        }
+        public Bitboard(ulong value) : this() { this.Value = value; }
 
         public Bitboard Set(params IBoardUnit[] unit)
         {
@@ -45,10 +41,7 @@ namespace StrongChess.Model
 
         public int BitCount
         {
-            get
-            {
-                return BitOperations.PopCountIn(Value);
-            }
+            get { return BitOperations.PopCountIn(Value); }
         }
 
         public Square? LeadingSquare
@@ -72,6 +65,8 @@ namespace StrongChess.Model
             }
         }
 
+        #region static
+
         public static implicit operator ulong(Bitboard board)
         {
             return board.Value;
@@ -86,6 +81,8 @@ namespace StrongChess.Model
         {
             return "[" + string.Join("; ", GetSetSquares().Reverse().Select(x => x.ToString()).ToArray()) + "]";
         }
+
+        #endregion
 
         #region IBoardUnit Members
 

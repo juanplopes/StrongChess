@@ -15,21 +15,29 @@ namespace StrongChess.Model
             get { return Index >= 0 && Index < 8; }
         }
 
-
-        public File(int index)
-            : this()
-        {
-            Index = index;
-        }
-
-        public File(string name) 
-            : this(char.ToUpperInvariant(name[0]) - 'A') {}
+        public File(int index) : this() { Index = index; }
+        public File(string name) : this(char.ToUpperInvariant(name[0]) - 'A') { }
 
         public int DistanceFrom(File otherFile)
         {
             return Math.Abs(Index - otherFile.Index);
         }
 
+        public override string ToString()
+        {
+            if (!IsValid) return "#";
+
+            return ((char)(Index + 'A')).ToString();
+        }
+
+        #region static
+
+        static readonly ulong[] _Bitmasks = new ulong[64];
+        static File()
+        {
+            for (int i = 0; i < 8; i++)
+                _Bitmasks[i] = 0x0101010101010101ul << i;
+        }
 
         public static implicit operator int(File file)
         {
@@ -45,23 +53,7 @@ namespace StrongChess.Model
             return new File(file);
         }
 
-
-        private static ulong[] _Bitmasks = new ulong[8];
-        static File()
-        {
-            for (int i = 0; i < 8; i++)
-                _Bitmasks[i] = 0x0101010101010101ul << i;
-        }
-
-
-
-        public override string ToString()
-        {
-            if (!IsValid) return "#";
-
-            return ((char)(Index + 'A')).ToString();
-        }
-
+        #endregion
     }
 
 }

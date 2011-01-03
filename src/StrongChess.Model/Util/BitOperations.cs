@@ -29,12 +29,8 @@ namespace StrongChess.Model.Util
 
             int r = 0;
 
-            if (value > 0xFFFFFFFFul) { value >>= 32; r += 32; }
-            if (value > 0xFFFFul) { value >>= 16; r += 16; }
-            if (value > 0xFFul) { value >>= 8; r += 8; }
-            if (value > 0xFul) { value >>= 4; r += 4; }
-            if (value > 0x3ul) { value >>= 2; r += 2; }
-            if (value > 0x1ul) { r += 1; };
+            foreach (var e in new[] { 32, 16, 8, 4, 2, 1 })
+                if (value >= 1ul << e)  { value >>= e; r += e; }
 
             return r;
         }

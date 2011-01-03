@@ -19,26 +19,23 @@ namespace StrongChess.Model
 
         public ulong Bitmask { get { return _Bitmasks[Index]; } }
 
-        public Square(int index)
-            : this()
+        public Square(int index) : this() { Index = index; }
+        public Square(Rank rank, File file) : this(IndexOf(rank, file)) { }
+        public Square(string name) : this(name[1].ToString(), name[0].ToString()) { }
+
+        public override string ToString()
         {
-            Index = index;
+            return File.ToString() + Rank.ToString();
         }
 
-        public Square(Rank rank, File file)
-            : this(IndexOf(rank, file)) { }
-
-        public Square(string name)
-            : this(name[1].ToString(), name[0].ToString()) { }
-
-
+        #region static
         public static int IndexOf(Rank rank, File file)
         {
             return rank * 8 + file;
         }
 
 
-        private static ulong[] _Bitmasks = new ulong[64];
+        static readonly ulong[] _Bitmasks = new ulong[64];
         static Square()
         {
             for (Rank i = 0; i < 8; i++)
@@ -46,7 +43,6 @@ namespace StrongChess.Model
                     _Bitmasks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
         }
 
-        #region converters
         public static implicit operator int(Square square)
         {
             return square.Index;
@@ -62,14 +58,7 @@ namespace StrongChess.Model
             return new Square(square);
         }
 
-
         #endregion
 
-        #region object overrides
-        public override string ToString()
-        {
-            return File.ToString() + Rank.ToString();
-        }
-        #endregion
     }
 }

@@ -16,25 +16,24 @@ namespace StrongChess.Model.Pieces
             Board = board;
         }
 
-
         public Bitboard GetMoveBoard()
         {
-            return GetMoveBoard(Board);
+            return GetMoveBoard(0);
         }
 
         public Bitboard GetMoveBoard(Bitboard avoid)
         {
-            var result = new Bitboard();
+            Bitboard result;
+            
             foreach(var square in Board.GetSetSquares())
-            {
-                result = result.Set(_Moves[square.Index]);
-            }
+                result = result.Set(_Moves[square]);
 
-            return result & ~avoid & ~Board;
+            return result.Clear(avoid, Board);
         }
 
-        static readonly Bitboard[] _Moves = new Bitboard[64];
+        #region static
 
+        static readonly Bitboard[] _Moves = new Bitboard[64];
         static Knight()
         {
             int[] knightsq = new int[] { -17, -15, -10, -6, 6, 10, 15, 17 };
@@ -55,5 +54,6 @@ namespace StrongChess.Model.Pieces
             }
         }
 
+        #endregion
     }
 }
