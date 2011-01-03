@@ -41,10 +41,17 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitboard.cs" />
-    <Compile Include="Bitboard.Initialize.cs" />
-    <Compile Include="Bitboard.Knight.cs" />
+    <Compile Include="Bitboard2.Knight.cs" />
+    <Compile Include="File.cs" />
     <Compile Include="Enumerations.cs" />
+    <Compile Include="IBoardUnit.cs" />
+    <Compile Include="Pieces\Knight.cs" />
+    <Compile Include="Pieces\Location.cs" />
+    <Compile Include="Pieces\IPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Rank.cs" />
+    <Compile Include="Square.cs" />
+    <Compile Include="Util\BitOperations.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

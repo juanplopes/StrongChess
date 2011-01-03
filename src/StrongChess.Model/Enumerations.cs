@@ -14,7 +14,7 @@ namespace StrongChess.Model
         INVALID
     }
     
-    public enum Pieces
+    public enum Pieces2
     {
         Pawn,
         Rook,
