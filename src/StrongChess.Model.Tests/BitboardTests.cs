@@ -6,6 +6,7 @@ using NUnit.Framework;
 
 using StrongChess.Model;
 using System.Runtime.InteropServices;
+using SharpTestsEx;
 
 namespace StrongChess.Model.Tests
 {
@@ -16,218 +17,133 @@ namespace StrongChess.Model.Tests
         [Test]
         public void Set_Rank2()
         {
-            var bitboard = new Bitboard();
+            var bitboard = new Bitboard().Set(new Rank("2"));
 
-            // act
-            bitboard = bitboard.Set(new Rank("2"));
-
-            // assert
-            Assert.IsTrue(bitboard.IsSet(new Square("A2")), "a2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("B2")), "b2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("C2")), "c2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("D2")), "d2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E2")), "e2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("F2")), "f2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("G2")), "g2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("H2")), "h2 should be setted");
+            bitboard.Value.Should().Be(0x000000000000FF00);
         }
 
         [Test]
         public void Clear_D_SettedFileDAndE()
         {
             // arrange
-            var bitboard = new Bitboard();
 
-            // act
-            bitboard = bitboard
-                .Set(new File("D"), new File("E"));
+            var bitboard = new Bitboard().Set(new File("D"), new File("E"));
+            bitboard.Value.Should().Be(0x1818181818181818);
 
             bitboard = bitboard.Clear(new File("D"));
-
-            // assert
-            Assert.IsTrue(bitboard.IsClear(new File("A")), "A should be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("B")), "B should be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("C")), "C should be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("D")), "D should be clear");
-            Assert.IsFalse(bitboard.IsClear(new File("E")), "E should not be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("F")), "F should be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("G")), "G should be clear");
-            Assert.IsTrue(bitboard.IsClear(new File("H")), "H should be clear");
+            bitboard.Value.Should().Be(0x1010101010101010);
         }
+
+        [Test]
+        public void ToString_SettedRank4And5()
+        {
+
+            var bitboard = new Bitboard().Set(new Rank("4")).Set(new Rank("5"));
+            bitboard.ToString().Should().Be("[A4; B4; C4; D4; E4; F4; G4; H4; A5; B5; C5; D5; E5; F5; G5; H5]");
+        }
+
 
         [Test]
         public void Clear_5_SettedRank4And5()
         {
-            // arrange
-            var bitboard = new Bitboard();
 
-            // act
-            bitboard = bitboard
-                .Set(new Rank("4"))
-                .Set(new Rank("5"));
+            var bitboard = new Bitboard().Set(new Rank("4")).Set(new Rank("5"));
+            bitboard.Value.Should().Be(0x000000FFFF000000);
 
             bitboard = bitboard.Clear(new Rank("5"));
-
-            // assert
-            Assert.IsTrue(bitboard.IsClear(new Rank("1")), "1 should be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("2")), "2 should be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("3")), "3 should be clear");
-            Assert.IsFalse(bitboard.IsClear(new Rank("4")), "4 should be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("5")), "5 should not be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("6")), "6 should be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("7")), "7 should be clear");
-            Assert.IsTrue(bitboard.IsClear(new Rank("8")), "8 should be clear");
+            bitboard.Value.Should().Be(0x00000000FF000000);
         }
 
         [Test]
         public void Set_FileE()
         {
-            // arrange
-            var bitboard = new Bitboard();
+            var bitboard = new Bitboard().Set(new File("E"));
+            bitboard.Value.Should().Be(0x1010101010101010);
 
-            // act
-            bitboard = bitboard.Set(new File("E"));
-
-            // assert
-            Assert.IsTrue(bitboard.IsSet(new Square("E1")), "e1 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E2")), "e2 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E3")), "e3 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E4")), "e4 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E5")), "e5 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E6")), "e6 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E7")), "e7 should be setted");
-            Assert.IsTrue(bitboard.IsSet(new Square("E8")), "e8 should be setted");
         }
 
         [Test]
         public void Set_A1()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
+            var bitboard1 = new Bitboard().Set(new Square("A1"));
 
-            // act
-            bitboard1 = bitboard.Set(new Square("A1"));
-            bitboard2 = bitboard1.Clear(new Square("A1"));
-
-            // assert
-            Assert.AreEqual(((UInt64)1 << (int)new Square("A1")), bitboard1.Value);
-            //Assert.AreEqual(0, bitboard2);
+            bitboard1.Value.Should().Be(0x0000000000000001);
         }
 
         [Test]
         public void Clear_A1()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
+            var bitboard1 = new Bitboard().Set(new Square("A1"));
+            var bitboard2 = bitboard1.Clear(new Square("A1"));
 
-            // act
-            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
-            bitboard2 = bitboard1.Clear(new Square("A1"));
-
-            // assert
-            Assert.AreEqual((UInt64)0, bitboard2.Value);
+            bitboard1.Should().Not.Be(bitboard2);
+            bitboard2.IsEmpty.Should().Be.True();
         }
 
         [Test]
         public void IsSet_SettedA1_ReturnsTrue()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
-
-            // act
-            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
-            bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard1 = new Bitboard().Set(new Square("A1"));
+            var bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsTrue(bitboard1.IsSet(new Square("A1")));
-            Assert.IsFalse(bitboard2.IsSet(new Square("A1")));
+            bitboard1.IsSet(new Square("A1")).Should().Be.True();
+            bitboard2.IsSet(new Square("A1")).Should().Be.False();
         }
 
         [Test]
         public void IsClear_SettedA1_ReturnsFalse()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(new Square("A1"));
-            bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard1 = new Bitboard().Set(new Square("A1"));
+            var bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
-            Assert.IsFalse(bitboard1.IsClear(new Square("A1")), "Should return False!");
-            Assert.IsTrue(bitboard2.IsClear(new Square("A1")), "Should return true!");
+            bitboard1.IsClear(new Square("A1")).Should().Be.False();
+            bitboard2.IsClear(new Square("A1")).Should().Be.True();
         }
 
         [Test]
         public void Set_F5()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
-            bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().Set(new Square("F5"));
 
-            // assert
-            Assert.AreEqual(((UInt64)1 << (int)new Square("F5")), bitboard1.Value);
-            //Assert.AreEqual(0, bitboard2);
+            bitboard1.Value.Should().Be(1ul << 4 * 8 + 5);
         }
 
         [Test]
         public void Clear_F5()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
-
             // act
-            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
-            bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().Set(new Square("F5"));
+            var bitboard2 = bitboard1.Clear(new Square("F5"));
 
-            // assert
-            //Assert.AreEqual(((long)1 << (int)new Square("F5")), bitboard1);
-            Assert.AreEqual((UInt64)0, bitboard2.Value);
+            bitboard2.Value.Should().Be(0);
         }
 
         [Test]
         public void IsSet_SettedF5_ReturnsTrue()
         {
-            // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
-
             // act
-            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
-            bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 =new Bitboard().Set(new Square("F5"));
+            var bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
-            Assert.IsTrue(bitboard1.IsSet(new Square("F5")));
-            Assert.IsFalse(bitboard2.IsSet(new Square("F5")));
+            bitboard1.IsSet(new Square("F5")).Should().Be.True();
+            bitboard2.IsSet(new Square("F5")).Should().Be.False();
         }
 
         [Test]
         public void IsClear_SettedF5_ReturnsFalse()
         {
             // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard = bitboard.Set(new Square("F5"));
-            bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().Set(new Square("F5"));
+            var bitboard2 = bitboard1.Clear(new Square("F5"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
@@ -238,16 +154,13 @@ namespace StrongChess.Model.Tests
         public void IsClear_A1_SettedF5A1ClearingA1_ReturnsTrue()
         {
             // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard
+            var bitboard1 = new Bitboard()
                    .Set(new Square("F5"))
                    .Set(new Square("A1"));
 
-            bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("A1")));
@@ -258,16 +171,13 @@ namespace StrongChess.Model.Tests
         public void IsClear_F5_SettedF5A1ClearingA1_ReturnsFalse()
         {
             // arrange
-            var bitboard = new Bitboard();
-            Bitboard bitboard1;
-            Bitboard bitboard2;
 
             // act
-            bitboard1 = bitboard
+            var bitboard1 = new Bitboard()
                    .Set(new Square("F5"))
                    .Set(new Square("A1"));
 
-            bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard2 = bitboard1.Clear(new Square("A1"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
@@ -280,8 +190,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedA1_ReturnsA1()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard.Set(new Square("A1"));
+            var bitboard = new Bitboard().Set(new Square("A1"));
 
             // act
             var result = bitboard.LeadingSquare;
@@ -294,8 +203,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedB1_ReturnsB1()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard.Set(new Square("B1"));
+            var bitboard = new Bitboard().Set(new Square("B1"));
 
             // act
             var result = bitboard.LeadingSquare;
@@ -308,8 +216,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedA1andB1_ReturnsB1()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard.Set(new Square("A1"), new Square("B1"));
+            var bitboard = new Bitboard().Set(new Square("A1"), new Square("B1"));
 
             // act
             var result = bitboard.LeadingSquare;
@@ -322,8 +229,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedA1andH2_ReturnsH2()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A1"))
                 .Set(new Square("H2"));
 
@@ -338,8 +244,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedH2andA3_ReturnsA3()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A3"))
                 .Set(new Square("H2"));
 
@@ -354,8 +259,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedH4andA5_ReturnsA5()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A5"))
                 .Set(new Square("H4"));
 
@@ -370,8 +274,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedH6andA7andE8_ReturnsE8()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A7"))
                 .Set(new Square("E8"))
                 .Set(new Square("H6"));
@@ -387,8 +290,7 @@ namespace StrongChess.Model.Tests
         public void GetLeadingSquare_SettedD5andA1_ReturnsD5()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A1"))
                 .Set(new Square("D5"));
 
@@ -406,9 +308,8 @@ namespace StrongChess.Model.Tests
 
             for (int i = 63; i >= 0; i--)
             {
-                var bitboard = new Bitboard();
                 var sq = new Square(i);
-                bitboard = bitboard.Set(sq);
+                var bitboard = new Bitboard().Set(sq);
                 Assert.AreEqual(sq, bitboard.LeadingSquare);
             }
         }
@@ -416,13 +317,8 @@ namespace StrongChess.Model.Tests
         [Test]
         public void GetLeadingSquare_Empty_ReturnsINVALID()
         {
-            // arrange
-            var bitboard = new Bitboard();
+            var result = new Bitboard().LeadingSquare;
 
-            // act
-            var result = bitboard.LeadingSquare;
-
-            // assert
             Assert.AreEqual(null, result);
         }
 
@@ -434,7 +330,7 @@ namespace StrongChess.Model.Tests
             {
                 var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
-                Assert.AreEqual(sq, bitboard.LeadingSquare);
+                bitboard.LeadingSquare.Value.Should().Be(sq);
             }
         }
 
@@ -447,14 +343,14 @@ namespace StrongChess.Model.Tests
             {
                 var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
-                Assert.AreEqual(i + 1, bitboard.BitCount, string.Format("Índice = {0}", i));
+                bitboard.BitCount.Should().Be(i + 1);
             }
         }
 
         [Test]
         public void GetBitCount_EverySquareReverse()
         {
-            var bitboard = new Bitboard();
+            Bitboard bitboard = 0;
             for (int i = 63; i >= 0; i--)
             {
                 var sq = new Square(i);
@@ -467,8 +363,7 @@ namespace StrongChess.Model.Tests
         public void GetBitCount_SettedD5andA1_Returns2()
         {
             // arrange
-            var bitboard = new Bitboard();
-            bitboard = bitboard
+            var bitboard = new Bitboard()
                 .Set(new Square("A1"))
                 .Set(new Square("D5"));
 

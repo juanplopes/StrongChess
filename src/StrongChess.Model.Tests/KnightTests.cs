@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using NUnit.Framework;
 using StrongChess.Model.Pieces;
+using SharpTestsEx;
 
 namespace StrongChess.Model.Tests
 {
@@ -20,7 +21,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("B3"))
                 .Set(new Square("C2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -33,7 +34,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("G3"))
                 .Set(new Square("F2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -46,7 +47,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("F7"))
                 .Set(new Square("G6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -59,7 +60,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C7"))
                 .Set(new Square("B6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -73,7 +74,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C3"))
                 .Set(new Square("D2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -90,7 +91,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("F6"))
                 .Set(new Square("E7"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -109,7 +110,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C5"))
                 .Set(new Square("D6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -124,7 +125,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("G6"))
                 .Set(new Square("F5"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         // ------------------------------------------------
@@ -139,7 +140,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("B3"))
                 .Set(new Square("C2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -152,7 +153,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("G3"))
                 .Set(new Square("F2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -165,7 +166,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("F7"))
                 .Set(new Square("G6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -178,7 +179,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C7"))
                 .Set(new Square("B6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -192,7 +193,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C3"))
                 .Set(new Square("D2"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -209,7 +210,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("F6"))
                 .Set(new Square("E7"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -228,7 +229,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("C5"))
                 .Set(new Square("D6"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         [Test]
@@ -243,7 +244,7 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("G6"))
                 .Set(new Square("F5"));
 
-            Assert.AreEqual(expected, test);
+            test.Should().Be(expected);
         }
 
         //[Test]
@@ -265,7 +266,7 @@ namespace StrongChess.Model.Tests
         //        .Set(new Square("E2"))
         //        .Set(new Square("D1"));
 
-        //    Assert.AreEqual(expected, test);
+        //    test.Should().Be(expected);
         //}
 
         //[Test]
@@ -291,7 +292,7 @@ namespace StrongChess.Model.Tests
         //        .Set(new Square("E2"))
         //        .Set(new Square("D1"));
 
-        //    Assert.AreEqual(expected, test);
+        //    test.Should().Be(expected);
         //}
     }
 }

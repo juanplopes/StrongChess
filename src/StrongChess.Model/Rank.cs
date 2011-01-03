@@ -58,6 +58,8 @@ namespace StrongChess.Model
 
         public override string ToString()
         {
+            if (Index < 0 || Index >= 8) return "#";
+
             return ((char)(Index + '1')).ToString();
         }
 

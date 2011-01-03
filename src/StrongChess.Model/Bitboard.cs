@@ -84,7 +84,7 @@ namespace StrongChess.Model
 
         public override string ToString()
         {
-            return "[" + string.Join("; ", GetSetSquares().Select(x => x.ToString()).ToArray()) + "]";
+            return "[" + string.Join("; ", GetSetSquares().Reverse().Select(x => x.ToString()).ToArray()) + "]";
         }
     }
 }
