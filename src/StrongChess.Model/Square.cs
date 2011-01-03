@@ -22,13 +22,6 @@ namespace StrongChess.Model
             File = file;
         }
 
-        private static ulong[] _Bitmasks = new ulong[64];
-        static Square()
-        {
-            for (Rank i = 0; i < 8; i++)
-                for (File j = 0; j < 8; j++)
-                    _Bitmasks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
-        }
 
         public static int IndexOf(Rank rank, File file)
         {
@@ -55,6 +48,13 @@ namespace StrongChess.Model
             return new Square(Rank.FromName(name[1]), File.FromName(name[0]));
         }
 
+        private static ulong[] _Bitmasks = new ulong[64];
+        static Square()
+        {
+            for (Rank i = 0; i < 8; i++)
+                for (File j = 0; j < 8; j++)
+                    _Bitmasks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
+        }
 
         #region object overrides
         public override int GetHashCode()

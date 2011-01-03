@@ -27,14 +27,15 @@ namespace StrongChess.Model.Util
         {
             if (value == 0) return -1;
 
-            int r = 0, shift = 0;
+            int r = 0;
 
-            shift = (value > 0xFFFFFFFF ? 1 : 0) << 5; value >>= shift; r |= shift;
-            shift = (value > 0xFFFF ? 1 : 0) << 4; value >>= shift; r |= shift;
-            shift = (value > 0xFF ? 1 : 0) << 3; value >>= shift; r |= shift;
-            shift = (value > 0xF ? 1 : 0) << 2; value >>= shift; r |= shift;
-            shift = (value > 0x3 ? 1 : 0) << 1; value >>= shift; r |= shift;
-            r |= (int)(value >> 1);
+            if (value > 0xFFFFFFFFul) { value >>= 32; r += 32; }
+            if (value > 0xFFFFul) { value >>= 16; r += 16; }
+            if (value > 0xFFul) { value >>= 8; r += 8; }
+            if (value > 0xFul) { value >>= 4; r += 4; }
+            if (value > 0x3ul) { value >>= 2; r += 2; }
+            if (value > 0x1ul) { r += 1; };
+
             return r;
         }
     }

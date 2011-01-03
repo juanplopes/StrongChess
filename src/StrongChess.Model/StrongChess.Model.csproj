@@ -41,9 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Bitboard.cs" />
-    <Compile Include="Bitboard2.Knight.cs" />
     <Compile Include="File.cs" />
-    <Compile Include="Enumerations.cs" />
     <Compile Include="IBoardUnit.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\Location.cs" />
