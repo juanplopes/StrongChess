@@ -8,7 +8,7 @@ using StrongChess.Model.Pieces;
 namespace StrongChess.Model.Tests
 {
     [TestClass]
-    public partial class BitboardTests
+    public partial class KnightTests
     {
         [TestMethod]
         public void GetKnightAttacksBitboad_A1_ReturnsC2andB3()

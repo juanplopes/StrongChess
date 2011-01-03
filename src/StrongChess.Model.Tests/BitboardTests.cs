@@ -10,7 +10,7 @@ using System.Runtime.InteropServices;
 namespace StrongChess.Model.Tests
 {
     [TestClass]
-    public class KnightTests
+    public class BitboardTests
     {
 
         [TestMethod]
