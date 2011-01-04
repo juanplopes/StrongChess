@@ -23,7 +23,7 @@ namespace StrongChess.Model.Pieces
 
         public Bitboard GetMoveBoard(Bitboard avoid)
         {
-            Bitboard result;
+            Bitboard result = 0;
             
             foreach(var square in Board.GetSetSquares())
                 result = result.Set(_Moves[square]);

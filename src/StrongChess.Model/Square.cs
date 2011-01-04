@@ -31,6 +31,8 @@ namespace StrongChess.Model
         #region static
         public static int IndexOf(Rank rank, File file)
         {
+            if (!rank.IsValid || !file.IsValid) return -8;
+
             return rank * 8 + file;
         }
 
