@@ -30,27 +30,57 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
-        public void HighestBitOf0IsMinus0()
+        public void BitScanForwardOf0IsMinus0()
         {
-            BitOperations.HighestBitPosition(0).Should().Be(-1);
+            BitOperations.BitScanReverse(0).Should().Be(-1);
         }
 
         [Test]
-        public void HighestBitOf1Is0()
+        public void BitScanForwardOf1Is0()
         {
-            BitOperations.HighestBitPosition(1).Should().Be(0);
+            BitOperations.BitScanReverse(1).Should().Be(0);
         }
 
         [Test]
-        public void HighestBitOf3Is1()
+        public void BitScanForwardOf3Is1()
         {
-            BitOperations.HighestBitPosition(3).Should().Be(1);
+            BitOperations.BitScanReverse(3).Should().Be(1);
         }
 
         [Test]
-        public void HighestBitOfNotZeroIs63()
+        public void BitScanForwardOfNotZeroIs63()
         {
-            BitOperations.HighestBitPosition(~0ul).Should().Be(63);
+            BitOperations.BitScanReverse(~0ul).Should().Be(63);
+        }
+
+        [Test]
+        public void BitScanForwardOfNotZero0IsMinus1()
+        {
+            BitOperations.BitScanReverse(0).Should().Be(-1);
+        }
+
+        [Test]
+        public void BitScanReverseOf1Is0()
+        {
+            BitOperations.BitScanForward(1).Should().Be(0);
+        }
+
+        [Test]
+        public void BitScanReverseOf3Is1()
+        {
+            BitOperations.BitScanForward(3).Should().Be(0);
+        }
+
+        [Test]
+        public void BitScanReverseOfNotZeroIs63()
+        {
+            BitOperations.BitScanForward(~0ul).Should().Be(0);
+        }
+
+        [Test]
+        public void BitScanReverseOfZeroIsMinus1()
+        {
+            BitOperations.BitScanForward(0).Should().Be(-1);
         }
     }
 

@@ -48,7 +48,7 @@ namespace StrongChess.Model
         {
             get
             {
-                var index = BitOperations.HighestBitPosition(Value);
+                var index = BitOperations.BitScanReverse(Value);
                 if (index == -1) return null;
                 return index;
             }
@@ -56,12 +56,12 @@ namespace StrongChess.Model
 
         public IEnumerable<Square> GetSetSquares()
         {
-            var bcopy = this;
-            while (!bcopy.IsEmpty)
+            var bcopy = Value;
+            while (bcopy != 0)
             {
-                var lead = bcopy.LeadingSquare;
-                yield return lead.Value;
-                bcopy = bcopy.Clear(lead);
+                var lead = BitOperations.BitScanForward(bcopy);
+                yield return lead;
+                bcopy = bcopy & ~(1ul << lead);
             }
         }
 
@@ -79,7 +79,7 @@ namespace StrongChess.Model
 
         public override string ToString()
         {
-            return "[" + string.Join("; ", GetSetSquares().Reverse().Select(x => x.ToString()).ToArray()) + "]";
+            return "[" + string.Join("; ", GetSetSquares().Select(x => x.ToString()).ToArray()) + "]";
         }
 
         #endregion
