@@ -14,19 +14,19 @@ namespace StrongChess.Model.Tests
         [Test]
         public void PopulationCountOf1Is1()
         {
-            BitOperations.PopCountIn(1).Should().Be(1);
+            BitOperations.PopCount(1).Should().Be(1);
         }
 
         [Test]
         public void PopulationCountOf3Is2()
         {
-            BitOperations.PopCountIn(3).Should().Be(2);
+            BitOperations.PopCount(3).Should().Be(2);
         }
 
         [Test]
         public void PopulationCountOfNotZeroIs64()
         {
-            BitOperations.PopCountIn(~0ul).Should().Be(64);
+            BitOperations.PopCount(~0ul).Should().Be(64);
         }
 
         [Test]

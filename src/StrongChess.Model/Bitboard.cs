@@ -41,14 +41,14 @@ namespace StrongChess.Model
 
         public int BitCount
         {
-            get { return BitOperations.PopCountIn(Value); }
+            get { return Value.PopCount(); }
         }
 
         public Square? LeadingSquare
         {
             get
             {
-                var index = BitOperations.BitScanReverse(Value);
+                var index = Value.BitScanReverse();
                 if (index == -1) return null;
                 return index;
             }
@@ -59,9 +59,9 @@ namespace StrongChess.Model
             var bcopy = Value;
             while (bcopy != 0)
             {
-                var lead = BitOperations.BitScanForward(bcopy);
+                Square lead = bcopy.BitScanForward();
                 yield return lead;
-                bcopy = bcopy & ~(1ul << lead);
+                bcopy = bcopy & ~lead.Bitmask;
             }
         }
 

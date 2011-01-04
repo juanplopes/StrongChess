@@ -8,7 +8,7 @@ namespace StrongChess.Model.Util
 {
     public static class BitOperations
     {
-        public static int PopCountIn(ulong x)
+        public static int PopCount(this ulong x)
         {
             unchecked
             {
@@ -24,7 +24,7 @@ namespace StrongChess.Model.Util
             }
         }
 
-        public static int BitScanReverse(ulong value)
+        public static int BitScanReverse(this ulong value)
         {
             unchecked
             {
@@ -56,7 +56,7 @@ namespace StrongChess.Model.Util
            44, 24, 15,  8, 23,  7,  6,  5
         };
 
-        public static int BitScanForward(ulong value)
+        public static int BitScanForward(this ulong value)
         {
             if (value == 0) return -1;
             const ulong debruijn64 = 0x07EDD5E59A4E28C2ul;
