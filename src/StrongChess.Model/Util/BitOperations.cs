@@ -60,7 +60,7 @@ namespace StrongChess.Model.Util
         {
             if (value == 0) return -1;
             const ulong debruijn64 = 0x07EDD5E59A4E28C2ul;
-            return index64[((value & (~value + 1)) * debruijn64) >> 58];
+            return index64[((value & ~value + 1) * debruijn64) >> 58];
         }
     }
 }
