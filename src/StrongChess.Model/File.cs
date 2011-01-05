@@ -7,27 +7,28 @@ namespace StrongChess.Model
 {
     public struct File : IBoardUnit
     {
-        public int Index { get; private set; }
-        public ulong Bitmask { get { return _Bitmasks[Index]; } }
+        private int index;
+        public int Index { get { return index; } }
+        public ulong Bitmask { get { return _Bitmasks[index]; } }
 
         public bool IsValid
         {
-            get { return Index >= 0 && Index < 8; }
+            get { return index >= 0 && index < 8; }
         }
 
-        public File(int index) : this() { Index = index; }
+        public File(int index) : this() { this.index = index; }
         public File(string name) : this(char.ToUpperInvariant(name[0]) - 'A') { }
 
         public int DistanceFrom(File otherFile)
         {
-            return Math.Abs(Index - otherFile.Index);
+            return Math.Abs(index - otherFile.index);
         }
 
         public override string ToString()
         {
             if (!IsValid) return "#";
 
-            return ((char)(Index + 'A')).ToString();
+            return ((char)(index + 'A')).ToString();
         }
 
         #region static
@@ -41,7 +42,7 @@ namespace StrongChess.Model
 
         public static implicit operator int(File file)
         {
-            return file.Index;
+            return file.index;
         }
 
         public static implicit operator File(int file)

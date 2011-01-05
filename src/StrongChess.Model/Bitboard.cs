@@ -8,25 +8,25 @@ namespace StrongChess.Model
 {
     public struct Bitboard : IBoardUnit
     {
-        public ulong Value { get; private set; }
+        private ulong value;
 
-        public Bitboard(ulong value) : this() { this.Value = value; }
+        public Bitboard(ulong value) : this() { this.value = value; }
 
         public Bitboard Set(params IBoardUnit[] unit)
         {
             return new Bitboard(
-                Value | unit.Aggregate(0ul, (s, v) => s | v.Bitmask));
+                value | unit.Aggregate(0ul, (s, v) => s | v.Bitmask));
         }
 
         public Bitboard Clear(params IBoardUnit[] unit)
         {
             return new Bitboard(
-                Value & unit.Aggregate(~0ul, (s, v) => s & ~v.Bitmask));
+                value & unit.Aggregate(~0ul, (s, v) => s & ~v.Bitmask));
         }
 
         public bool IsSet(IBoardUnit unit)
         {
-            return (Value & unit.Bitmask) != 0;
+            return (value & unit.Bitmask) != 0;
         }
 
         public bool IsClear(IBoardUnit unit)
@@ -36,19 +36,19 @@ namespace StrongChess.Model
 
         public bool IsEmpty
         {
-            get { return Value == 0; }
+            get { return value == 0; }
         }
 
         public int BitCount
         {
-            get { return Value.PopCount(); }
+            get { return value.PopCount(); }
         }
 
         public Square? LeadingSquare
         {
             get
             {
-                var index = Value.BitScanReverse();
+                var index = value.BitScanReverse();
                 if (index == -1) return null;
                 return index;
             }
@@ -56,7 +56,7 @@ namespace StrongChess.Model
 
         public IEnumerable<Square> GetSetSquares()
         {
-            var bcopy = Value;
+            var bcopy = value;
             while (bcopy != 0)
             {
                 Square lead = bcopy.BitScanForward();
@@ -69,7 +69,7 @@ namespace StrongChess.Model
 
         public static implicit operator ulong(Bitboard board)
         {
-            return board.Value;
+            return board.value;
         }
 
         public static implicit operator Bitboard(ulong board)
@@ -86,12 +86,12 @@ namespace StrongChess.Model
 
         #region IBoardUnit Members
 
-        ulong IBoardUnit.Bitmask
+        public ulong Bitmask
         {
-            get { return Value; }
+            get { return value; }
         }
 
-        bool IBoardUnit.IsValid
+        public bool IsValid
         {
             get { return true; }
         }

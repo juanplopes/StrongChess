@@ -7,27 +7,28 @@ namespace StrongChess.Model
 {
     public struct Rank : IBoardUnit
     {
-        public int Index { get; private set; }
-        public ulong Bitmask { get { return _Bitmasks[Index]; } }
+        private int index;
+        public int Index { get { return index; } }
+        public ulong Bitmask { get { return _Bitmasks[index]; } }
 
         public bool IsValid
         {
-            get { return Index >= 0 && Index < 8; }
+            get { return index >= 0 && index < 8; }
         }
 
-        public Rank(int index) : this() { Index = index; }
+        public Rank(int index) : this() { this.index = index; }
         public Rank(string name) : this(name[0] - '1') { }
 
         public int DistanceFrom(Rank otherRank)
         {
-            return Math.Abs(Index - otherRank.Index);
+            return Math.Abs(index - otherRank.index);
         }
 
         public override string ToString()
         {
             if (!IsValid) return "#";
 
-            return ((char)(Index + '1')).ToString();
+            return ((char)(index + '1')).ToString();
         }
 
         #region static
@@ -40,7 +41,7 @@ namespace StrongChess.Model
 
         public static implicit operator int(Rank rank)
         {
-            return rank.Index;
+            return rank.index;
         }
 
         public static implicit operator Rank(int rank)

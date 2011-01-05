@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Security.Cryptography;
+using System.Reflection.Emit;
+using System.Runtime.InteropServices;
 
 namespace StrongChess.Model.Util
 {
@@ -44,7 +46,7 @@ namespace StrongChess.Model.Util
         }
 
 
-        static int[] index64 = new[] 
+        static int[] index64 =
         {
            63,  0, 58,  1, 59, 47, 53,  2,
            60, 39, 48, 27, 54, 33, 42,  3,
@@ -59,8 +61,7 @@ namespace StrongChess.Model.Util
         public static int BitScanForward(this ulong value)
         {
             if (value == 0) return -1;
-            const ulong debruijn64 = 0x07EDD5E59A4E28C2ul;
-            return index64[((value & ~value + 1) * debruijn64) >> 58];
+            return index64[((value & ~value + 1) * 0x07EDD5E59A4E28C2ul) >> 58];
         }
     }
 }
