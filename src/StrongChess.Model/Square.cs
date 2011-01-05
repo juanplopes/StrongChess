@@ -10,8 +10,8 @@ namespace StrongChess.Model
         private int index;
         public int Index { get { return index; } }
 
-        public Rank Rank { get { return index / 8; } }
-        public File File { get { return index % 8; } }
+        public Rank Rank { get { return index >> 3; } }
+        public File File { get { return index & 7; } }
 
         public bool IsValid
         {
@@ -21,7 +21,7 @@ namespace StrongChess.Model
         public ulong Bitmask { get { return _Bitmasks[index]; } }
 
         public Square(int index) : this() { this.index = index; }
-        public Square(Rank rank, File file) : this(indexOf(rank, file)) { }
+        public Square(Rank rank, File file) : this(IndexOf(rank, file)) { }
         public Square(string name) : this(name[1].ToString(), name[0].ToString()) { }
 
         public override string ToString()
@@ -30,11 +30,11 @@ namespace StrongChess.Model
         }
 
         #region static
-        public static int indexOf(Rank rank, File file)
+        public static int IndexOf(Rank rank, File file)
         {
             if (!rank.IsValid || !file.IsValid) return -8;
 
-            return rank * 8 + file;
+            return rank << 3 | file;
         }
 
 
@@ -43,7 +43,7 @@ namespace StrongChess.Model
         {
             for (Rank i = 0; i < 8; i++)
                 for (File j = 0; j < 8; j++)
-                    _Bitmasks[indexOf(i, j)] = i.Bitmask & j.Bitmask;
+                    _Bitmasks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
         }
 
         public static implicit operator int(Square square)
