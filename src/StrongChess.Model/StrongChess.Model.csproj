@@ -46,6 +46,7 @@
     <Compile Include="Bitboard.cs" />
     <Compile Include="File.cs" />
     <Compile Include="IBoardUnit.cs" />
+    <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\IPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

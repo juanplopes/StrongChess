@@ -56,6 +56,7 @@
     </Compile>
     <Compile Include="BitboardTests.cs" />
     <Compile Include="BitOperationsTests.cs" />
+    <Compile Include="KingTests.cs" />
     <Compile Include="SquareTests.cs" />
     <Compile Include="FileTests.cs" />
     <Compile Include="KnightTests.cs" />
