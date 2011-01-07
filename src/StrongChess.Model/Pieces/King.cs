@@ -33,7 +33,6 @@ namespace StrongChess.Model.Pieces
         }
 
         #region static
-
         static readonly Bitboard[] _Moves = new Bitboard[64];
         static King()
         {
@@ -54,7 +53,6 @@ namespace StrongChess.Model.Pieces
                 _Moves[i] = bboard;
             }
         }
-
         #endregion
     }
 }

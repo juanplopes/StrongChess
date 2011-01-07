@@ -46,11 +46,15 @@
     <Compile Include="Bitboard.cs" />
     <Compile Include="File.cs" />
     <Compile Include="IBoardUnit.cs" />
+    <Compile Include="Move.cs" />
     <Compile Include="Pieces\King.cs" />
     <Compile Include="Pieces\Knight.cs" />
     <Compile Include="Pieces\IPiece.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Rank.cs" />
+    <Compile Include="Sets\BlackPawns.cs" />
+    <Compile Include="Sets\IPawns.cs" />
+    <Compile Include="Sets\WhitePawns.cs" />
     <Compile Include="Square.cs" />
     <Compile Include="Util\BitOperations.cs" />
   </ItemGroup>
