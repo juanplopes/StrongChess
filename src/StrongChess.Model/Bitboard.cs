@@ -72,6 +72,22 @@ namespace StrongChess.Model
             return board.value;
         }
 
+        public static Bitboard Full
+        {
+            get
+            {
+                return new Bitboard(ulong.MaxValue);
+            }
+        }
+
+        public static Bitboard Empty
+        {
+            get
+            {
+                return new Bitboard(0);
+            }
+        }
+
         public static implicit operator Bitboard(ulong board)
         {
             return new Bitboard(board);

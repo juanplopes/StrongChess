@@ -56,11 +56,15 @@
     </Compile>
     <Compile Include="BitboardTests.cs" />
     <Compile Include="BitOperationsTests.cs" />
+    <Compile Include="BlackPawnsTests.cs" />
+    <Compile Include="KingTests.cs" />
+    <Compile Include="MoveTests.cs" />
     <Compile Include="SquareTests.cs" />
     <Compile Include="FileTests.cs" />
     <Compile Include="KnightTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="RankTests.cs" />
+    <Compile Include="WhitePawnsTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\StrongChess.Model\StrongChess.Model.csproj">
