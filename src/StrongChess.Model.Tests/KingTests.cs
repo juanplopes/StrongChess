@@ -24,7 +24,7 @@ namespace StrongChess.Model.Tests
                 ;
 
             test.Should().Be(expected);
-        }
+        } 
 
         [Test]
         public void GetKingAttacksBitboard_H8_ReturnsH7G7G8()

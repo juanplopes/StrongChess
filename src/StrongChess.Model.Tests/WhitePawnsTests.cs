@@ -247,8 +247,8 @@ namespace StrongChess.Model.Tests
       var moves = wp.GetCaptures(enemies);
       moves.Count().Should().Be(1);
       var move = moves.First();
-      move.From.Should().Be(new Square("H4"));
-      move.To.Should().Be(new Square("G5"));
+      move.From.Should().Be(new Square("H4")); 
+      move.To.Should().Be(new Square("G5")); 
       move.Type.Should().Be(MoveTypes.Normal);
     }
   }

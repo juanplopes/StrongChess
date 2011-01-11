@@ -59,6 +59,7 @@
     <Compile Include="BlackPawnsTests.cs" />
     <Compile Include="KingTests.cs" />
     <Compile Include="MoveTests.cs" />
+    <Compile Include="RookTests.cs" />
     <Compile Include="SquareTests.cs" />
     <Compile Include="FileTests.cs" />
     <Compile Include="KnightTests.cs" />
