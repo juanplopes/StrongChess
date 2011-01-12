@@ -22,7 +22,7 @@ namespace StrongChess.Model.Tests
         public void ConstructFromIndex_8()
         {
             Square square = 8;
-            
+
             square.Index.Should().Be(8);
             square.IsValid.Should().Be.True();
             square.Rank.Index.Should().Be(1);
