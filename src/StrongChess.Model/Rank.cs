@@ -24,6 +24,16 @@ namespace StrongChess.Model
             return Math.Abs(index - otherRank.index);
         }
 
+        public bool Contains(IBoardUnit bu)
+        {
+            return (this.Bitmask & bu.Bitmask) > 0;
+        }
+
+        public bool Contains(ulong board)
+        {
+            return (this.Bitmask & board) > 0;
+        }
+
         public override string ToString()
         {
             if (!IsValid) return "#";
@@ -53,6 +63,24 @@ namespace StrongChess.Model
         {
             return new Rank(rank);
         }
+
+        public static Bitboard operator |(Rank rank, IBoardUnit bu)
+        {
+            return rank.Bitmask | bu.Bitmask;
+        }
+
         #endregion
+    }
+
+    public static class Ranks
+    {
+        public readonly static Rank One = new Rank(0);
+        public readonly static Rank Two = new Rank(1);
+        public readonly static Rank Three = new Rank(2);
+        public readonly static Rank Four = new Rank(3);
+        public readonly static Rank Five = new Rank(4);
+        public readonly static Rank Six = new Rank(5);
+        public readonly static Rank Seven = new Rank(6);
+        public readonly static Rank Eight = new Rank(7);
     }
 }

@@ -9,7 +9,7 @@ namespace StrongChess.Model
     public struct Bitboard : IBoardUnit
     {
         private ulong value;
-
+        public ulong Value { get { return value; } }
         public Bitboard(ulong value) : this() { this.value = value; }
 
         public Bitboard Set(params IBoardUnit[] unit)
@@ -32,6 +32,16 @@ namespace StrongChess.Model
         public bool IsClear(IBoardUnit unit)
         {
             return !IsSet(unit);
+        }
+
+        public bool Contains(IBoardUnit bu)
+        {
+            return (this.value & bu.Bitmask) > 0;
+        }
+
+        public bool Contains(ulong board)
+        {
+            return (this.value & board) > 0;
         }
 
         public bool IsEmpty
@@ -91,6 +101,12 @@ namespace StrongChess.Model
         public static implicit operator Bitboard(ulong board)
         {
             return new Bitboard(board);
+        }
+
+
+        public static Bitboard operator |(Bitboard bitboard, IBoardUnit bu)
+        {
+            return new Bitboard(bitboard.Value | bu.Bitmask);
         }
 
         public override string ToString()

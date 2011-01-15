@@ -22,7 +22,7 @@ namespace StrongChess.Model.Tests
         public void ConstructFromIndex_4()
         {
             Rank rank = 4;
-            
+
             rank.Index.Should().Be(4);
             rank.ToString().Should().Be("5");
         }
@@ -76,6 +76,20 @@ namespace StrongChess.Model.Tests
             Rank rank = "7";
             rank.Bitmask.Should().Be(0x00FF000000000000);
         }
+
+        [Test]
+        public void Contains_RankOneSquareA1_ReturnsTrue()
+        {
+            Assert.IsTrue(Ranks.One.Contains(Squares.A1));
+        }
+
+        [Test]
+        public void Contains_RankTwoSquareA1_ReturnsFalse()
+        {
+            Assert.IsFalse(Ranks.Two.Contains(Squares.A1));
+        }
+
+
 
     }
 }

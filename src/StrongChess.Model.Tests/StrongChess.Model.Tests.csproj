@@ -54,11 +54,15 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="BishopTests.cs" />
     <Compile Include="BitboardTests.cs" />
     <Compile Include="BitOperationsTests.cs" />
     <Compile Include="BlackPawnsTests.cs" />
+    <Compile Include="DiagonalNETests.cs" />
+    <Compile Include="DiagonalNWTests.cs" />
     <Compile Include="KingTests.cs" />
     <Compile Include="MoveTests.cs" />
+    <Compile Include="RookTests.cs" />
     <Compile Include="SquareTests.cs" />
     <Compile Include="FileTests.cs" />
     <Compile Include="KnightTests.cs" />

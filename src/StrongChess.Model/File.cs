@@ -31,6 +31,17 @@ namespace StrongChess.Model
             return ((char)(index + 'A')).ToString();
         }
 
+        public bool Contains(IBoardUnit bu)
+        {
+            return (this.Bitmask & bu.Bitmask) > 0;
+        }
+
+        public bool Contains(ulong board)
+        {
+            return (this.Bitmask & board) > 0;
+        }
+
+
         #region static
 
         static readonly ulong[] _Bitmasks = new ulong[64];
@@ -54,7 +65,25 @@ namespace StrongChess.Model
             return new File(file);
         }
 
+
+        public static Bitboard operator |(File file, IBoardUnit bu)
+        {
+            return file.Bitmask | bu.Bitmask;
+        }
+
         #endregion
+    }
+
+    public static class Files
+    {
+        public readonly static File A = new File(0);
+        public readonly static File B = new File(1);
+        public readonly static File C = new File(2);
+        public readonly static File D = new File(3);
+        public readonly static File E = new File(4);
+        public readonly static File F = new File(5);
+        public readonly static File G = new File(6);
+        public readonly static File H = new File(7);
     }
 
 }
