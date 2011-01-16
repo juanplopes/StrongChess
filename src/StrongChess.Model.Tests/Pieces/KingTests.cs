@@ -14,7 +14,7 @@ namespace StrongChess.Model.Tests.Pieces
         [Test]
         public void GetKingAttacksBitboard_A1_ReturnsA2B2B1()
         {
-            var test = new King("A1").GetMoveBoard();
+            var test = Rules.For<King>().GetMoveBoard("A1");
             var expected = Bitboard.With.A2.B2.B1.Build();
             test.Should().Be(expected);
         }
@@ -22,7 +22,7 @@ namespace StrongChess.Model.Tests.Pieces
         [Test]
         public void GetKingAttacksBitboard_H8_ReturnsH7G7G8()
         {
-            Bitboard test = new King("H8").GetMoveBoard();
+            var test = Rules.For<King>().GetMoveBoard("H8");
             var expected = Bitboard.With.H7.G7.G8.Build();
             test.Should().Be(expected);
         }
@@ -30,7 +30,7 @@ namespace StrongChess.Model.Tests.Pieces
         [Test]
         public void GetKingAttacksBitboard_H1_ReturnsH2G2G1()
         {
-            Bitboard test = new King("H1").GetMoveBoard();
+            var test = Rules.For<King>().GetMoveBoard("H1");
             var expected = Bitboard.With.H2.G2.G1.Build();
             test.Should().Be(expected);
         }
@@ -38,15 +38,8 @@ namespace StrongChess.Model.Tests.Pieces
         [Test]
         public void GetKingAttacksBitboard_A8_ReturnsA7B7B8()
         {
-            Bitboard test = new King("A8").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("A7"))
-                .Set(new Square("B7"))
-                .Set(new Square("B8"))
-                ;
-
+            var test = Rules.For<King>().GetMoveBoard("A8");
+            var expected = Bitboard.With.A7.B7.B8.Build();
             test.Should().Be(expected);
         }
 
@@ -54,91 +47,41 @@ namespace StrongChess.Model.Tests.Pieces
         [Test]
         public void GetKingAttacksBitboard_A4_ReturnsA3A5B3B4B5()
         {
-            Bitboard test = new King("A4").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("A3"))
-                .Set(new Square("A5"))
-                .Set(new Square("B3"))
-                .Set(new Square("B4"))
-                .Set(new Square("B5"))
-                ;
-
+            var test = Rules.For<King>().GetMoveBoard("A4");
+            var expected = Bitboard.With.A3.A5.B3.B4.B5.Build();
             test.Should().Be(expected);
         }
 
         [Test]
         public void GetKingAttacksBitboard_H4_ReturnsH3H5G3G4G5()
         {
-            Bitboard test = new King("H4").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("H3"))
-                .Set(new Square("H5"))
-                .Set(new Square("G3"))
-                .Set(new Square("G4"))
-                .Set(new Square("G5"))
-                ;
-
+            var test = Rules.For<King>().GetMoveBoard("H4");
+            var expected = Bitboard.With.H3.H5.G3.G4.G5.Build();
             test.Should().Be(expected);
         }
 
         [Test]
         public void GetKingAttacksBitboard_E1_ReturnsD1F1D2E2F2()
         {
-            Bitboard test = new King("E1").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("D1"))
-                .Set(new Square("F1"))
-                .Set(new Square("D2"))
-                .Set(new Square("E2"))
-                .Set(new Square("F2"))
-                ;
-
+            var test = Rules.For<King>().GetMoveBoard("E1");
+            var expected = Bitboard.With.D1.F1.D2.E2.F2.Build();
             test.Should().Be(expected);
         }
 
         [Test]
         public void GetKingAttacksBitboard_E8_ReturnsD8F8D7E7F7()
         {
-            Bitboard test = new King("E8").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("D8"))
-                .Set(new Square("F8"))
-                .Set(new Square("D7"))
-                .Set(new Square("E7"))
-                .Set(new Square("F7"))
-                ;
-
+            var test = Rules.For<King>().GetMoveBoard("e8");
+            var expected = Bitboard.With.D8.F8.D7.E7.F7.Build();
             test.Should().Be(expected);
         }
 
         [Test]
         public void GetKingAttacksBitboard_E4AndFriendsD3E3F3D4_ReturnsF4D5E5F5()
         {
-            Bitboard friends = new Bitboard();
-            friends = friends
-                .Set(new Square("D3"))
-                .Set(new Square("E3"))
-                .Set(new Square("F3"))
-                .Set(new Square("D4"));
-
-            Bitboard test = new King("E4").GetMoveBoard(friends);
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("F4"))
-                .Set(new Square("D5"))
-                .Set(new Square("E5"))
-                .Set(new Square("F5"))
-                ;
-
+            var friends = Bitboard.With.D3.E3.F3.D4.Build();
+            var test = Rules.For<King>().GetMoveBoard("E4", friends);
+            var expected = Bitboard.With.F4.D5.E5.F5.Build();
             test.Should().Be(expected);
         }
 

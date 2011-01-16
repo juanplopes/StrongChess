@@ -7,33 +7,25 @@ namespace StrongChess.Model.Pieces
 {
     public struct Rook : IPiece
     {
-
-        public Square Location { get; private set; }
-        public Rook(Square location)
-            : this()
+        public Bitboard GetMoveBoard(Square from)
         {
-            this.Location = location;
+            return GetMoveBoard(from, 0);
         }
 
-        public Bitboard GetMoveBoard()
+        public Bitboard GetMoveBoard(Square from, Bitboard friends)
         {
-            return GetMoveBoard(0);
+            return GetMoveBoard(from, friends, 0);
         }
 
-        public Bitboard GetMoveBoard(Bitboard alsoAvoid)
-        {
-            return GetMoveBoard(alsoAvoid, Bitboard.Empty);
-        }
-
-        public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies)
+        public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             Bitboard allpieces = friends | enemies;
 
             Bitboard result = Bitboard.Empty;
 
-            var file = this.Location.File;
-            var rank = this.Location.Rank;
-            var newSq = this.Location.AsBoard;
+            var file = from.File;
+            var rank = from.Rank;
+            var newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq << 8;
@@ -44,7 +36,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq >> 8;
@@ -55,7 +47,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq << 1;
@@ -66,7 +58,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq >> 1;

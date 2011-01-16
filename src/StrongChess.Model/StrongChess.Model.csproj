@@ -44,6 +44,7 @@
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
     <Compile Include="Bitboard.cs" />
+    <Compile Include="Pieces\Rules.cs" />
     <Compile Include="Util\BoardBuilder.cs" />
     <Compile Include="Util\BoardShifter.cs" />
     <None Include="Util\BoardBuilder.tt">

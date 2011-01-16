@@ -7,33 +7,27 @@ namespace StrongChess.Model.Pieces
 {
     public struct Bishop : IPiece
     {
-        public Square Location { get; private set; }
-        public Bishop(Square location)
-            : this()
+
+        public Bitboard GetMoveBoard(Square from)
         {
-            this.Location = location;
+            return GetMoveBoard(from, 0);
         }
 
-        public Bitboard GetMoveBoard()
+        public Bitboard GetMoveBoard(Square from, Bitboard friends)
         {
-            return GetMoveBoard(0);
+            return GetMoveBoard(from, friends, 0);
         }
 
-        public Bitboard GetMoveBoard(Bitboard alsoAvoid)
-        {
-            return GetMoveBoard(alsoAvoid, Bitboard.Empty);
-        }
-
-        public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies)
+        public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             Bitboard allpieces = friends | enemies;
 
             Bitboard result = Bitboard.Empty;
 
-            var ne = this.Location.DiagonalNE;
-            var nw = this.Location.DiagonalNW;
+            var ne = from.DiagonalNE;
+            var nw = from.DiagonalNW;
 
-            var newSq = this.Location.AsBoard;
+            var newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq << 9;
@@ -44,7 +38,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq >> 9;
@@ -55,7 +49,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq << 7;
@@ -66,7 +60,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.AsBoard;
+            newSq = from.AsBoard;
             while (true)
             {
                 newSq = newSq >> 7;

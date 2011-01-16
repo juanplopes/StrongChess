@@ -7,28 +7,21 @@ namespace StrongChess.Model.Pieces
 {
     public struct Queen : IPiece
     {
-        public Square Location { get; private set; }
-        public Queen(Square location)
-            : this()
+        public Bitboard GetMoveBoard(Square from)
         {
-            this.Location = location;
+            return GetMoveBoard(from, 0);
         }
 
-        public Bitboard GetMoveBoard()
+        public Bitboard GetMoveBoard(Square from, Bitboard friends)
         {
-            return GetMoveBoard(0);
+            return GetMoveBoard(from, friends, 0);
         }
 
-        public Bitboard GetMoveBoard(Bitboard alsoAvoid)
-        {
-            return GetMoveBoard(alsoAvoid, Bitboard.Empty);
-        }
-
-        public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies)
+        public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             return
-                new Bishop(this.Location).GetMoveBoard(friends, enemies) |
-                new Rook(this.Location).GetMoveBoard(friends, enemies);
+                Rules.For<Bishop>().GetMoveBoard(from, friends, enemies).Set(
+                Rules.For<Rook>().GetMoveBoard(from, friends, enemies));
         }
     }
 }
