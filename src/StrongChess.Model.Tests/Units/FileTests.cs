@@ -6,7 +6,7 @@ using NUnit.Framework;
 using SharpTestsEx;
 using System.Runtime.InteropServices;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Units
 {
     [TestFixture]
     public class FileTests

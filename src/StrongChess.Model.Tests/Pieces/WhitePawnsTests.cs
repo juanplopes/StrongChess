@@ -6,7 +6,7 @@ using NUnit.Framework;
 using StrongChess.Model.Sets;
 using SharpTestsEx;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Pieces
 {
     [TestFixture]
     public class WhitePawnsTests

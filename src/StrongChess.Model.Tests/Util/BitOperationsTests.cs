@@ -6,7 +6,7 @@ using NUnit.Framework;
 using StrongChess.Model.Util;
 using SharpTestsEx;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Util
 {
     [TestFixture]
     public class BitOperationsTests

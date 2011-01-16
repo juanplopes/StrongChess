@@ -8,7 +8,7 @@ using SharpTestsEx;
 using StrongChess.Model.Pieces;
 using SharpTestsEx.ExtensionsImpl;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Pieces
 {
     [TestFixture]
     public class BishopTests
@@ -29,7 +29,7 @@ namespace StrongChess.Model.Tests
         public void GetMoveBoard_BishopInA1_ReturnsA1H8DgExceptA1()
         {
             // arrange
-            var b = new Bishop(new Square("A1"));
+            var b = new Bishop("A1");
             var expected = Bitboard.With.DiagonalA1H8.Except.A1.Build();
                 
             // act

@@ -6,7 +6,7 @@ using NUnit.Framework;
 using StrongChess.Model.Pieces;
 using SharpTestsEx;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Pieces
 {
     [TestFixture]
     public class KingTests
@@ -14,15 +14,8 @@ namespace StrongChess.Model.Tests
         [Test]
         public void GetKingAttacksBitboard_A1_ReturnsA2B2B1()
         {
-            Bitboard test = new King("A1").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("A2"))
-                .Set(new Square("B2"))
-                .Set(new Square("B1"))
-                ;
-
+            var test = new King("A1").GetMoveBoard();
+            var expected = Bitboard.With.A2.B2.B1.Build();
             test.Should().Be(expected);
         }
 
@@ -30,14 +23,7 @@ namespace StrongChess.Model.Tests
         public void GetKingAttacksBitboard_H8_ReturnsH7G7G8()
         {
             Bitboard test = new King("H8").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("H7"))
-                .Set(new Square("G7"))
-                .Set(new Square("G8"))
-                ;
-
+            var expected = Bitboard.With.H7.G7.G8.Build();
             test.Should().Be(expected);
         }
 
@@ -45,14 +31,7 @@ namespace StrongChess.Model.Tests
         public void GetKingAttacksBitboard_H1_ReturnsH2G2G1()
         {
             Bitboard test = new King("H1").GetMoveBoard();
-
-            Bitboard expected = new Bitboard();
-            expected = expected
-                .Set(new Square("H2"))
-                .Set(new Square("G2"))
-                .Set(new Square("G1"))
-                ;
-
+            var expected = Bitboard.With.H2.G2.G1.Build();
             test.Should().Be(expected);
         }
 

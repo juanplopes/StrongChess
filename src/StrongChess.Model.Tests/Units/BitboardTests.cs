@@ -8,7 +8,7 @@ using StrongChess.Model;
 using System.Runtime.InteropServices;
 using SharpTestsEx;
 
-namespace StrongChess.Model.Tests
+namespace StrongChess.Model.Tests.Units
 {
     [TestFixture]
     public class BitboardTests

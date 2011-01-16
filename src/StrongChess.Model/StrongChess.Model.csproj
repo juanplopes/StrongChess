@@ -44,13 +44,13 @@
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
     <Compile Include="Bitboard.cs" />
-    <Compile Include="BoardBuilder.cs" />
+    <Compile Include="Util\BoardBuilder.cs" />
     <Compile Include="Util\BoardShifter.cs" />
-    <None Include="BoardBuilder.tt">
+    <None Include="Util\BoardBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BoardBuilder2.cs</LastGenOutput>
     </None>
-    <Compile Include="BoardBuilder2.cs">
+    <Compile Include="Util\BoardBuilder2.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>BoardBuilder.tt</DependentUpon>
