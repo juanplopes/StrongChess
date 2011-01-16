@@ -9,8 +9,8 @@ namespace StrongChess.Model
     {
         private int index;
         public int Index { get { return index; } }
-        public Bitboard AsBoard { get { return Bitmask; } }
-        public ulong Bitmask { get { return masks[index]; } }
+        public Bitboard AsBoard { get { return masks[index]; } }
+        public ulong Bitmask { get { return AsBoard; } }
 
         public bool IsValid
         {
@@ -25,15 +25,6 @@ namespace StrongChess.Model
             return Math.Abs(index - otherRank.index);
         }
 
-        public bool Contains(IBoardUnit bu)
-        {
-            return (this.Bitmask & bu.Bitmask) > 0;
-        }
-
-        public bool Contains(ulong board)
-        {
-            return (this.Bitmask & board) > 0;
-        }
 
         public override string ToString()
         {
@@ -43,11 +34,12 @@ namespace StrongChess.Model
         }
 
         #region static
-        static readonly ulong[] masks = new ulong[64];
+        static readonly Bitboard[] masks = new Bitboard[8];
         static Rank()
         {
-            for (int i = 0; i < 8; i++)
-                masks[i] = 0xFFul << i * 8;
+            masks[0] = 0xFF;
+            for (int i = 1; i < 8; i++)
+                masks[i] = masks[i - 1].Shift(1, 0);
         }
 
         public static implicit operator int(Rank rank)

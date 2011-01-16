@@ -41,12 +41,12 @@ namespace StrongChess.Model
         }
 
 
-        static readonly ulong[] masks = new ulong[64];
+        static readonly Bitboard[] masks = new Bitboard[64];
         static Square()
         {
             for (Rank i = 0; i < 8; i++)
                 for (File j = 0; j < 8; j++)
-                    masks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
+                    masks[IndexOf(i, j)] = i.AsBoard.Intersect(j);
         }
 
 

@@ -59,6 +59,7 @@
     <Compile Include="BitOperationsTests.cs" />
     <Compile Include="BlackPawnsTests.cs" />
     <Compile Include="BoardBuilderTests.cs" />
+    <Compile Include="BoardShifterTests.cs" />
     <Compile Include="DiagonalNETests.cs" />
     <Compile Include="DiagonalNWTests.cs" />
     <Compile Include="KingTests.cs" />

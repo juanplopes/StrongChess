@@ -45,6 +45,7 @@
     </Compile>
     <Compile Include="Bitboard.cs" />
     <Compile Include="BoardBuilder.cs" />
+    <Compile Include="Util\BoardShifter.cs" />
     <None Include="BoardBuilder.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>BoardBuilder2.cs</LastGenOutput>

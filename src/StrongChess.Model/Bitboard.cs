@@ -20,19 +20,24 @@ namespace StrongChess.Model
 
         public Bitboard Set(params IBoardUnit[] unit)
         {
-            return new Bitboard(
-                value | unit.Aggregate(0ul, (s, v) => s | v.Bitmask));
+            return value |
+                unit.Aggregate(0ul, (s, v) => s | v.AsBoard.value);
         }
 
         public Bitboard Clear(params IBoardUnit[] unit)
         {
-            return new Bitboard(
-                value & unit.Aggregate(~0ul, (s, v) => s & ~v.Bitmask));
+            return value &
+                unit.Aggregate(~0ul, (s, v) => s & ~v.AsBoard.value);
+        }
+
+        public Bitboard Shift(int ranks, int files)
+        {
+            return value.ChessShift(ranks, files);
         }
 
         public bool IsSet(IBoardUnit unit)
         {
-            return (value & unit.Bitmask) != 0;
+            return (value & unit.AsBoard.value) != 0;
         }
 
         public bool IsClear(IBoardUnit unit)
@@ -42,17 +47,18 @@ namespace StrongChess.Model
 
         public bool Contains(IBoardUnit bu)
         {
-            return (this.value & bu.Bitmask) > 0;
+            return (this.value & bu.AsBoard.value) > 0;
         }
 
-        public bool Contains(ulong board)
+        public Bitboard Intersect(IBoardUnit unit)
         {
-            return (this.value & board) > 0;
+            return value & unit.AsBoard.value;
         }
+
 
         public Bitboard Inverted
         {
-            get { return new Bitboard(~value); }
+            get { return ~value; }
         }
 
         public bool IsEmpty

@@ -60,8 +60,11 @@ namespace StrongChess.Model.Util
 
         public static int BitScanForward(this ulong value)
         {
-            if (value == 0) return -1;
-            return index64[((value & ~value + 1) * 0x07EDD5E59A4E28C2ul) >> 58];
+            unchecked
+            {
+                if (value == 0) return -1;
+                return index64[((value & ~value + 1) * 0x07EDD5E59A4E28C2ul) >> 58];
+            }
         }
     }
 }

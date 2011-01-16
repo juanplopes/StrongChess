@@ -73,17 +73,19 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
-        public void BitmaskForFileA()
+        public void FileAShouldContainAllA()
         {
             File file = "A";
-            file.Bitmask.Should().Be(0x0101010101010101);
+            file.AsBoard.GetSetSquares().Should().Have.SameSequenceAs(
+                "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8");
         }
 
         [Test]
         public void BitmaskForRank7()
         {
             File file = "H";
-            file.Bitmask.Should().Be(0x8080808080808080);
+            file.AsBoard.GetSetSquares().Should().Have.SameSequenceAs(
+                "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8");
         }
 
     }

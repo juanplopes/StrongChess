@@ -33,7 +33,7 @@ namespace StrongChess.Model.Pieces
             var ne = this.Location.DiagonalNE;
             var nw = this.Location.DiagonalNW;
 
-            var newSq = this.Location.Bitmask;
+            var newSq = this.Location.AsBoard;
             while (true)
             {
                 newSq = newSq << 9;

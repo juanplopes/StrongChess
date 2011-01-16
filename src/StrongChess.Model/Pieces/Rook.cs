@@ -33,11 +33,11 @@ namespace StrongChess.Model.Pieces
 
             var file = this.Location.File;
             var rank = this.Location.Rank;
-            var newSq = this.Location.Bitmask;
+            var newSq = this.Location.AsBoard;
             while (true)
             {
                 newSq = newSq << 8;
-                if (!file.Contains(newSq)) break;
+                if (!file.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -48,7 +48,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq >> 8;
-                if (!file.Contains(newSq)) break;
+                if (!file.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -59,7 +59,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq << 1;
-                if (!rank.Contains(newSq)) break;
+                if (!rank.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -70,7 +70,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq >> 1;
-                if (!rank.Contains(newSq)) break;
+                if (!rank.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;

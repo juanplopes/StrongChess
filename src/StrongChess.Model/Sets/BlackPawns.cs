@@ -53,10 +53,8 @@ namespace StrongChess.Model.Sets
             if (enpassant != null)
                 enemies &= new Bitboard().Set((Square)enpassant);
 
-            var bleft = (Bitboard)((Bitboard & ~(new File(7).Bitmask)) >> 7);
-            bleft = bleft & enemies;
-            var bright = (Bitboard)((Bitboard & ~(new File(0).Bitmask)) >> 9);
-            bright = bright & enemies;
+            var bleft = Bitboard.Clear(new File(7)).Shift(-1, +1).Intersect(enemies);
+            var bright = Bitboard.Clear(new File(0)).Shift(-1, -1).Intersect(enemies);
 
             return GetMoves(bleft, 7).Union(GetMoves(bright, 9));
 

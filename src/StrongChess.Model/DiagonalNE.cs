@@ -5,8 +5,8 @@ namespace StrongChess.Model
     {
         int index;
         public int Index { get { return index; } }
-        public ulong Bitmask { get { return masks[index+7]; } }
-        public Bitboard AsBoard { get { return Bitmask; } }
+        public ulong Bitmask { get { return masks[index + 7]; } }
+        public Bitboard AsBoard { get { return masks[index + 7]; } }
 
         public bool IsValid
         {
@@ -23,13 +23,11 @@ namespace StrongChess.Model
         {
             var initial = Bitboard.With.A1.B2.C3.D4.E5.F6.G7.H8.Build();
 
-            masks[7] = initial;
-
-            for (int i = 6; i >= 0; i--)
-                masks[i] = masks[i + 1].Clear(masks[i + 1].HighSquare) << 8;
+            for (int i = 7; i >= 0; i--)
+                masks[i] = initial.Shift(7 - i, 0);
 
             for (int i = 8; i < 15; i++)
-                masks[i] = masks[i - 1].Clear(masks[i - 1].HighSquare) << 1;
+                masks[i] = initial.Shift(0, i - 7);
 
         }
 

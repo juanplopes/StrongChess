@@ -7,7 +7,7 @@ namespace StrongChess.Model
 {
     public interface IBoardUnit
     {
-        ulong Bitmask { get; }
+        Bitboard AsBoard { get; }
         bool IsValid { get; }
     }
 }
