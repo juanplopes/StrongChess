@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StrongChess.Model.Pieces
 {
-    public interface IPiece
+    public interface IPieceRule
     {
         Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies);
     }

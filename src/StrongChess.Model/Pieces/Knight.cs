@@ -5,7 +5,7 @@ using System.Text;
 
 namespace StrongChess.Model.Pieces
 {
-    public struct Knight : IPiece
+    public struct Knight : IPieceRule
     {
         public Bitboard GetMoveBoard(Square from)
         {
