@@ -12,7 +12,7 @@ namespace StrongChess.Model
 
         public Rank Rank { get { return index >> 3; } }
         public File File { get { return index & 7; } }
-        public DiagonalNE DiagonalNE { get { return new DiagonalNE(File - Rank); } }
+        public DiagonalNE DiagonalNE { get { return new DiagonalNE(File - Rank + 7); } }
         public DiagonalNW DiagonalNW { get { return new DiagonalNW(File + Rank); } }
 
         public bool IsValid
@@ -20,8 +20,7 @@ namespace StrongChess.Model
             get { return File.IsValid && Rank.IsValid; }
         }
 
-        public Bitboard AsBoard { get { return Bitmask; } }
-        public ulong Bitmask { get { return masks[index]; } }
+        public Bitboard AsBoard { get { return masks[index]; } }
 
         public Square(int index) : this() { this.index = index; }
         public Square(Rank rank, File file) : this(IndexOf(rank, file)) { }

@@ -10,7 +10,6 @@ namespace StrongChess.Model
     {
         int index;
         public int Index { get { return index; } }
-        public ulong Bitmask { get { return masks[index]; } }
         public Bitboard AsBoard { get { return masks[index]; } }
 
         public bool IsValid

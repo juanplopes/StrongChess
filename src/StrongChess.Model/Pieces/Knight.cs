@@ -8,7 +8,7 @@ namespace StrongChess.Model.Pieces
     public struct Knight : IPiece
     {
         public Bitboard Board { get; private set; }
-        public Knight(Square location) : this(location.Bitmask)
+        public Knight(Square location) : this(location.AsBoard)
         {
         }
         public Knight(Bitboard board) : this()

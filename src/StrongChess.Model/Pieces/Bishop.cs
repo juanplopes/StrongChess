@@ -44,7 +44,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.Bitmask;
+            newSq = this.Location.AsBoard;
             while (true)
             {
                 newSq = newSq >> 9;
@@ -55,7 +55,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.Bitmask;
+            newSq = this.Location.AsBoard;
             while (true)
             {
                 newSq = newSq << 7;
@@ -66,7 +66,7 @@ namespace StrongChess.Model.Pieces
                 if (allpieces.Contains(newSq)) break;
             }
 
-            newSq = this.Location.Bitmask;
+            newSq = this.Location.AsBoard;
             while (true)
             {
                 newSq = newSq >> 7;

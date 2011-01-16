@@ -49,9 +49,9 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetMovesTwoSquaresForward
             (Bitboard notblockers)
         {
-            Bitboard b = (this.Bitboard & (new Rank(1)).Bitmask);
-            b = (b << 8) & notblockers;
-            b = (b << 8) & notblockers;
+            var b = Bitboard.Intersect(new Rank(1));
+            b = b.Shift(1, 0).Intersect(notblockers);
+            b = b.Shift(1, 0).Intersect(notblockers);
             
             foreach(var to in b.GetSetSquares())
             {

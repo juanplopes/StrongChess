@@ -91,34 +91,34 @@ namespace StrongChess.Model
         public BoardBuilder FileH { get { return And(new File(7)); } }
 
 
-		public BoardBuilder DiagonalA1H8 { get { return And(new DiagonalNE(0)); } }
+		public BoardBuilder DiagonalA1H8 { get { return And(new DiagonalNE(7)); } }
 		public BoardBuilder DiagonalH1A8 { get { return And(new DiagonalNW(7)); } }
-        public BoardBuilder DiagonalA2G8 { get { return And(new DiagonalNE(-1)); } }
-        public BoardBuilder DiagonalB1H7 { get { return And(new DiagonalNE(1)); } }
+        public BoardBuilder DiagonalA2G8 { get { return And(new DiagonalNE(6)); } }
+        public BoardBuilder DiagonalB1H7 { get { return And(new DiagonalNE(8)); } }
         public BoardBuilder DiagonalH2B8 { get { return And(new DiagonalNW(8)); } }
         public BoardBuilder DiagonalG1A7 { get { return And(new DiagonalNW(6)); } }
-        public BoardBuilder DiagonalA3F8 { get { return And(new DiagonalNE(-2)); } }
-        public BoardBuilder DiagonalC1H6 { get { return And(new DiagonalNE(2)); } }
+        public BoardBuilder DiagonalA3F8 { get { return And(new DiagonalNE(5)); } }
+        public BoardBuilder DiagonalC1H6 { get { return And(new DiagonalNE(9)); } }
         public BoardBuilder DiagonalH3C8 { get { return And(new DiagonalNW(9)); } }
         public BoardBuilder DiagonalF1A6 { get { return And(new DiagonalNW(5)); } }
-        public BoardBuilder DiagonalA4E8 { get { return And(new DiagonalNE(-3)); } }
-        public BoardBuilder DiagonalD1H5 { get { return And(new DiagonalNE(3)); } }
+        public BoardBuilder DiagonalA4E8 { get { return And(new DiagonalNE(4)); } }
+        public BoardBuilder DiagonalD1H5 { get { return And(new DiagonalNE(10)); } }
         public BoardBuilder DiagonalH4D8 { get { return And(new DiagonalNW(10)); } }
         public BoardBuilder DiagonalE1A5 { get { return And(new DiagonalNW(4)); } }
-        public BoardBuilder DiagonalA5D8 { get { return And(new DiagonalNE(-4)); } }
-        public BoardBuilder DiagonalE1H4 { get { return And(new DiagonalNE(4)); } }
+        public BoardBuilder DiagonalA5D8 { get { return And(new DiagonalNE(3)); } }
+        public BoardBuilder DiagonalE1H4 { get { return And(new DiagonalNE(11)); } }
         public BoardBuilder DiagonalH5E8 { get { return And(new DiagonalNW(11)); } }
         public BoardBuilder DiagonalD1A4 { get { return And(new DiagonalNW(3)); } }
-        public BoardBuilder DiagonalA6C8 { get { return And(new DiagonalNE(-5)); } }
-        public BoardBuilder DiagonalF1H3 { get { return And(new DiagonalNE(5)); } }
+        public BoardBuilder DiagonalA6C8 { get { return And(new DiagonalNE(2)); } }
+        public BoardBuilder DiagonalF1H3 { get { return And(new DiagonalNE(12)); } }
         public BoardBuilder DiagonalH6F8 { get { return And(new DiagonalNW(12)); } }
         public BoardBuilder DiagonalC1A3 { get { return And(new DiagonalNW(2)); } }
-        public BoardBuilder DiagonalA7B8 { get { return And(new DiagonalNE(-6)); } }
-        public BoardBuilder DiagonalG1H2 { get { return And(new DiagonalNE(6)); } }
+        public BoardBuilder DiagonalA7B8 { get { return And(new DiagonalNE(1)); } }
+        public BoardBuilder DiagonalG1H2 { get { return And(new DiagonalNE(13)); } }
         public BoardBuilder DiagonalH7G8 { get { return And(new DiagonalNW(13)); } }
         public BoardBuilder DiagonalB1A2 { get { return And(new DiagonalNW(1)); } }
-        public BoardBuilder DiagonalA8A8 { get { return And(new DiagonalNE(-7)); } }
-        public BoardBuilder DiagonalH1H1 { get { return And(new DiagonalNE(7)); } }
+        public BoardBuilder DiagonalA8A8 { get { return And(new DiagonalNE(0)); } }
+        public BoardBuilder DiagonalH1H1 { get { return And(new DiagonalNE(14)); } }
         public BoardBuilder DiagonalH8H8 { get { return And(new DiagonalNW(14)); } }
         public BoardBuilder DiagonalA1A1 { get { return And(new DiagonalNW(0)); } }
 

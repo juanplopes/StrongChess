@@ -5,12 +5,11 @@ namespace StrongChess.Model
     {
         int index;
         public int Index { get { return index; } }
-        public ulong Bitmask { get { return masks[index + 7]; } }
-        public Bitboard AsBoard { get { return masks[index + 7]; } }
+        public Bitboard AsBoard { get { return masks[index]; } }
 
         public bool IsValid
         {
-            get { return index >= -7 && index <= 7; }
+            get { return index >= 0 && index <= 14; }
         }
 
         public DiagonalNE(int index) : this() { this.index = index; }
