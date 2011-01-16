@@ -71,16 +71,4 @@ namespace StrongChess.Model
 
         #endregion
     }
-
-    public static class Ranks
-    {
-        public readonly static Rank One = new Rank(0);
-        public readonly static Rank Two = new Rank(1);
-        public readonly static Rank Three = new Rank(2);
-        public readonly static Rank Four = new Rank(3);
-        public readonly static Rank Five = new Rank(4);
-        public readonly static Rank Six = new Rank(5);
-        public readonly static Rank Seven = new Rank(6);
-        public readonly static Rank Eight = new Rank(7);
-    }
 }

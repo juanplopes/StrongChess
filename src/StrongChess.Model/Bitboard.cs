@@ -44,6 +44,11 @@ namespace StrongChess.Model
             return (this.value & board) > 0;
         }
 
+        public Bitboard Inverted
+        {
+            get { return new Bitboard(~value); }
+        }
+
         public bool IsEmpty
         {
             get { return value == 0; }
@@ -52,16 +57,6 @@ namespace StrongChess.Model
         public int BitCount
         {
             get { return value.PopCount(); }
-        }
-
-        public Square? LeadingSquare
-        {
-            get
-            {
-                var index = value.BitScanReverse();
-                if (index == -1) return null;
-                return index;
-            }
         }
 
         public IEnumerable<Square> GetSetSquares()
@@ -96,6 +91,11 @@ namespace StrongChess.Model
             {
                 return new Bitboard(0);
             }
+        }
+
+        public static BoardBuilder With
+        {
+            get { return new BoardBuilder(); }
         }
 
         public static implicit operator Bitboard(ulong board)

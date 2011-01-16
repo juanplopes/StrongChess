@@ -15,26 +15,26 @@ namespace StrongChess.Model.Tests
         public void ctor_DiagonalH1A8()
         {
             Square[] squares = new Square[] {
-                Squares.A8,
-                Squares.B7,
-                Squares.C6,
-                Squares.D5,
-                Squares.E4,
-                Squares.F3,
-                Squares.G2,
-                Squares.H1
+                new Square("A8"),
+                new Square("B7"),
+                new Square("C6"),
+                new Square("D5"),
+                new Square("E4"),
+                new Square("F3"),
+                new Square("G2"),
+                new Square("H1")
               };
 
-            var expected = Squares.A8 |
-              Squares.B7 |
-              Squares.C6 |
-              Squares.D5 |
-              Squares.E4 |
-              Squares.F3 |
-              Squares.G2 |
-              Squares.H1;
+            var expected = new Square("A8") |
+              new Square("B7") |
+              new Square("C6") |
+              new Square("D5") |
+              new Square("E4") |
+              new Square("F3") |
+              new Square("G2") |
+              new Square("H1");
 
-            for (int i = 0; i < squares.Length; i++)
+            for (int i = 0; i < new Square("Length"); i++)
             {
                 var d = new DiagonalNW(squares[i]);
                 ((Bitboard)d.Bitmask).Should().Be((Bitboard)expected.Value);
@@ -45,20 +45,20 @@ namespace StrongChess.Model.Tests
         public void ctor_DiagonalH4D8()
         {
           Square[] squares = new Square[] {
-            Squares.H4,
-            Squares.G5,
-            Squares.F6,
-            Squares.E7,
-            Squares.D8
+            new Square("H4"),
+            new Square("G5"),
+            new Square("F6"),
+            new Square("E7"),
+            new Square("D8")
           };
 
-          var expected = Squares.H4 |
-            Squares.G5 |
-            Squares.F6 |
-            Squares.E7 |
-            Squares.D8;
+          var expected = new Square("H4") |
+            new Square("G5") |
+            new Square("F6") |
+            new Square("E7") |
+            new Square("D8");
 
-          for (int i = 0; i < squares.Length; i++)
+          for (int i = 0; i < new Square("Length"); i++)
           {
             var d = new DiagonalNW(squares[i]);
             ((Bitboard)d.Bitmask).Should().Be((Bitboard)expected.Value);
@@ -69,14 +69,14 @@ namespace StrongChess.Model.Tests
         public void ctor_DiagonalH7G8()
         {
           Square[] squares = new Square[] {
-            Squares.H7,
-            Squares.G8
+            new Square("H7"),
+            new Square("G8")
           };
 
-          var expected = Squares.H7 |
-            Squares.G8;
+          var expected = new Square("H7") |
+            new Square("G8");
 
-          for (int i = 0; i < squares.Length; i++)
+          for (int i = 0; i < new Square("Length"); i++)
           {
             var d = new DiagonalNW(squares[i]);
             ((Bitboard)d.Bitmask).Should().Be((Bitboard)expected.Value);
@@ -87,21 +87,21 @@ namespace StrongChess.Model.Tests
         public void ctor_DiagonalE1A5()
         {
           Square[] squares = new Square[] {
-            Squares.E1,
-            Squares.D2,
-            Squares.C3,
-            Squares.B4,
-            Squares.A5,
+            new Square("E1"),
+            new Square("D2"),
+            new Square("C3"),
+            new Square("B4"),
+            new Square("A5"),
           };
 
-          var expected = Squares.E1 |
-            Squares.D2 |
-            Squares.C3 |
-            Squares.B4 |
-            Squares.A5;
+          var expected = new Square("E1") |
+            new Square("D2") |
+            new Square("C3") |
+            new Square("B4") |
+            new Square("A5");
 
 
-          for (int i = 0; i < squares.Length; i++)
+          for (int i = 0; i < new Square("Length"); i++)
           {
             var d = new DiagonalNW(squares[i]);
             d.Bitmask.Should().Be(expected.Value);
@@ -111,15 +111,15 @@ namespace StrongChess.Model.Tests
         [Test]
         public void ctor_DiagonalA1()
         {
-          var d = new DiagonalNW(Squares.A1);
-          d.Bitmask.Should().Be(Squares.A1.Bitmask);
+          var d = new DiagonalNW(new Square("A1"));
+          d.Bitmask.Should().Be(new Square("A1").Bitmask);
         }
 
         [Test]
         public void ctor_DiagonalH8()
         {
-          var d = new DiagonalNW(Squares.H8);
-          ((Bitboard)d.Bitmask).Should().Be((Bitboard)Squares.H8.Bitmask);
+          var d = new DiagonalNW(new Square("H8"));
+          ((Bitboard)d.Bitmask).Should().Be((Bitboard)new Square("H8").Bitmask);
         }
 
     }

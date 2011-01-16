@@ -16,21 +16,21 @@ namespace StrongChess.Model.Tests
         public void ctor_passingD5_LocationD5()
         {
             // arrange
-            var b = new Bishop(Squares.D5);
+            var b = new Bishop("D5");
 
             // act
 
             // assert
-            b.Location.Should().Be(Squares.D5);
+            b.Location.Should().Be(new Square("D5"));
         }
 
         [Test]
         public void GetMoveBoard_BishopInA1_ReturnsA1H8DgExceptA1()
         {
             // arrange
-            var b = new Bishop(Squares.A1);
-            Bitboard expected = ((Bitboard)new DiagonalNE(Squares.A1))
-                .Clear(Squares.A1);
+            var b = new Bishop(new Square("A1"));
+            Bitboard expected = ((Bitboard)new DiagonalNE(new Square("A1")))
+                .Clear(new Square("A1"));
 
             // act
             Bitboard mb = b.GetMoveBoard();
@@ -43,12 +43,12 @@ namespace StrongChess.Model.Tests
         public void GetMoveBoard_BishopInA1EnemyInE5_ReturnsB2C3D4E5()
         {
             // arrange
-            var b = new Bishop(Squares.A1);
+            var b = new Bishop(new Square("A1"));
 
-            Bitboard expected = Squares.B2 | Squares.C3 | Squares.D4 | Squares.E5;
+            Bitboard expected = Bitboard.With.B2.C3.D4.E5;
 
             // act
-            Bitboard mb = b.GetMoveBoard(Bitboard.Empty, Squares.E5);
+            Bitboard mb = b.GetMoveBoard(Bitboard.Empty, new Square("E5"));
 
             // assert
             mb.Should().Be(expected);
@@ -58,18 +58,18 @@ namespace StrongChess.Model.Tests
         public void GetMoveBoard_BishopInD4EnemiesInB2E3FriendsA7F6()
         {
             // arrange
-            var b = new Bishop(Squares.D4);
+            var b = new Bishop(new Square("D4"));
 
-            Bitboard expected = Squares.B2 | Squares.C3 | 
-                Squares.E3 |
-                Squares.C5 | Squares.B6 |
-                Squares.E5 
+            Bitboard expected = new Square("B2") | new Square("C3") | 
+                new Square("E3") |
+                new Square("C5") | new Square("B6") |
+                new Square("E5") 
                 ;
 
             // act
             Bitboard mb = b.GetMoveBoard(
-                Squares.A7 | Squares.F6, 
-                Squares.B2 | Squares.E3
+                new Square("A7") | new Square("F6"), 
+                new Square("B2") | new Square("E3")
                 );
 
             // assert

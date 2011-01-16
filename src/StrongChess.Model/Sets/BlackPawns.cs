@@ -86,9 +86,8 @@ namespace StrongChess.Model.Sets
             Bitboard b = (this.Bitboard & (new Rank(6)).Bitmask);
             b = (b >> 8) & notblockers;
             b = (b >> 8) & notblockers;
-            while (b != 0)
+            foreach (var to in b.GetSetSquares())
             {
-                Square to = (Square)b.LeadingSquare;
                 Square from = to + 16;
                 b = b.Clear(to);
                 yield return new Move(from, to);
@@ -97,9 +96,8 @@ namespace StrongChess.Model.Sets
 
         private IEnumerable<Move> GetMoves(Bitboard b, int offsetFrom)
         {
-            while (b != 0)
+            foreach (var to in b.GetSetSquares())
             {
-                Square to = (Square)b.LeadingSquare;
                 Square from = to + offsetFrom;
                 b = b.Clear(to);
                 if (to <= 7)

@@ -74,16 +74,5 @@ namespace StrongChess.Model
         #endregion
     }
 
-    public static class Files
-    {
-        public readonly static File A = new File(0);
-        public readonly static File B = new File(1);
-        public readonly static File C = new File(2);
-        public readonly static File D = new File(3);
-        public readonly static File E = new File(4);
-        public readonly static File F = new File(5);
-        public readonly static File G = new File(6);
-        public readonly static File H = new File(7);
-    }
 
 }

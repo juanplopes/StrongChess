@@ -197,7 +197,7 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard().Set(new Square("A1"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
             Assert.AreEqual(new Square("A1"), result);
@@ -210,27 +210,27 @@ namespace StrongChess.Model.Tests
             var bitboard = new Bitboard().Set(new Square("B1"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
             Assert.AreEqual(new Square("B1"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedA1andB1_ReturnsB1()
+        public void GetLeadingSquare_SettedA1andB1_ReturnsA1()
         {
             // arrange
             var bitboard = new Bitboard().Set(new Square("A1"), new Square("B1"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("B1"), result);
+            Assert.AreEqual(new Square("A1"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedA1andH2_ReturnsH2()
+        public void GetLeadingSquare_SettedA1andH2_ReturnsA1()
         {
             // arrange
             var bitboard = new Bitboard()
@@ -238,14 +238,14 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("H2"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("H2"), result);
+            Assert.AreEqual(new Square("A1"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedH2andA3_ReturnsA3()
+        public void GetLeadingSquare_SettedH2andA3_ReturnsH2()
         {
             // arrange
             var bitboard = new Bitboard()
@@ -253,14 +253,14 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("H2"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("A3"), result);
+            Assert.AreEqual(new Square("H2"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedH4andA5_ReturnsA5()
+        public void GetLeadingSquare_SettedH4andA5_ReturnsH4()
         {
             // arrange
             var bitboard = new Bitboard()
@@ -268,14 +268,14 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("H4"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("A5"), result);
+            Assert.AreEqual(new Square("H4"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedH6andA7andE8_ReturnsE8()
+        public void GetLeadingSquare_SettedH6andA7andE8_ReturnsH6()
         {
             // arrange
             var bitboard = new Bitboard()
@@ -284,14 +284,14 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("H6"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("E8"), result);
+            Assert.AreEqual(new Square("H6"), result);
         }
 
         [Test]
-        public void GetLeadingSquare_SettedD5andA1_ReturnsD5()
+        public void GetLeadingSquare_SettedD5andA1_ReturnsA1()
         {
             // arrange
             var bitboard = new Bitboard()
@@ -299,42 +299,40 @@ namespace StrongChess.Model.Tests
                 .Set(new Square("D5"));
 
             // act
-            var result = bitboard.LeadingSquare;
+            var result = bitboard.GetSetSquares().First();
 
             // assert
-            Assert.AreEqual(new Square("D5"), result);
+            Assert.AreEqual(new Square("A1"), result);
         }
 
 
         [Test]
-        public void GetLeadingSquare_EverySquareReverse()
+        public void GetLeadingSquare_EverySquareForward()
         {
 
             for (int i = 63; i >= 0; i--)
             {
                 var sq = new Square(i);
                 var bitboard = new Bitboard().Set(sq);
-                Assert.AreEqual(sq, bitboard.LeadingSquare);
+                Assert.AreEqual(sq, bitboard.GetSetSquares().First());
             }
         }
 
         [Test]
         public void GetLeadingSquare_Empty_ReturnsINVALID()
         {
-            var result = new Bitboard().LeadingSquare;
-
-            Assert.AreEqual(null, result);
+            new Bitboard().GetSetSquares().Should().Be.Empty();
         }
 
         [Test]
         public void GetLeadingSquare_EverySquare()
         {
             var bitboard = new Bitboard();
-            for (int i = 0; i < 64; i++)
+            for (int i = 63; i >=0; i--)
             {
                 var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
-                bitboard.LeadingSquare.Value.Should().Be(sq);
+                bitboard.GetSetSquares().First().Should().Be(sq);
             }
         }
 

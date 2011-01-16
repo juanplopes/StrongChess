@@ -1,0 +1,24 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StrongChess.Model
+{
+    public partial struct BoardBuilder
+    {
+<# for(var i=0; i<64; i++) { #>
+        public BoardBuilder <#=(char)('A'+(i%8))#><#=(i/8)+1#> { get { return And(new Square(<#=i#>)); } }
+<# } #>
+
+<# for(var i=0; i<8; i++) { #>
+        public BoardBuilder Rank<#=i+1#> { get { return And(new Rank(<#=i#>)); } }
+<# } #>
+
+<# for(var i=0; i<8; i++) { #>
+        public BoardBuilder File<#=(char)(i+'A')#> { get { return And(new File(<#=i#>)); } }
+<# } #>
+
+
+    }
+}

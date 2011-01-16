@@ -77,18 +77,6 @@ namespace StrongChess.Model.Tests
             rank.Bitmask.Should().Be(0x00FF000000000000);
         }
 
-        [Test]
-        public void Contains_RankOneSquareA1_ReturnsTrue()
-        {
-            Assert.IsTrue(Ranks.One.Contains(Squares.A1));
-        }
-
-        [Test]
-        public void Contains_RankTwoSquareA1_ReturnsFalse()
-        {
-            Assert.IsFalse(Ranks.Two.Contains(Squares.A1));
-        }
-
 
 
     }
