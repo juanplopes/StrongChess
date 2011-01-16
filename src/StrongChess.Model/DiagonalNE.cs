@@ -3,65 +3,36 @@ namespace StrongChess.Model
 {
     public struct DiagonalNE : IBoardUnit
     {
-        public DiagonalNE(Square square)
-            : this()
-        {
-            this.Bitmask = _Bitmasks[square];
-        }
-
-        public ulong Bitmask
-        {
-            get;
-            private set;
-        }
+        int index;
+        public int Index { get { return index; } }
+        public ulong Bitmask { get { return masks[index+7]; } }
+        public Bitboard AsBoard { get { return Bitmask; } }
 
         public bool IsValid
         {
-            get { return this.Bitmask > 0; }
+            get { return index >= -7 && index <= 7; }
         }
 
-        public bool Contains(IBoardUnit bu)
-        {
-            return (this.Bitmask & bu.Bitmask) > 0;
-        }
+        public DiagonalNE(int index) : this() { this.index = index; }
 
-        public bool Contains(ulong board)
-        {
-            return (this.Bitmask & board) > 0;
-        }
+
 
         #region static
-        static ulong[] _Bitmasks = new ulong[64];
+        static Bitboard[] masks = new Bitboard[15];
         static DiagonalNE()
         {
+            var initial = Bitboard.With.A1.B2.C3.D4.E5.F6.G7.H8.Build();
 
-            for (int i = 0; i < 8; i++)
-            {
-                ulong diagonalH = 0; // A..H
-                ulong diagonalV = 0; // 1..8
-                for (int j = 0; j < 8 - i; j++)
-                {
-                    diagonalH |= ((1ul << i) << (9 * j));
-                    diagonalV |= ((1ul << (i * 8)) << (9 * j));
-                }
+            masks[7] = initial;
 
-                for (int j = 0; j < 8 - i; j++)
-                {
-                    _Bitmasks[i + (j * 9)] = diagonalH;
-                    _Bitmasks[(i * 8) + (j * 9)] = diagonalV;
-                }
-            }
+            for (int i = 6; i >= 0; i--)
+                masks[i] = masks[i + 1].Clear(masks[i + 1].HighSquare) << 8;
+
+            for (int i = 8; i < 15; i++)
+                masks[i] = masks[i - 1].Clear(masks[i - 1].HighSquare) << 1;
+
         }
 
-        public static Bitboard operator |(DiagonalNE diagonal, IBoardUnit bu)
-        {
-            return diagonal.Bitmask | bu.Bitmask;
-        }
-
-        public static implicit operator Bitboard(DiagonalNE diagonal)
-        {
-            return new Bitboard(diagonal.Bitmask);
-        }
         #endregion
     }
 }

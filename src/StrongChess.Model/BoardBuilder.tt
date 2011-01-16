@@ -20,5 +20,14 @@ namespace StrongChess.Model
 <# } #>
 
 
+		public BoardBuilder DiagonalA1H8 { get { return And(new DiagonalNE(0)); } }
+		public BoardBuilder DiagonalH1A8 { get { return And(new DiagonalNW(7)); } }
+<# for(var i=1; i<8; i++) { #>
+        public BoardBuilder DiagonalA<#=i+1#><#=(char)('H'-i)#>8 { get { return And(new DiagonalNE(<#=-i#>)); } }
+        public BoardBuilder Diagonal<#=(char)('A'+i)#>1H<#=8-i#> { get { return And(new DiagonalNE(<#=i#>)); } }
+        public BoardBuilder DiagonalH<#=i+1#><#=(char)('A'+i)#>8 { get { return And(new DiagonalNW(<#=7+i#>)); } }
+        public BoardBuilder Diagonal<#=(char)('H'-i)#>1A<#=8-i#> { get { return And(new DiagonalNW(<#=7-i#>)); } }
+<# } #>
+
     }
 }

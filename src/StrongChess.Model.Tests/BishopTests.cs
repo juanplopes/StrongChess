@@ -6,6 +6,7 @@ using System.Text;
 using NUnit.Framework;
 using SharpTestsEx;
 using StrongChess.Model.Pieces;
+using SharpTestsEx.ExtensionsImpl;
 
 namespace StrongChess.Model.Tests
 {
@@ -29,9 +30,8 @@ namespace StrongChess.Model.Tests
         {
             // arrange
             var b = new Bishop(new Square("A1"));
-            Bitboard expected = ((Bitboard)new DiagonalNE(new Square("A1")))
-                .Clear(new Square("A1"));
-
+            var expected = Bitboard.With.DiagonalA1H8.Except.A1.Build();
+                
             // act
             Bitboard mb = b.GetMoveBoard();
 
@@ -48,11 +48,13 @@ namespace StrongChess.Model.Tests
             Bitboard expected = Bitboard.With.B2.C3.D4.E5;
 
             // act
-            Bitboard mb = b.GetMoveBoard(Bitboard.Empty, new Square("E5"));
+            Bitboard mb = b.GetMoveBoard(Bitboard.Empty, Bitboard.With.E5);
 
             // assert
             mb.Should().Be(expected);
         }
+
+
 
         [Test]
         public void GetMoveBoard_BishopInD4EnemiesInB2E3FriendsA7F6()
@@ -60,21 +62,15 @@ namespace StrongChess.Model.Tests
             // arrange
             var b = new Bishop(new Square("D4"));
 
-            Bitboard expected = new Square("B2") | new Square("C3") | 
-                new Square("E3") |
-                new Square("C5") | new Square("B6") |
-                new Square("E5") 
-                ;
+            var expected = Bitboard.With.B2.C3.E3.C5.B6.E5.Build();
 
             // act
-            Bitboard mb = b.GetMoveBoard(
-                new Square("A7") | new Square("F6"), 
-                new Square("B2") | new Square("E3")
-                );
+            Bitboard mb = b.GetMoveBoard(Bitboard.With.A7.F6, Bitboard.With.B2.E3);
 
             // assert
             mb.Should().Be(expected);
         }
 
     }
+   
 }

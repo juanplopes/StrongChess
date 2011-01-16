@@ -9,7 +9,8 @@ namespace StrongChess.Model
     {
         private int index;
         public int Index { get { return index; } }
-        public ulong Bitmask { get { return _Bitmasks[index]; } }
+        public Bitboard AsBoard { get { return Bitmask; } }
+        public ulong Bitmask { get { return masks[index]; } }
 
         public bool IsValid
         {
@@ -44,11 +45,11 @@ namespace StrongChess.Model
 
         #region static
 
-        static readonly ulong[] _Bitmasks = new ulong[64];
+        static readonly ulong[] masks = new ulong[64];
         static File()
         {
             for (int i = 0; i < 8; i++)
-                _Bitmasks[i] = 0x0101010101010101ul << i;
+                masks[i] = 0x0101010101010101ul << i;
         }
 
         public static implicit operator int(File file)
@@ -64,13 +65,6 @@ namespace StrongChess.Model
         {
             return new File(file);
         }
-
-
-        public static Bitboard operator |(File file, IBoardUnit bu)
-        {
-            return file.Bitmask | bu.Bitmask;
-        }
-
         #endregion
     }
 

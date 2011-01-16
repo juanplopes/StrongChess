@@ -9,7 +9,13 @@ namespace StrongChess.Model
     public struct Bitboard : IBoardUnit
     {
         private ulong value;
+
         public ulong Value { get { return value; } }
+        public Bitboard AsBoard { get { return this; } }
+        public ulong Bitmask { get { return value; } }
+        public bool IsValid { get { return true; } }
+
+
         public Bitboard(ulong value) : this() { this.value = value; }
 
         public Bitboard Set(params IBoardUnit[] unit)
@@ -59,6 +65,16 @@ namespace StrongChess.Model
             get { return value.PopCount(); }
         }
 
+        public Square HighSquare
+        {
+            get { return value.BitScanReverse(); }
+        }
+
+        public Square LowSquare
+        {
+            get { return value.BitScanForward(); }
+        }
+
         public IEnumerable<Square> GetSetSquares()
         {
             var bcopy = value;
@@ -66,7 +82,7 @@ namespace StrongChess.Model
             {
                 Square lead = bcopy.BitScanForward();
                 yield return lead;
-                bcopy = bcopy & ~lead.Bitmask;
+                bcopy = bcopy & ~lead.AsBoard.value;
             }
         }
 
@@ -103,12 +119,6 @@ namespace StrongChess.Model
             return new Bitboard(board);
         }
 
-
-        public static Bitboard operator |(Bitboard bitboard, IBoardUnit bu)
-        {
-            return new Bitboard(bitboard.Value | bu.Bitmask);
-        }
-
         public override string ToString()
         {
             return "[" + string.Join("; ", GetSetSquares().Select(x => x.ToString()).ToArray()) + "]";
@@ -116,18 +126,5 @@ namespace StrongChess.Model
 
         #endregion
 
-        #region IBoardUnit Members
-
-        public ulong Bitmask
-        {
-            get { return value; }
-        }
-
-        public bool IsValid
-        {
-            get { return true; }
-        }
-
-        #endregion
     }
 }

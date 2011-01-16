@@ -15,110 +15,56 @@ namespace StrongChess.Model.Tests
         [Test]
         public void ctor_DiagonalA1H8()
         {
-            Square[] squares = new Square[] {
-                new Square("A1"),
-                new Square("B2"),
-                new Square("C3"),
-                new Square("D4"),
-                new Square("E5"),
-                new Square("F6"),
-                new Square("G7"),
-                new Square("H8")
-              };
+            var expected = Bitboard.With.A1.B2.C3.D4.E5.F6.G7.H8.Build();
 
-            var expected = new Square("A1") |
-              new Square("B2") |
-              new Square("C3") |
-              new Square("D4") |
-              new Square("E5") |
-              new Square("F6") |
-              new Square("G7") |
-              new Square("H8");
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
 
-            for (int i = 0; i < new Square("Length"); i++)
-            {
-                var d = new DiagonalNE(squares[i]);
-                d.Bitmask.Should().Be(expected.Value);
-            }
         }
 
         [Test]
         public void ctor_DiagonalA4E8()
         {
-            Square[] squares = new Square[] {
-                new Square("A4"),
-                new Square("B5"),
-                new Square("C6"),
-                new Square("D7"),
-                new Square("E8")
-              };
+            var expected = Bitboard.With.A4.B5.C6.D7.E8.Build();
 
-            var expected = new Square("A4") |
-              new Square("B5") |
-              new Square("C6") |
-              new Square("D7") |
-              new Square("E8");
-
-            for (int i = 0; i < new Square("Length"); i++)
-            {
-                var d = new DiagonalNE(squares[i]);
-                d.Bitmask.Should().Be(expected.Value);
-            }
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
         }
 
         [Test]
         public void ctor_DiagonalA7B8()
         {
-            Square[] squares = new Square[] {
-                new Square("A7"),
-                new Square("B8")
-              };
+            var expected = Bitboard.With.A7.B8.Build();
 
-            var expected = new Square("A7") |
-              new Square("B8");
-
-            for (int i = 0; i < new Square("Length"); i++)
-            {
-                var d = new DiagonalNE(squares[i]);
-                ((Bitboard)d.Bitmask).Should().Be((Bitboard)expected.Value);
-            }
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
         }
 
         [Test]
         public void ctor_DiagonalE1H4()
         {
-            Square[] squares = new Square[] {
-                new Square("E1"),
-                new Square("F2"),
-                new Square("G3"),
-                new Square("H4"),
-              };
+            var expected = Bitboard.With.E1.F2.G3.H4.Build();
 
-            var expected = new Square("E1") |
-              new Square("F2") |
-              new Square("G3") |
-              new Square("H4");
-
-
-            for (int i = 0; i < new Square("Length"); i++)
-            {
-                var d = new DiagonalNE(squares[i]);
-                d.Bitmask.Should().Be(expected.Value);
-            }
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
         }
 
         [Test]
         public void ctor_DiagonalH1()
         {
-            var d = new DiagonalNE(new Square("H1"));
-            d.Bitmask.Should().Be(new Square("H1").Bitmask);
+            var expected = Bitboard.With.H1.Build();
+
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
         }
 
         [Test]
         public void ctor_DiagonalA8()
         {
-            var d = new DiagonalNE(new Square("A8"));
-            ((Bitboard)d.Bitmask).Should().Be((Bitboard)new Square("A8").Bitmask);
+            var expected = Bitboard.With.A8.Build();
+
+            foreach (var square in expected.GetSetSquares())
+                square.DiagonalNE.AsBoard.Should().Be(expected);
         }
 
 

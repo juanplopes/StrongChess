@@ -37,7 +37,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq << 9;
-                if (!ne.Contains(newSq)) break;
+                if (!ne.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -48,7 +48,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq >> 9;
-                if (!ne.Contains(newSq)) break;
+                if (!ne.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -59,7 +59,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq << 7;
-                if (!nw.Contains(newSq)) break;
+                if (!nw.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;
@@ -70,7 +70,7 @@ namespace StrongChess.Model.Pieces
             while (true)
             {
                 newSq = newSq >> 7;
-                if (!nw.Contains(newSq)) break;
+                if (!nw.AsBoard.Contains(newSq)) break;
                 //if (friends.Contains(newSq)) break;
                 result = result | newSq;
                 //if (enemies.Contains(newSq)) break;

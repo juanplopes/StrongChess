@@ -18,6 +18,49 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
+        public void ConstructingBoardWithDiagonalA1H8()
+        {
+            var board = Bitboard.With.DiagonalA1H8.Build();
+            board.Should().Be(new Square("B2").DiagonalNE.AsBoard);
+        }
+
+
+        [Test]
+        public void ConstructingBoardWithDiagonalB1H7()
+        {
+            var board = Bitboard.With.DiagonalB1H7.Build();
+            board.Should().Be(new Square("C2").DiagonalNE.AsBoard);
+        }
+
+        [Test]
+        public void ConstructingBoardWithDiagonalA2G8()
+        {
+            var board = Bitboard.With.DiagonalA2G8.Build();
+            board.Should().Be(new Square("B3").DiagonalNE.AsBoard);
+        }
+
+        [Test]
+        public void ConstructingBoardWithDiagonalG1A7()
+        {
+            var board = Bitboard.With.DiagonalG1A7.Build();
+            board.Should().Be(new Square("E3").DiagonalNW.AsBoard);
+        }
+
+        [Test]
+        public void ConstructingBoardWithDiagonalH2B8()
+        {
+            var board = Bitboard.With.DiagonalH2B8.Build();
+            board.Should().Be(new Square("G3").DiagonalNW.AsBoard);
+        }
+
+        [Test]
+        public void ConstructingBoardWithDiagonalH1A8()
+        {
+            var board = Bitboard.With.DiagonalH1A8.Build();
+            board.Should().Be(new Square("G2").DiagonalNW.AsBoard);
+        }
+
+        [Test]
         public void ConstructingBoardWithA1()
         {
             var board = Bitboard.With.A1.Build();

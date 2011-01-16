@@ -2,71 +2,41 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StrongChess.Model.Util;
 
 namespace StrongChess.Model
 {
     public struct DiagonalNW : IBoardUnit
     {
-        public DiagonalNW(Square square)
-            : this()
-        {
-            this.Bitmask = _Bitmasks[square];
-        }
-
-        public ulong Bitmask
-        {
-            get;
-            private set;
-        }
+        int index;
+        public int Index { get { return index; } }
+        public ulong Bitmask { get { return masks[index]; } }
+        public Bitboard AsBoard { get { return Bitmask; } }
 
         public bool IsValid
         {
-            get { return this.Bitmask > 0; }
+            get { return index >= 0 && index <= 14; }
         }
 
-        public bool Contains(IBoardUnit bu)
-        {
-            return (this.Bitmask & bu.Bitmask) > 0;
-        }
+        public DiagonalNW(int index) : this() { this.index = index; }
 
-        public bool Contains(ulong board)
-        {
-            return (this.Bitmask & board) > 0;
-        }
 
         #region static
-        static ulong[] _Bitmasks = new ulong[64];
+        static Bitboard[] masks = new Bitboard[15];
         static DiagonalNW()
         {
-            for (int i = 7; i >= 0; i--)
-            {
-                ulong diagonalH = 0;
-                ulong diagonalV = 0;
-                for (int j = 0; j < 8 - (7 - i); j++)
-                {
-                    diagonalH |= ((1ul << i) << (7 * j));
-                    diagonalV |= (((1ul << 7) << (8 * (7 - i)) << (7 * j)));
-                }
+            var initial = Bitboard.With.H1.G2.F3.E4.D5.C6.B7.A8.Build();
 
-                for (int j = 0; j < 8 - (7 - i); j++)
-                {
-                    _Bitmasks[i + (j * 7)] = diagonalH;
-                    _Bitmasks[8 * (8 - i) - 1 + (7 * j)] = diagonalV;
-                }
+            masks[7] = initial;
 
-            }
+            for (int i = 6; i >= 0; i--)
+                masks[i] = masks[i + 1].Clear(masks[i + 1].LowSquare) >> 8;
+
+            for (int i = 8; i < 15; i++)
+                masks[i] = masks[i - 1].Clear(masks[i - 1].LowSquare) << 1;
 
         }
-
-        public static Bitboard operator |(DiagonalNW diagonal, IBoardUnit bu)
-        {
-            return diagonal.Bitmask | bu.Bitmask;
-        }
-
-        public static implicit operator Bitboard(DiagonalNW diagonal)
-        {
-            return new Bitboard(diagonal.Bitmask);
-        }
+       
         #endregion
     }
 }

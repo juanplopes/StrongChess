@@ -12,15 +12,16 @@ namespace StrongChess.Model
 
         public Rank Rank { get { return index >> 3; } }
         public File File { get { return index & 7; } }
-        public DiagonalNE DiagonalNE { get { return new DiagonalNE(this); } }
-        public DiagonalNW DiagonalNW { get { return new DiagonalNW(this); } }
+        public DiagonalNE DiagonalNE { get { return new DiagonalNE(File - Rank); } }
+        public DiagonalNW DiagonalNW { get { return new DiagonalNW(File + Rank); } }
 
         public bool IsValid
         {
             get { return File.IsValid && Rank.IsValid; }
         }
 
-        public ulong Bitmask { get { return _Bitmasks[index]; } }
+        public Bitboard AsBoard { get { return Bitmask; } }
+        public ulong Bitmask { get { return masks[index]; } }
 
         public Square(int index) : this() { this.index = index; }
         public Square(Rank rank, File file) : this(IndexOf(rank, file)) { }
@@ -40,12 +41,12 @@ namespace StrongChess.Model
         }
 
 
-        static readonly ulong[] _Bitmasks = new ulong[64];
+        static readonly ulong[] masks = new ulong[64];
         static Square()
         {
             for (Rank i = 0; i < 8; i++)
                 for (File j = 0; j < 8; j++)
-                    _Bitmasks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
+                    masks[IndexOf(i, j)] = i.Bitmask & j.Bitmask;
         }
 
 
@@ -64,15 +65,6 @@ namespace StrongChess.Model
             return new Square(square);
         }
 
-        public static Bitboard operator |(Square square, IBoardUnit bu)
-        {
-            return square.Bitmask | bu.Bitmask;
-        }
-
-        public static implicit operator Bitboard(Square square)
-        {
-            return new Bitboard(square.Bitmask);
-        }
         #endregion
     }
 }

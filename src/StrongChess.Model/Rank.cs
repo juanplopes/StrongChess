@@ -9,7 +9,8 @@ namespace StrongChess.Model
     {
         private int index;
         public int Index { get { return index; } }
-        public ulong Bitmask { get { return _Bitmasks[index]; } }
+        public Bitboard AsBoard { get { return Bitmask; } }
+        public ulong Bitmask { get { return masks[index]; } }
 
         public bool IsValid
         {
@@ -42,11 +43,11 @@ namespace StrongChess.Model
         }
 
         #region static
-        static readonly ulong[] _Bitmasks = new ulong[64];
+        static readonly ulong[] masks = new ulong[64];
         static Rank()
         {
             for (int i = 0; i < 8; i++)
-                _Bitmasks[i] = 0xFFul << i * 8;
+                masks[i] = 0xFFul << i * 8;
         }
 
         public static implicit operator int(Rank rank)
@@ -62,11 +63,6 @@ namespace StrongChess.Model
         public static implicit operator Rank(string rank)
         {
             return new Rank(rank);
-        }
-
-        public static Bitboard operator |(Rank rank, IBoardUnit bu)
-        {
-            return rank.Bitmask | bu.Bitmask;
         }
 
         #endregion
