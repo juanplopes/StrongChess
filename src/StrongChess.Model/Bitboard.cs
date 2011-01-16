@@ -12,7 +12,6 @@ namespace StrongChess.Model
 
         public ulong Value { get { return value; } }
         public Bitboard AsBoard { get { return this; } }
-        public ulong Bitmask { get { return value; } }
         public bool IsValid { get { return true; } }
 
 
@@ -71,15 +70,6 @@ namespace StrongChess.Model
             get { return value.PopCount(); }
         }
 
-        public Square HighSquare
-        {
-            get { return value.BitScanReverse(); }
-        }
-
-        public Square LowSquare
-        {
-            get { return value.BitScanForward(); }
-        }
 
         public IEnumerable<Square> GetSetSquares()
         {

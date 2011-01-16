@@ -10,7 +10,7 @@ namespace StrongChess.Model.Util
         private Bitboard result;
         private bool inverted;
 
-        public BoardBuilder(Bitboard board, bool inverted)
+        private BoardBuilder(Bitboard board, bool inverted)
             : this()
         {
             this.result = board;
