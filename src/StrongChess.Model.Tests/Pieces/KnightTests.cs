@@ -12,7 +12,7 @@ namespace StrongChess.Model.Tests.Pieces
     public partial class KnightTests
     {
         [Test]
-        public void GetKnightAttacksBitboad_A1_ReturnsC2andB3()
+        public void GetMoveBoard_A1_ReturnsC2andB3()
         {
             var test = Rules.For<Knight>().GetMoveBoard("A1");
 
@@ -20,7 +20,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_H1_ReturnsF2andG3()
+        public void GetMoveBoard_H1_ReturnsF2andG3()
         {
             var test = Rules.For<Knight>().GetMoveBoard("H1");
 
@@ -29,7 +29,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_H8_ReturnsF7andG6()
+        public void GetMoveBoard_H8_ReturnsF7andG6()
         {
             var test = Rules.For<Knight>().GetMoveBoard("H8");
 
@@ -37,7 +37,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_A8_ReturnsC7andB6()
+        public void GetMoveBoard_A8_ReturnsC7andB6()
         {
             var test = Rules.For<Knight>().GetMoveBoard("A8");
 
@@ -45,7 +45,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_B1_ReturnsA3andC3andD2()
+        public void GetMoveBoard_B1_ReturnsA3andC3andD2()
         {
             var test = Rules.For<Knight>().GetMoveBoard("B1");
 
@@ -53,7 +53,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_G8_ReturnsH6andF6andE7()
+        public void GetMoveBoard_G8_ReturnsH6andF6andE7()
         {
             var test = Rules.For<Knight>().GetMoveBoard("G8");
 
@@ -61,7 +61,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboad_E4_ReturnsF6G5G3F2D2C3C5D6()
+        public void GetMoveBoard_E4_ReturnsF6G5G3F2D2C3C5D6()
         {
             var test = Rules.For<Knight>().GetMoveBoard("E4");
 
@@ -69,7 +69,7 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboard_H4_ReturnsF3G2G6F5()
+        public void GetMoveBoard_H4_ReturnsF3G2G6F5()
         {
             var test = Rules.For<Knight>().GetMoveBoard("H4");
 
@@ -80,7 +80,7 @@ namespace StrongChess.Model.Tests.Pieces
 
 
         [Test]
-        public void GetKnightAttacksBitboard_B1BitboardAndFriendsA4B5D5E4_ReturnsD2A3C3()
+        public void GetMoveBoard_B1BitboardAndFriendsA4B5D5E4_ReturnsD2A3C3()
         {
             var friends = Bitboard.With.A4.B5.D5.E4.Build();
             var expected = Bitboard.With.D2.A3.C3.Build();
@@ -92,13 +92,13 @@ namespace StrongChess.Model.Tests.Pieces
         }
 
         [Test]
-        public void GetKnightAttacksBitboard_B1BitboardAndFriendsA4B5D5E4EnemyInD2_ReturnsD2A3C3()
+        public void GetMoveBoard_B1BitboardAndFriendsA4B5D5E4EnemyInD2_ReturnsD2A3C3()
         {
             var friends = Bitboard.With.A4.B5.D5.E4.Build();
             var enemy = Bitboard.With.D2.Build();
             var expected = Bitboard.With.D2.A3.C3.Build();
 
-            var test = Rules.For<Knight>().GetMoveBoard("D2");
+            var test = Rules.For<Knight>().GetMoveBoard("B1");
 
             test.Should().Be(expected);
 
