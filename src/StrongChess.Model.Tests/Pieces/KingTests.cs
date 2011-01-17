@@ -85,7 +85,14 @@ namespace StrongChess.Model.Tests.Pieces
             test.Should().Be(expected);
         }
 
-
-
+        [Test]
+        public void GetKingAttacksBitboard_E4AndFriendsD3E3F3D4EnemyInF4_ReturnsF4D5E5F5()
+        {
+            var friends = Bitboard.With.D3.E3.F3.D4.Build();
+            var enemy = Bitboard.With.F4.Build();
+            var test = Rules.For<King>().GetMoveBoard("E4", friends, enemy);
+            var expected = Bitboard.With.F4.D5.E5.F5.Build();
+            test.Should().Be(expected);
+        }
     }
 }
