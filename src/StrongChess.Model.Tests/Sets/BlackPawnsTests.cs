@@ -102,6 +102,16 @@ namespace StrongChess.Model.Tests.Sets
                 new Move("B5", "B4", MoveTypes.Normal));
         }
 
+        [Test]
+        public void GetMoveBoard_InitialPosition_ReturnsRank6Rank5()
+        {
+            var bp = BlackPawns.InitialPosition;
+            var expected = Bitboard.With.Rank6.Rank5.Build();
+
+            var result = bp.GetMoveBoard(Bitboard.Full, Bitboard.Empty, null);
+
+            result.Should().Be(expected);
+        }
 
 
         [Test]
@@ -167,5 +177,18 @@ namespace StrongChess.Model.Tests.Sets
                 new Move("H5", "G4", MoveTypes.Normal));
 
         }
+
+        [Test]
+        public void GetCapturesMoveBoard_PawnsInD4E4EnemyInF3_ReturnsF3()
+        {
+            var pawns = Bitboard.With.D4.E4.Build();
+            var enemy = Bitboard.With.F3.Build();
+            var wp = new BlackPawns(pawns);
+
+            var result = wp.GetCapturesMoveBoard(Bitboard.Full, enemy, null);
+
+            result.Should().Be(enemy);
+        }
+    
     }
 }

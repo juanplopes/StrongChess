@@ -21,6 +21,10 @@ namespace StrongChess.Model.Sets
         IEnumerable<Move> GetMovesOneSquareForward(Bitboard notblockers);
         IEnumerable<Move> GetMovesTwoSquaresForward();
         IEnumerable<Move> GetMovesTwoSquaresForward(Bitboard notblockers);
+
+        Bitboard GetMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant);
+        Bitboard GetCapturesMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant);
+
         bool IsValid { get; }
     }
 }

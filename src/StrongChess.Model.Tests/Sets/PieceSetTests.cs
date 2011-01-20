@@ -86,7 +86,6 @@ namespace StrongChess.Model.Tests.Sets
             PieceSet<Knight> knights = new PieceSet<Knight>(
                 friends
                 );
-            Bitboard expected = Bitboard.With.A3.D2.A2.A4.B5.D5.E4.E2.D1;
 
             // act 
             var result = knights.GetMoves(friends, Bitboard.With.D1, true);
@@ -95,6 +94,22 @@ namespace StrongChess.Model.Tests.Sets
             result.Should().Have.SameSequenceAs(
                 new Move("C3", "D1")
                 );
+        }
+
+        [Test]
+        public void GetMoveBoard_KnightsInB1C3EnemyInD1OnlyCaptures_ReturnsMoveFromC3ToD1()
+        {
+            // arrange
+            var friends = Bitboard.With.B1.C3;
+            PieceSet<Knight> knights = new PieceSet<Knight>(
+                friends
+                );
+
+            // act 
+            var result = knights.GetMoveBoard(friends, Bitboard.With.D1, true);
+
+            // assert
+            result.Should().Be(Bitboard.With.D1.Build());
         }
     }
 }

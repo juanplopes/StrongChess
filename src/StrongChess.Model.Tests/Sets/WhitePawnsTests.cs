@@ -235,6 +235,29 @@ namespace StrongChess.Model.Tests.Sets
         }
 
         [Test]
+        public void GetMoveBoard_InitialPosition_ReturnsRank3Rank4()
+        {
+            var wp = WhitePawns.InitialPosition;
+            var expected = Bitboard.With.Rank3.Rank4.Build();
+
+            var result = wp.GetMoveBoard(Bitboard.Full, Bitboard.Empty, null);
+
+            result.Should().Be(expected);
+        }
+
+        [Test]
+        public void GetCapturesMoveBoard_PawnsInD4E4EnemyInF5_ReturnsF5()
+        {
+            var pawns = Bitboard.With.D4.E4.Build();
+            var enemy = Bitboard.With.F5.Build();
+            var wp = new WhitePawns(pawns);
+
+            var result = wp.GetCapturesMoveBoard(Bitboard.Full, enemy, null);
+
+            result.Should().Be(enemy);
+        }
+
+        [Test]
         public void GetCaptures_H4EnemiesG5_ReturnsNormalH4G5()
         {
             var wp = new WhitePawns(

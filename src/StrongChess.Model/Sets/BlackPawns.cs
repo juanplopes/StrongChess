@@ -92,6 +92,29 @@ namespace StrongChess.Model.Sets
             }
         }
 
+        public Bitboard GetMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant)
+        {
+            var onesquarforward = (this.Locations >> 8 & notblockers);
+
+            var twosquaresforward = Locations
+                .Intersect(new Rank(6))
+                .Shift(-1, 0).Intersect(notblockers)
+                .Shift(-1, 0).Intersect(notblockers);
+
+            return onesquarforward | twosquaresforward |
+                GetCapturesMoveBoard(notblockers, enemies, enpassant);
+        }
+
+        public Bitboard GetCapturesMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant)
+        {
+            if (enpassant != null)
+                enemies &= new Bitboard().Set((Square)enpassant);
+
+            var bleft = Locations.Clear(new File(7)).Shift(-1, +1).Intersect(enemies);
+            var bright = Locations.Clear(new File(0)).Shift(-1, -1).Intersect(enemies);
+            return bleft | bright;
+        }
+
         private IEnumerable<Move> GetMoves(Bitboard b, int offsetFrom)
         {
             foreach (var to in b.GetSettedSquares())

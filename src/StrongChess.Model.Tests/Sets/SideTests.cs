@@ -25,7 +25,7 @@ namespace StrongChess.Model.Tests.Sets
         }
 
         [Test]
-        public void GetMoves_WhiteInitialPosition_ConvertsRanks3And4()
+        public void GetMoves_WhiteInitialPosition_CoversRanks3And4()
         {
             // arrange
             var w = Side.WhiteInitialPosition;
@@ -33,6 +33,20 @@ namespace StrongChess.Model.Tests.Sets
 
             // act 
             var moves = w.GetMoves(Bitboard.Empty, null).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
+
+        [Test]
+        public void GetMoveBoard_WhiteInitialPosition_CoversRanks3And4()
+        {
+            // arrange
+            var w = Side.WhiteInitialPosition;
+            var expected = Bitboard.With.Rank3.Rank4.Build();
+
+            // act 
+            var moves = w.GetMoveBoard(Bitboard.Empty, null);
 
             // assert
             moves.Should().Be(expected);

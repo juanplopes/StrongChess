@@ -22,12 +22,15 @@ namespace StrongChess.Model.Sets
 	        }
         }
 
-        public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies)
+        public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies, bool onlyCaptures = false)
         {
             var moveboards = from f in Locations.GetSettedSquares()
                              select Rules.For<TPieceRule>().GetMoveBoard(f, friends, enemies);
 
-            return moveboards.Aggregate((a, b) => a | b);
+            var result = moveboards.Aggregate((a, b) => a | b);
+            if (onlyCaptures) result &= enemies;
+
+            return result;
         }
     }
 }

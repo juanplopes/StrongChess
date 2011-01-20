@@ -47,6 +47,28 @@ namespace StrongChess.Model.Sets
                 bishops.Locations | knights.Locations | pawns.Locations;
         }
 
+        public Bitboard GetCapturesMoveBoard(Bitboard enemies, Square? enpassant)
+        {
+            var notblockers = ~(this.Occupation | enemies);
+            return _King.GetMoveBoard(Occupation, enemies, true) |
+                Queens.GetMoveBoard(Occupation, enemies, true) |
+                Bishops.GetMoveBoard(Occupation, enemies, true) |
+                Knights.GetMoveBoard(Occupation, enemies, true) |
+                Rooks.GetMoveBoard(Occupation, enemies, true) |
+                Pawns.GetCapturesMoveBoard(notblockers, enemies, enpassant);
+        }
+
+        public Bitboard GetMoveBoard(Bitboard enemies, Square? enpassant)
+        {
+            var notblockers = ~(this.Occupation | enemies);
+            return _King.GetMoveBoard(Occupation, enemies) |
+                Queens.GetMoveBoard(Occupation, enemies) |
+                Bishops.GetMoveBoard(Occupation, enemies) |
+                Knights.GetMoveBoard(Occupation, enemies) |
+                Rooks.GetMoveBoard(Occupation, enemies) |
+                Pawns.GetMoveBoard(notblockers, enemies, enpassant);
+        }
+
         public IEnumerable<Move> GetMoves(Bitboard enemies, Square? enpassant)
         {
             Bitboard notblockers = ~(Occupation | enemies);
@@ -58,6 +80,20 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetAllMoves(notblockers, enemies, enpassant));
         }
 
+        public IEnumerable<Move> GetCaptures(Bitboard enemies, Square? enpassant)
+        {
+            return _King.GetMoves(Occupation, enemies, true)
+                .Union(Queens.GetMoves(Occupation, enemies, true))
+                .Union(Rooks.GetMoves(Occupation, enemies, true))
+                .Union(Bishops.GetMoves(Occupation, enemies, true))
+                .Union(Knights.GetMoves(Occupation, enemies, true))
+                .Union(Pawns.GetCaptures(enemies, enpassant));
+        }
+
+        //public bool InCheck(Side enemy)
+        //{
+        //    return (enemy.GetCaptures(this.Occupation, null) & _King) == _King;
+        //}
 
         public static Side WhiteInitialPosition
         {
