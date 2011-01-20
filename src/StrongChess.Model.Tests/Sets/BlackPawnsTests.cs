@@ -6,7 +6,7 @@ using NUnit.Framework;
 using SharpTestsEx;
 using StrongChess.Model.Sets;
 
-namespace StrongChess.Model.Tests.Pieces
+namespace StrongChess.Model.Tests.Sets
 {
     [TestFixture]
     class BlackPawnsTests
@@ -45,7 +45,7 @@ namespace StrongChess.Model.Tests.Pieces
         {
             var bp = BlackPawns.InitialPosition;
             var expected = Bitboard.With.Rank7.Build();
-            bp.Bitboard.Should().Be(expected);
+            bp.Locations.Should().Be(expected);
         }
 
         // ------------------------

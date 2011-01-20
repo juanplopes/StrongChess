@@ -6,7 +6,7 @@ using NUnit.Framework;
 using StrongChess.Model.Sets;
 using SharpTestsEx;
 
-namespace StrongChess.Model.Tests.Pieces
+namespace StrongChess.Model.Tests.Sets
 {
     [TestFixture]
     public class WhitePawnsTests
@@ -66,7 +66,7 @@ namespace StrongChess.Model.Tests.Pieces
                 .Set(new Square("G2"))
                 .Set(new Square("H2"));
 
-            wp.Bitboard.Should().Be(expected);
+            wp.Locations.Should().Be(expected);
         }
 
         [Test]

@@ -71,7 +71,7 @@ namespace StrongChess.Model
         }
 
 
-        public IEnumerable<Square> GetSetSquares()
+        public IEnumerable<Square> GetSettedSquares()
         {
             var bcopy = value;
             while (bcopy != 0)
@@ -117,7 +117,7 @@ namespace StrongChess.Model
 
         public override string ToString()
         {
-            return "[" + string.Join("; ", GetSetSquares().Select(x => x.ToString()).ToArray()) + "]";
+            return "[" + string.Join("; ", GetSettedSquares().Select(x => x.ToString()).ToArray()) + "]";
         }
 
         #endregion

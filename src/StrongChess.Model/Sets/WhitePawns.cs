@@ -7,12 +7,12 @@ namespace StrongChess.Model.Sets
 {
     public struct WhitePawns : IPawns
     {
-        public Bitboard Bitboard { get; private set; }
+        public Bitboard Locations { get; private set; }
 
-        public WhitePawns(Bitboard bitboard)
+        public WhitePawns(Bitboard locations)
             : this()
         {
-            this.Bitboard = bitboard;
+            this.Locations = locations;
         }
 
         public static WhitePawns InitialPosition
@@ -49,11 +49,11 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetMovesTwoSquaresForward
             (Bitboard notblockers)
         {
-            var b = Bitboard.Intersect(new Rank(1));
+            var b = Locations.Intersect(new Rank(1));
             b = b.Shift(1, 0).Intersect(notblockers);
             b = b.Shift(1, 0).Intersect(notblockers);
             
-            foreach(var to in b.GetSetSquares())
+            foreach(var to in b.GetSettedSquares())
             {
                 Square from = to - 16;
                 b = b.Clear(to);
@@ -67,8 +67,8 @@ namespace StrongChess.Model.Sets
             if (enpassant != null)
                 enemies &= new Bitboard().Set((Square)enpassant);
 
-            var bleft = Bitboard.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
-            var bright = Bitboard.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
+            var bleft = Locations.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
+            var bright = Locations.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
 
             return GetMoves(bleft, 7).Union(GetMoves(bright, 9));
 
@@ -77,7 +77,7 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetMovesOneSquareForward
             (Bitboard notblockers)
         {
-            Bitboard b = (this.Bitboard << 8 & notblockers);
+            Bitboard b = (this.Locations << 8 & notblockers);
             return GetMoves(b, 8);
         }
 
@@ -85,7 +85,7 @@ namespace StrongChess.Model.Sets
 
         private IEnumerable<Move> GetMoves(Bitboard b, int offsetFrom)
         {
-            foreach (var to in b.GetSetSquares())
+            foreach (var to in b.GetSettedSquares())
             {
                 Square from = to - offsetFrom;
                 b = b.Clear(to);
@@ -108,9 +108,9 @@ namespace StrongChess.Model.Sets
         {
             get
             {
-                return this.Bitboard.BitCount <= 8 &&
-                    this.Bitboard.IsClear(new Rank(0)) &&
-                    this.Bitboard.IsClear(new Rank(7));
+                return this.Locations.BitCount <= 8 &&
+                    this.Locations.IsClear(new Rank(0)) &&
+                    this.Locations.IsClear(new Rank(7));
             }
         }
 

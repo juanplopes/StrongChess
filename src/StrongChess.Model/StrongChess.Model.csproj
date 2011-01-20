@@ -45,6 +45,8 @@
     </Compile>
     <Compile Include="Bitboard.cs" />
     <Compile Include="Pieces\Rules.cs" />
+    <Compile Include="Sets\PieceSet.cs" />
+    <Compile Include="Sets\Side.cs" />
     <Compile Include="Util\BoardBuilder.cs" />
     <Compile Include="Util\BoardShifter.cs" />
     <None Include="Util\BoardBuilder.tt">

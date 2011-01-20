@@ -76,7 +76,7 @@ namespace StrongChess.Model.Tests.Units
         public void FileAShouldContainAllA()
         {
             File file = "A";
-            file.AsBoard.GetSetSquares().Should().Have.SameSequenceAs(
+            file.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs(
                 "A1", "A2", "A3", "A4", "A5", "A6", "A7", "A8");
         }
 
@@ -84,7 +84,7 @@ namespace StrongChess.Model.Tests.Units
         public void BitmaskForRank7()
         {
             File file = "H";
-            file.AsBoard.GetSetSquares().Should().Have.SameSequenceAs(
+            file.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs(
                 "H1", "H2", "H3", "H4", "H5", "H6", "H7", "H8");
         }
 

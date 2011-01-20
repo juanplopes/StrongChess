@@ -5,7 +5,7 @@ namespace StrongChess.Model.Sets
 {
     public interface IPawns
     {
-        Bitboard Bitboard { get; }
+        Bitboard Locations { get; }
         IEnumerable<Move> GetAllMoves(
             Bitboard notblockers,
             Bitboard enemies,

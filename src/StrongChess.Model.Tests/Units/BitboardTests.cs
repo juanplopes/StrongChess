@@ -197,7 +197,7 @@ namespace StrongChess.Model.Tests.Units
             var bitboard = new Bitboard().Set(new Square("A1"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("A1"), result);
@@ -210,7 +210,7 @@ namespace StrongChess.Model.Tests.Units
             var bitboard = new Bitboard().Set(new Square("B1"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("B1"), result);
@@ -223,7 +223,7 @@ namespace StrongChess.Model.Tests.Units
             var bitboard = new Bitboard().Set(new Square("A1"), new Square("B1"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("A1"), result);
@@ -238,7 +238,7 @@ namespace StrongChess.Model.Tests.Units
                 .Set(new Square("H2"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("A1"), result);
@@ -253,7 +253,7 @@ namespace StrongChess.Model.Tests.Units
                 .Set(new Square("H2"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("H2"), result);
@@ -268,7 +268,7 @@ namespace StrongChess.Model.Tests.Units
                 .Set(new Square("H4"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("H4"), result);
@@ -284,7 +284,7 @@ namespace StrongChess.Model.Tests.Units
                 .Set(new Square("H6"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("H6"), result);
@@ -299,7 +299,7 @@ namespace StrongChess.Model.Tests.Units
                 .Set(new Square("D5"));
 
             // act
-            var result = bitboard.GetSetSquares().First();
+            var result = bitboard.GetSettedSquares().First();
 
             // assert
             Assert.AreEqual(new Square("A1"), result);
@@ -314,14 +314,14 @@ namespace StrongChess.Model.Tests.Units
             {
                 var sq = new Square(i);
                 var bitboard = new Bitboard().Set(sq);
-                Assert.AreEqual(sq, bitboard.GetSetSquares().First());
+                Assert.AreEqual(sq, bitboard.GetSettedSquares().First());
             }
         }
 
         [Test]
         public void GetLeadingSquare_Empty_ReturnsINVALID()
         {
-            new Bitboard().GetSetSquares().Should().Be.Empty();
+            new Bitboard().GetSettedSquares().Should().Be.Empty();
         }
 
         [Test]
@@ -332,7 +332,7 @@ namespace StrongChess.Model.Tests.Units
             {
                 var sq = new Square(i);
                 bitboard = bitboard.Set(sq);
-                bitboard.GetSetSquares().First().Should().Be(sq);
+                bitboard.GetSettedSquares().First().Should().Be(sq);
             }
         }
 

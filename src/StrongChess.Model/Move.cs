@@ -45,4 +45,15 @@ namespace StrongChess.Model
             return string.Format("{0} > {1} ({2})", From, To, Type);
         }
     }
+
+    public static class MoveExtensionMethods
+    {
+        public static Bitboard AsMoveboard(this IEnumerable<Move> moves)
+        {
+            var targets = from m in moves
+                          select m.To.AsBoard;
+
+            return targets.Aggregate((a, b) => a | b);
+        }
+    }
 }
