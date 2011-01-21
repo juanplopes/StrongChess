@@ -59,6 +59,7 @@
     <Compile Include="Sets\SideTests.cs" />
     <Compile Include="Units\BitboardTests.cs" />
     <Compile Include="Units\SquaresNETests.cs" />
+    <Compile Include="Units\SquaresNTests.cs" />
     <Compile Include="Units\SquaresNWTests.cs" />
     <Compile Include="Units\SquaresSETests.cs" />
     <Compile Include="Units\SquaresSWTests.cs" />

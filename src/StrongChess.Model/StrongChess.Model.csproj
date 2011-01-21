@@ -47,6 +47,7 @@
     <Compile Include="Pieces\Rules.cs" />
     <Compile Include="Sets\PieceSet.cs" />
     <Compile Include="Sets\Side.cs" />
+    <Compile Include="SquaresN.cs" />
     <Compile Include="SquaresNE.cs" />
     <Compile Include="SquaresNW.cs" />
     <Compile Include="SquaresSE.cs" />
