@@ -90,16 +90,34 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemies, enpassant));
         }
 
-        //public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)
-        //{
-        //    var allpieces = enemies | Occupation;
-        //    var blockers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
-        //    blockers = blockers & (_King.Locations | Rooks.Locations | Knights.Locations | Pawns.Locations);
+        public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)
+        {
+            var allpieces = enemies | Occupation;
+            var blockers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+            blockers = blockers & (_King.Locations | Rooks.Locations | Knights.Locations | Pawns.Locations);
 
-        //    allpieces = allpieces & ~blockers;
-        //    var checkers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
-        //    checkers = checkers & (Bishops.Locations | Queens.Locations);
-        //}
+            allpieces = allpieces & ~blockers;
+            var checkers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+            checkers = checkers & (Bishops.Locations | Queens.Locations);
+
+            var ne = new SquaresNE(target).AsBoard;
+            if ((ne & checkers) == 0)
+                blockers &= ~ne;
+
+            var nw = new SquaresNW(target).AsBoard;
+            if ((nw & checkers) == 0)
+                blockers &= ~nw;
+
+            var se = new SquaresSE(target).AsBoard;
+            if ((se & checkers) == 0)
+                blockers &= ~se;
+
+            var sw = new SquaresSW(target).AsBoard;
+            if ((sw & checkers) == 0)
+                blockers &= ~sw;
+
+            return blockers;
+        }
 
         #region static
         public static Side WhiteInitialPosition
