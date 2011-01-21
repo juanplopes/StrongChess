@@ -93,8 +93,25 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetDiscoveredDiagonalAttackMoves(Square target, Bitboard enemies)
         {
             var filterFrom = GetBlockersToDiagonalAttacks(target, enemies);
-            return Knights.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full)
+
+            var result = Knights.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full)
                 .Union(Rooks.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full));
+
+            if ((_King.Locations & filterFrom) > 0)
+            {
+                var kl = KingLocation;
+                int offset = target - kl ;
+                Bitboard filterTo = Bitboard.Full;
+
+                if (offset % 9 == 0)
+                    filterTo = ~(kl.AsBoard.Shift(1, 1) | kl.AsBoard.Shift(-1, -1));
+                else if (offset % 7 == 0)
+                    filterTo = ~(kl.AsBoard.Shift(1, -1) | kl.AsBoard.Shift(-1, 1));
+
+                result = result.Union(_King.GetMoves(Occupation, enemies, filterFrom, filterTo));
+            }
+
+            return result;
         }
 
         public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)

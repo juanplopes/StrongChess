@@ -169,5 +169,89 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             moves.Should().Be(expected);
         }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopA1KingD4TargetInF6()
+        {
+            // arrange
+            var s = new Side("D4",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.A1),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns()
+                );
+
+            var expected = Bitboard.With.C4.C5.D5.E4.E3.D3.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("F6", Bitboard.Empty).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopH8KingF6TargetInC3()
+        {
+            // arrange
+            var s = new Side("F6",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.H8),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns()
+                );
+
+            var expected = Bitboard.With.F7.E7.G6.E6.F5.G5.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("C3", Bitboard.Empty).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopA8KingC6TargetInF3()
+        {
+            // arrange
+            var s = new Side("C6",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.A8),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns()
+                );
+
+            var expected = Bitboard.With.C7.D7.B6.D6.B5.C5.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("F3", Bitboard.Empty).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopH1KingF3TargetInC6()
+        {
+            // arrange
+            var s = new Side("F3",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.H1),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns()
+                );
+
+            var expected = Bitboard.With.F4.G4.E3.G3.E2.F2.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("C6", Bitboard.Empty).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
     }
 }
