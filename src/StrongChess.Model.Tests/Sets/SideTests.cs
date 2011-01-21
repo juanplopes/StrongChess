@@ -253,5 +253,77 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             moves.Should().Be(expected);
         }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopH1WhitePawnsInitialPositionTargetInC6()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.H1),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                WhitePawns.InitialPosition
+                );
+
+            //var expected = Bitboard.With.F4.G4.E3.G3.E2.F2.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("C6", Bitboard.Empty);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("G2", "G3"),
+                new Move("G2", "G4")
+                );
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopH8BlackPawnsInitialPositionTargetInC3()
+        {
+            // arrange
+            var s = new Side("G8",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.H8),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                BlackPawns.InitialPosition
+                );
+
+            //var expected = Bitboard.With.F4.G4.E3.G3.E2.F2.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("C3", Bitboard.Empty);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("G7", "G6"),
+                new Move("G7", "G5")
+                );
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopH8BlackPawnF6WhitePawnG5TargetInC3()
+        {
+            // arrange
+            var s = new Side("G8",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.H8),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new BlackPawns(new Square("F6").AsBoard)
+                );
+
+            //var expected = Bitboard.With.F4.G4.E3.G3.E2.F2.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("C3", Bitboard.With.G5.Build());
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("F6", "F5"),
+                new Move("F6", "G5")
+                );
+        }
     }
 }

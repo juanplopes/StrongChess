@@ -49,9 +49,16 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetMovesTwoSquaresForward
             (Bitboard notblockers)
         {
-            var b = Locations.Intersect(new Rank(1));
+            return GetMovesTwoSquaresForward(notblockers, Bitboard.Full, Bitboard.Full);
+        }
+
+        public IEnumerable<Move> GetMovesTwoSquaresForward
+            (Bitboard notblockers, Bitboard filterFrom, Bitboard filterTo)
+        {
+            var b = Locations.Intersect(new Rank(1)).Intersect(filterFrom);
             b = b.Shift(1, 0).Intersect(notblockers);
             b = b.Shift(1, 0).Intersect(notblockers);
+            b = b.Intersect(filterTo);
             
             foreach(var to in b.GetSettedSquares())
             {
@@ -64,11 +71,21 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetCaptures
             (Bitboard enemies, Square? enpassant = null)
         {
+            return GetCaptures(enemies, Bitboard.Full, Bitboard.Full, enpassant);
+
+        }
+
+        public IEnumerable<Move> GetCaptures
+            (Bitboard enemies, Bitboard filterFrom, Bitboard filterTo, Square? enpassant = null)
+        {
             if (enpassant != null)
                 enemies &= new Bitboard().Set((Square)enpassant);
 
-            var bleft = Locations.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
-            var bright = Locations.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
+            enemies &= filterTo;
+
+            Bitboard l = Locations.Intersect(filterFrom);
+            var bleft = l.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
+            var bright = l.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
 
             return GetMoves(bleft, 7).Union(GetMoves(bright, 9));
 
@@ -80,6 +97,16 @@ namespace StrongChess.Model.Sets
             Bitboard b = (this.Locations << 8 & notblockers);
             return GetMoves(b, 8);
         }
+        
+        public IEnumerable<Move> GetMovesOneSquareForward
+            (Bitboard notblockers, Bitboard filterFrom, Bitboard filterTo)
+        {
+            Bitboard l = this.Locations & filterFrom;
+            Bitboard b = (l << 8 & notblockers);
+            b &= filterTo;
+            return GetMoves(b, 8);
+        }
+        
 
         public Bitboard GetMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant)
         {
@@ -93,6 +120,7 @@ namespace StrongChess.Model.Sets
             return onesquarforward | twosquaresforward |
                 GetCapturesMoveBoard(notblockers, enemies, enpassant);
         }
+
 
         public Bitboard GetCapturesMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant)
         {

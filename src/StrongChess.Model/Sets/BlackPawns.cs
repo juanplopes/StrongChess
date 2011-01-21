@@ -50,11 +50,19 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetCaptures
             (Bitboard enemies, Square? enpassant = null)
         {
+            return GetCaptures(enemies, Bitboard.Full, Bitboard.Full, enpassant);
+        }
+
+        public IEnumerable<Move> GetCaptures
+            (Bitboard enemies, Bitboard filterFrom, Bitboard filterTo, Square? enpassant = null)
+        {
             if (enpassant != null)
                 enemies &= new Bitboard().Set((Square)enpassant);
 
-            var bleft = Locations.Clear(new File(7)).Shift(-1, +1).Intersect(enemies);
-            var bright = Locations.Clear(new File(0)).Shift(-1, -1).Intersect(enemies);
+            enemies &= filterTo;
+            Bitboard l = Locations.Intersect(filterFrom);
+            var bleft = l.Clear(new File(7)).Shift(-1, +1).Intersect(enemies);
+            var bright = l.Clear(new File(0)).Shift(-1, -1).Intersect(enemies);
 
             return GetMoves(bleft, 7).Union(GetMoves(bright, 9));
 
@@ -68,8 +76,14 @@ namespace StrongChess.Model.Sets
         public IEnumerable<Move> GetMovesOneSquareForward
             (Bitboard notblockers)
         {
-            Bitboard b = (this.Locations >> 8 & notblockers);
-            return GetMoves(b, 8);
+            return GetMovesOneSquareForward(notblockers, Bitboard.Full, Bitboard.Full);
+        }
+
+        public IEnumerable<Move> GetMovesOneSquareForward
+            (Bitboard notblockers, Bitboard filterFrom, Bitboard filterTo)
+        {
+            Bitboard b = (this.Locations.Intersect(filterFrom) >> 8 & notblockers);
+            return GetMoves(b.Intersect(filterTo), 8);
         }
 
         public IEnumerable<Move> GetMovesTwoSquaresForward()
@@ -77,13 +91,18 @@ namespace StrongChess.Model.Sets
             return this.GetMovesTwoSquaresForward(Bitboard.Full);
         }
 
-
         public IEnumerable<Move> GetMovesTwoSquaresForward
             (Bitboard notblockers)
         {
-            Bitboard b = Locations.Intersect(new Rank(6));
+            return GetMovesTwoSquaresForward(notblockers, Bitboard.Full, Bitboard.Full);
+        }
+
+        public IEnumerable<Move> GetMovesTwoSquaresForward
+            (Bitboard notblockers, Bitboard filterFrom, Bitboard filterTo)
+        {
+            Bitboard b = Locations.Intersect(new Rank(6)).Intersect(filterFrom);
             b = b.Shift(-1, 0).Intersect(notblockers);
-            b = b.Shift(-1, 0).Intersect(notblockers);
+            b = b.Shift(-1, 0).Intersect(notblockers).Intersect(filterTo);
             foreach (var to in b.GetSettedSquares())
             {
                 Square from = to + 16;

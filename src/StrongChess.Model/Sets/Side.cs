@@ -90,12 +90,13 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemies, enpassant));
         }
 
-        public IEnumerable<Move> GetDiscoveredDiagonalAttackMoves(Square target, Bitboard enemies)
+        public IEnumerable<Move> GetDiscoveredDiagonalAttackMoves(Square target, Bitboard enemies, Square? enpassant = null)
         {
             var filterFrom = GetBlockersToDiagonalAttacks(target, enemies);
 
             var result = Knights.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full)
-                .Union(Rooks.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full));
+                .Union(Rooks.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full))
+                ;
 
             if ((_King.Locations & filterFrom) > 0)
             {
@@ -109,6 +110,14 @@ namespace StrongChess.Model.Sets
                     filterTo = ~(kl.AsBoard.Shift(1, -1) | kl.AsBoard.Shift(-1, 1));
 
                 result = result.Union(_King.GetMoves(Occupation, enemies, filterFrom, filterTo));
+            }
+
+            if ((Pawns.Locations & filterFrom) > 0)
+            {
+                Bitboard notblockers = ~(Occupation | enemies);
+                result = result.Union(Pawns.GetMovesOneSquareForward(notblockers, filterFrom, Bitboard.Full))
+                    .Union(Pawns.GetMovesTwoSquaresForward(notblockers, filterFrom, Bitboard.Full))
+                    .Union(Pawns.GetCaptures(enemies, filterFrom, Bitboard.Full, enpassant));
             }
 
             return result;
