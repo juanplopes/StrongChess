@@ -47,6 +47,10 @@
     <Compile Include="Pieces\Rules.cs" />
     <Compile Include="Sets\PieceSet.cs" />
     <Compile Include="Sets\Side.cs" />
+    <Compile Include="SquaresNE.cs" />
+    <Compile Include="SquaresNW.cs" />
+    <Compile Include="SquaresSE.cs" />
+    <Compile Include="SquaresSW.cs" />
     <Compile Include="Util\BoardBuilder.cs" />
     <Compile Include="Util\BoardShifter.cs" />
     <None Include="Util\BoardBuilder.tt">

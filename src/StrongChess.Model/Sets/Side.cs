@@ -90,11 +90,18 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemies, enpassant));
         }
 
-        //public bool InCheck(Side enemy)
+        //public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)
         //{
-        //    return (enemy.GetCaptures(this.Occupation, null) & _King) == _King;
+        //    var allpieces = enemies | Occupation;
+        //    var blockers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+        //    blockers = blockers & (_King.Locations | Rooks.Locations | Knights.Locations | Pawns.Locations);
+
+        //    allpieces = allpieces & ~blockers;
+        //    var checkers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+        //    checkers = checkers & (Bishops.Locations | Queens.Locations);
         //}
 
+        #region static
         public static Side WhiteInitialPosition
         {
             get
@@ -124,5 +131,6 @@ namespace StrongChess.Model.Sets
                             );
             }
         }
+        #endregion
     }
 }
