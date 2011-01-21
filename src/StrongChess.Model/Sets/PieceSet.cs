@@ -11,6 +11,11 @@ namespace StrongChess.Model.Sets
         public PieceSet(Bitboard locations) : this()
         { this.Locations = locations; }
 
+        public PieceSet(IBoardUnit bu)
+            : this(bu.AsBoard)
+        {}
+        
+
         public IEnumerable<Move> GetMoves(Bitboard friends, Bitboard enemies, bool onlyCaptures = false)
         {
             foreach (var from in Locations.GetSettedSquares())
@@ -20,6 +25,19 @@ namespace StrongChess.Model.Sets
                 foreach (var to in destinations.GetSettedSquares())
                     yield return new Move(from, to);
 	        }
+        }
+
+        public IEnumerable<Move> GetMoves(Bitboard friends, Bitboard enemies, Bitboard filterFrom, Bitboard filterTo, bool onlyCaptures = false)
+        {
+            Bitboard pieces = Locations & filterFrom;
+            foreach (var from in pieces.GetSettedSquares())
+            {
+                Bitboard destinations = Rules.For<TPieceRule>().GetMoveBoard(from, friends, enemies);
+                if (onlyCaptures) destinations &= enemies;
+                destinations &= filterTo;
+                foreach (var to in destinations.GetSettedSquares())
+                    yield return new Move(from, to);
+            }
         }
 
         public Bitboard GetMoveBoard(Bitboard friends, Bitboard enemies, bool onlyCaptures = false)

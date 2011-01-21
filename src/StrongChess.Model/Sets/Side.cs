@@ -90,6 +90,13 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemies, enpassant));
         }
 
+        public IEnumerable<Move> GetDiscoveredDiagonalAttackMoves(Square target, Bitboard enemies)
+        {
+            var filterFrom = GetBlockersToDiagonalAttacks(target, enemies);
+            return Knights.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full)
+                .Union(Rooks.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full));
+        }
+
         public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)
         {
             var allpieces = enemies | Occupation;
@@ -140,13 +147,13 @@ namespace StrongChess.Model.Sets
             get
             {
                 return new Side(
-                            new Square("E8"),
-                            new PieceSet<Queen>(Bitboard.With.D8),
-                            new PieceSet<Bishop>(Bitboard.With.C8.F8),
-                            new PieceSet<Knight>(Bitboard.With.B8.G8),
-                            new PieceSet<Rook>(Bitboard.With.A8.H8),
-                            BlackPawns.InitialPosition
-                            );
+                    new Square("E8"),
+                    new PieceSet<Queen>(Bitboard.With.D8),
+                    new PieceSet<Bishop>(Bitboard.With.C8.F8),
+                    new PieceSet<Knight>(Bitboard.With.B8.G8),
+                    new PieceSet<Rook>(Bitboard.With.A8.H8),
+                    BlackPawns.InitialPosition
+                    );
             }
         }
         #endregion

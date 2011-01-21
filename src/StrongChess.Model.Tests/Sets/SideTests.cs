@@ -120,5 +120,54 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             blockers.Should().Be(new Square("B2").AsBoard);
         }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopA1KnightInD4A8TargetInF6()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.A1),
+                new PieceSet<Knight>(Bitboard.With.D4.A8),
+                new PieceSet<Rook>(),
+                new WhitePawns()
+                );
+            
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("F6", Bitboard.Empty);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("D4", "C2"),
+                new Move("D4", "E2"),
+                new Move("D4", "B3"),
+                new Move("D4", "F3"),
+                new Move("D4", "B5"),
+                new Move("D4", "F5"),
+                new Move("D4", "C6"),
+                new Move("D4", "E6")
+                );
+        }
+
+        [Test]
+        public void GetDiscoveredDiagonalAttackMoves_BishopA1RookInD4A8TargetInF6()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.A1),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(Bitboard.With.D4.A8),
+                new WhitePawns()
+                );
+
+            var expected = Bitboard.With.Rank4.FileD.Except.D4.Build();
+
+            // arrange
+            var moves = s.GetDiscoveredDiagonalAttackMoves("F6", Bitboard.Empty).AsMoveboard();
+
+            // assert
+            moves.Should().Be(expected);
+        }
     }
 }
