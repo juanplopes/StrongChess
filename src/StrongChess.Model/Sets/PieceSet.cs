@@ -32,5 +32,17 @@ namespace StrongChess.Model.Sets
 
             return result;
         }
+
+        public IEnumerable<Move> GetDirectAttackMoves(Square target, Bitboard friends, Bitboard enemies)
+        {
+            var hotsquares = Rules.For<TPieceRule>().GetMoveBoard(target, friends, enemies);
+            foreach (var from in Locations.GetSettedSquares())
+	        {
+                var candidates = Rules.For<TPieceRule>().GetMoveBoard(from, friends, enemies);
+                Bitboard spot = candidates & hotsquares;
+                foreach (var to in spot.GetSettedSquares())
+                    yield return new Move(from, to);
+            }
+	    }
     }
 }

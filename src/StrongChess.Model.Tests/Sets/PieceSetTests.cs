@@ -111,5 +111,94 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             result.Should().Be(Bitboard.With.D1.Build());
         }
+
+        [Test]
+        public void GetDirectAttackMoves_RookInA1ToAttackF6()
+        {
+            // arrange 
+            PieceSet<Rook> rooks = new PieceSet<Rook>(
+                Bitboard.With.A1
+                );
+
+            var target = new Square("F6");
+
+            // act
+            var moves = rooks.GetDirectAttackMoves(target, Bitboard.Empty, target.AsBoard);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("A1", "F1"),
+                new Move("A1", "A6")
+                );
+        }
+
+        [Test]
+        public void GetDirectAttackMoves_QueenInA2ToAttackF6()
+        {
+            // arrange 
+            PieceSet<Queen> queens = new PieceSet<Queen>(
+                Bitboard.With.A2
+                );
+
+            var target = new Square("F6");
+
+            // act
+            var moves = queens.GetDirectAttackMoves(target, Bitboard.Empty, target.AsBoard);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("A2", "A1"),
+                new Move("A2", "B2"),
+                new Move("A2", "F2"),
+                new Move("A2", "A6"),
+                new Move("A2", "E6"),
+                new Move("A2", "F7")
+                );
+        }
+
+
+        [Test]
+        public void GetDirectAttackMoves_KnightsInB1AndH7ToAttackE4()
+        {
+            // arrange 
+            PieceSet<Knight> knights = new PieceSet<Knight>(
+                Bitboard.With.B1.H7
+                );
+
+            var target = new Square("E4");
+
+            // act
+            var moves = knights.GetDirectAttackMoves(target, Bitboard.Empty, target.AsBoard);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("B1", "D2"),
+                new Move("B1", "C3"),
+                new Move("H7", "G5"),
+                new Move("H7", "F6")
+                );
+        }
+
+        [Test]
+        public void GetDirectAttackMoves_BishopInC4AttacksG4()
+        {
+            // arrange
+            PieceSet<Bishop> bishops = new PieceSet<Bishop>(
+                Bitboard.With.C4
+                );
+
+            var target = new Square("G4");
+
+            // act
+            var moves = bishops.GetDirectAttackMoves(target, Bitboard.Empty, target.AsBoard);
+
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("C4", "E2" ),
+                new Move("C4", "E6")
+                );
+        }
+
     }
 }
