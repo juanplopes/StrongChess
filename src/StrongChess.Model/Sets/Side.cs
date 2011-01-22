@@ -133,19 +133,19 @@ namespace StrongChess.Model.Sets
             var checkers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
             checkers = checkers & (Bishops.Locations | Queens.Locations);
 
-            var ne = new SquaresNE(target).AsBoard;
+            var ne = new Directions(target).NE;
             if ((ne & checkers) == 0)
                 blockers &= ~ne;
 
-            var nw = new SquaresNW(target).AsBoard;
+            var nw = new Directions(target).NW;
             if ((nw & checkers) == 0)
                 blockers &= ~nw;
 
-            var se = new SquaresSE(target).AsBoard;
+            var se = new Directions(target).SE;
             if ((se & checkers) == 0)
                 blockers &= ~se;
 
-            var sw = new SquaresSW(target).AsBoard;
+            var sw = new Directions(target).SW;
             if ((sw & checkers) == 0)
                 blockers &= ~sw;
 
