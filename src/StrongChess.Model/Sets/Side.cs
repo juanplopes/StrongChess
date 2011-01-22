@@ -123,6 +123,36 @@ namespace StrongChess.Model.Sets
             return result;
         }
 
+        public Bitboard GetBlockersToStraightAttacks(Square target, Bitboard enemies)
+        {
+            var allpieces = enemies | Occupation;
+            var blockers = Rules.For<Rook>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+            blockers = blockers & (_King.Locations | Bishops.Locations | Knights.Locations | Pawns.Locations);
+
+            allpieces = allpieces & ~blockers;
+            var checkers = Rules.For<Rook>().GetMoveBoard(target, Bitboard.Empty, allpieces);
+            checkers = checkers & (Rooks.Locations | Queens.Locations);
+
+            var rays = new Rays(target);
+            var n = rays.N;
+            if ((n & checkers) == 0)
+                blockers &= ~n;
+
+            var s = rays.S;
+            if ((s & checkers) == 0)
+                blockers &= ~s;
+
+            var e = rays.E;
+            if ((e & checkers) == 0)
+                blockers &= ~e;
+
+            var w = rays.W;
+            if ((w & checkers) == 0)
+                blockers &= ~w;
+
+            return blockers;
+        }
+
         public Bitboard GetBlockersToDiagonalAttacks(Square target, Bitboard enemies)
         {
             var allpieces = enemies | Occupation;
@@ -133,19 +163,20 @@ namespace StrongChess.Model.Sets
             var checkers = Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces);
             checkers = checkers & (Bishops.Locations | Queens.Locations);
 
-            var ne = new Rays(target).NE;
+            var rays = new Rays(target);
+            var ne = rays.NE;
             if ((ne & checkers) == 0)
                 blockers &= ~ne;
 
-            var nw = new Rays(target).NW;
+            var nw = rays.NW;
             if ((nw & checkers) == 0)
                 blockers &= ~nw;
 
-            var se = new Rays(target).SE;
+            var se = rays.SE;
             if ((se & checkers) == 0)
                 blockers &= ~se;
 
-            var sw = new Rays(target).SW;
+            var sw = rays.SW;
             if ((sw & checkers) == 0)
                 blockers &= ~sw;
 

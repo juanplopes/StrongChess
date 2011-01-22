@@ -78,6 +78,48 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             moves.Should().Be(expected);
         }
+        
+        [Test]
+        public void GetBlockersToStaightAttacks_RookE1BishopE4TargetE5_ReturnsD4Bitboard()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.E4),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(Bitboard.With.E1),
+                new WhitePawns()
+                );
+
+            var target = new Square("E5");
+
+            // act
+            var blockers = s.GetBlockersToStraightAttacks(target, Bitboard.Empty);
+
+            // assert
+            blockers.Should().Be(new Square("E4").AsBoard);
+        }
+
+        [Test]
+        public void GetBlockersToStaightAttacks_RookA5BishopD5TargetE5_ReturnsD4Bitboard()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(Bitboard.With.D5),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(Bitboard.With.A5),
+                new WhitePawns()
+                );
+
+            var target = new Square("E5");
+
+            // act
+            var blockers = s.GetBlockersToStraightAttacks(target, Bitboard.Empty);
+
+            // assert
+            blockers.Should().Be(new Square("D5").AsBoard);
+        }
 
         [Test]
         public void GetBlockersToDiagonalAttacks_BishopA1RookInD4TargetInE5_ReturnsD4Bitboard()
