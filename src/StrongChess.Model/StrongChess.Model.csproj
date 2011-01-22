@@ -44,7 +44,7 @@
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
     <Compile Include="Bitboard.cs" />
-    <Compile Include="Directions.cs" />
+    <Compile Include="Rays.cs" />
     <Compile Include="Pieces\Rules.cs" />
     <Compile Include="Sets\PieceSet.cs" />
     <Compile Include="Sets\Side.cs" />

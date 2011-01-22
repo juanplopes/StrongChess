@@ -5,11 +5,11 @@ using System.Text;
 
 namespace StrongChess.Model
 {
-    public struct Directions
+    public struct Rays
     {
         public Square Origin { get; private set; }
 
-        public Directions(Square origin)
+        public Rays(Square origin)
             : this()
         { this.Origin = origin; }
 
@@ -49,7 +49,7 @@ namespace StrongChess.Model
         static Bitboard[] _masksNE = new Bitboard[64];
         static Bitboard[] _masksNW = new Bitboard[64];
         static Bitboard[] _masksSW = new Bitboard[64];
-        static Directions()
+        static Rays()
         {
             for (int i = 0; i < 64; i++)
             {
