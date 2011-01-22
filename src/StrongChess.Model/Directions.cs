@@ -19,6 +19,12 @@ namespace StrongChess.Model
 
         public Bitboard S
         { get { return _masksS[(int)Origin]; } }
+
+        public Bitboard E
+        { get { return _masksE[(int)Origin]; } }
+
+        public Bitboard W
+        { get { return _masksW[(int)Origin]; } }
         
         public Bitboard SE
         { get { return _masksSE[(int)Origin]; } }
@@ -37,6 +43,8 @@ namespace StrongChess.Model
         #region static
         static Bitboard[] _masksN = new Bitboard[64];
         static Bitboard[] _masksS = new Bitboard[64];
+        static Bitboard[] _masksE = new Bitboard[64];
+        static Bitboard[] _masksW = new Bitboard[64];
         static Bitboard[] _masksSE = new Bitboard[64];
         static Bitboard[] _masksNE = new Bitboard[64];
         static Bitboard[] _masksNW = new Bitboard[64];
@@ -85,6 +93,20 @@ namespace StrongChess.Model
                 {
                     sq = sq.Shift(-1, -1);
                     _masksSW[i] |= sq;
+                }
+
+                sq = (1ul << i);
+                while (sq != 0)
+                {
+                    sq = sq.Shift(0, 1);
+                    _masksE[i] |= sq;
+                }
+
+                sq = (1ul << i);
+                while (sq != 0)
+                {
+                    sq = sq.Shift(0, -1);
+                    _masksW[i] |= sq;
                 }
             }
         }

@@ -218,5 +218,83 @@ namespace StrongChess.Model.Tests
             // assert
             s.AsBoard.Should().Be(expected);
         }
+
+        [Test]
+        public void E_E4_ReturnsF4G4H4()
+        {
+            // arrange
+            var s = new Directions("E4").E;
+            var expected = Bitboard.With.F4.G4.H4.Build();
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
+
+        [Test]
+        public void E_H1_ReturnsEmpty()
+        {
+            // arrange
+            var s = new Directions("H1").E;
+            var expected = Bitboard.Empty;
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
+
+        [Test]
+        public void E_A8_ReturnsB8C8D8E8F8G8H8()
+        {
+            // arrange
+            var s = new Directions("A8").E;
+            var expected = Bitboard.With.B8.C8.D8.E8.F8.G8.H8.Build();
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
+
+        [Test]
+        public void W_E4_ReturnsD4C4B4A4()
+        {
+            // arrange
+            var s = new Directions("E4").W;
+            var expected = Bitboard.With.D4.C4.B4.A4.Build();
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
+
+        [Test]
+        public void W_H1_ReturnsG1F1E1D1C1B1A1()
+        {
+            // arrange
+            var s = new Directions("H1").W;
+            var expected = Bitboard.With.G1.F1.E1.D1.C1.B1.A1.Build();
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
+
+        [Test]
+        public void W_A8_ReturnsEmpty()
+        {
+            // arrange
+            var s = new Directions("A8").W;
+            var expected = Bitboard.Empty;
+
+            // act 
+
+            // assert
+            s.AsBoard.Should().Be(expected);
+        }
     }
 }
