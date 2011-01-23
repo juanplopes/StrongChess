@@ -7,6 +7,9 @@ namespace StrongChess.Model.Pieces
 {
     public struct Queen : IPieceRule
     {
+        static IPieceRule bishop = Rules.For<Bishop>();
+        static IPieceRule rook = Rules.For<Rook>();
+
         public Bitboard GetMoveBoard(Square from)
         {
             return GetMoveBoard(from, 0);
@@ -20,8 +23,8 @@ namespace StrongChess.Model.Pieces
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             return
-                Rules.For<Bishop>().GetMoveBoard(from, friends, enemies).Set(
-                Rules.For<Rook>().GetMoveBoard(from, friends, enemies));
+                rook.GetMoveBoard(from, friends, enemies).And(
+                bishop.GetMoveBoard(from, friends, enemies));
         }
     }
 }

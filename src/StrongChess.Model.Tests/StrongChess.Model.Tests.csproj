@@ -54,7 +54,6 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
-    <Compile Include="RaysTests.cs" />
     <Compile Include="Pieces\BishopTests.cs" />
     <Compile Include="Sets\PieceSetTests.cs" />
     <Compile Include="Sets\SideTests.cs" />

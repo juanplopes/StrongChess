@@ -14,14 +14,14 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void IsValid_PawnsInRank1_ReturnsFalse()
         {
-            var p = new WhitePawns(new Bitboard().Set(new Square("A1")));
+            var p = new WhitePawns(new Bitboard().And(new Square("A1")));
             p.IsValid.Should().Be(false);
         }
 
         [Test]
         public void IsValid_PawnsInRank8_ReturnsFalse()
         {
-            var p = new WhitePawns(new Bitboard().Set(new Square("A8")));
+            var p = new WhitePawns(new Bitboard().And(new Square("A8")));
             p.IsValid.Should().Be(false);
         }
 
@@ -29,15 +29,15 @@ namespace StrongChess.Model.Tests.Sets
         public void IsValid_MoreThan8Pawns_ReturnsFalse()
         {
             Bitboard pawns = new Bitboard()
-                .Set(new Square("A3"))
-                .Set(new Square("B4"))
-                .Set(new Square("C5"))
-                .Set(new Square("D7"))
-                .Set(new Square("E3"))
-                .Set(new Square("G3"))
-                .Set(new Square("F4"))
-                .Set(new Square("H7"))
-                .Set(new Square("H2"));
+                .And(new Square("A3"))
+                .And(new Square("B4"))
+                .And(new Square("C5"))
+                .And(new Square("D7"))
+                .And(new Square("E3"))
+                .And(new Square("G3"))
+                .And(new Square("F4"))
+                .And(new Square("H7"))
+                .And(new Square("H2"));
 
             var p = new WhitePawns(pawns);
             p.IsValid.Should().Be(false);
@@ -57,14 +57,14 @@ namespace StrongChess.Model.Tests.Sets
             var wp = WhitePawns.InitialPosition;
 
             Bitboard expected = new Bitboard()
-                .Set(new Square("A2"))
-                .Set(new Square("B2"))
-                .Set(new Square("C2"))
-                .Set(new Square("D2"))
-                .Set(new Square("E2"))
-                .Set(new Square("F2"))
-                .Set(new Square("G2"))
-                .Set(new Square("H2"));
+                .And(new Square("A2"))
+                .And(new Square("B2"))
+                .And(new Square("C2"))
+                .And(new Square("D2"))
+                .And(new Square("E2"))
+                .And(new Square("F2"))
+                .And(new Square("G2"))
+                .And(new Square("H2"));
 
             wp.Locations.Should().Be(expected);
         }
@@ -72,7 +72,7 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesTwoSquareForward_B2_ReturnsNormalB2B4()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("B2")));
+            var wp = new WhitePawns(new Bitboard().And(new Square("B2")));
             var moves = wp.GetMovesTwoSquaresForward();
             moves.Count().Should().Be(1);
             var m = moves.First();
@@ -85,8 +85,8 @@ namespace StrongChess.Model.Tests.Sets
         public void GetMovesTwoSquareForward_B2C5_ReturnsNormalB2B4()
         {
             var wp = new WhitePawns(new Bitboard()
-                .Set(new Square("B2"))
-                .Set(new Square("C5"))
+                .And(new Square("B2"))
+                .And(new Square("C5"))
                 );
             var moves = wp.GetMovesTwoSquaresForward();
             moves.Count().Should().Be(1);
@@ -99,8 +99,8 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesTwoSquareForward_B2BlockedInB3_ReturnsNothing()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("B2")));
-            var blockers = new Bitboard().Set(new Square("B3"));
+            var wp = new WhitePawns(new Bitboard().And(new Square("B2")));
+            var blockers = new Bitboard().And(new Square("B3"));
             var notblockers = ~(blockers);
             var moves = wp.GetMovesTwoSquaresForward(notblockers);
             moves.Count().Should().Be(0);
@@ -109,8 +109,8 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesTwoSquareForward_B2BlockedInB4_ReturnsNothing()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("B2")));
-            var blockers = new Bitboard().Set(new Square("B4"));
+            var wp = new WhitePawns(new Bitboard().And(new Square("B2")));
+            var blockers = new Bitboard().And(new Square("B4"));
             var notblockers = ~(blockers);
             var moves = wp.GetMovesTwoSquaresForward(notblockers);
             moves.Count().Should().Be(0);
@@ -119,7 +119,7 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesTwoSquareForward_B3_ReturnsNothing()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("B3")));
+            var wp = new WhitePawns(new Bitboard().And(new Square("B3")));
             var moves = wp.GetMovesTwoSquaresForward();
             moves.Count().Should().Be(0);
         }
@@ -128,7 +128,7 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesOneSquareForward_B4_ReturnsNormalB4B5()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("B4")));
+            var wp = new WhitePawns(new Bitboard().And(new Square("B4")));
             var move = wp.GetMovesOneSquareForward().First();
             move.From.Should().Be(new Square("B4"));
             move.To.Should().Be(new Square("B5"));
@@ -138,15 +138,15 @@ namespace StrongChess.Model.Tests.Sets
         [Test]
         public void GetMovesOneSquareForward_BlockedB4_ReturnsNoMoves()
         {
-            var wp = new WhitePawns(~(new Bitboard().Set(new Square("B4"))));
-            var moves = wp.GetMovesOneSquareForward(new Bitboard().Set(new Square("B5")));
+            var wp = new WhitePawns(~(new Bitboard().And(new Square("B4"))));
+            var moves = wp.GetMovesOneSquareForward(new Bitboard().And(new Square("B5")));
             moves.Count().Should().Be(0);
         }
 
         [Test]
         public void GetMovesOneSquareForward_A7_ReturnsPromotions()
         {
-            var wp = new WhitePawns(new Bitboard().Set(new Square("A7")));
+            var wp = new WhitePawns(new Bitboard().And(new Square("A7")));
             var m = wp.GetMovesOneSquareForward();
             var moves = m.GetEnumerator();
 
@@ -182,12 +182,12 @@ namespace StrongChess.Model.Tests.Sets
         public void GetCaptures_D4EnemiesD5C5_ReturnsNormalD4C5()
         {
             var wp = new WhitePawns(
-                new Bitboard().Set(new Square("D4"))
+                new Bitboard().And(new Square("D4"))
                 );
 
             var enemies = new Bitboard()
-                .Set(new Square("C5"))
-                .Set(new Square("D5"));
+                .And(new Square("C5"))
+                .And(new Square("D5"));
 
             var moves = wp.GetCaptures(enemies);
             moves.Count().Should().Be(1);
@@ -201,12 +201,12 @@ namespace StrongChess.Model.Tests.Sets
         public void GetCaptures_D4EnemiesD5E5_ReturnsNormalD4E5()
         {
             var wp = new WhitePawns(
-                new Bitboard().Set(new Square("D4"))
+                new Bitboard().And(new Square("D4"))
                 );
 
             var enemies = new Bitboard()
-                .Set(new Square("E5"))
-                .Set(new Square("D5"));
+                .And(new Square("E5"))
+                .And(new Square("D5"));
 
             var moves = wp.GetCaptures(enemies);
             moves.Count().Should().Be(1);
@@ -220,11 +220,11 @@ namespace StrongChess.Model.Tests.Sets
         public void GetCaptures_A4EnemiesB5_ReturnsNormalA4B5()
         {
             var wp = new WhitePawns(
-                new Bitboard().Set(new Square("A4"))
+                new Bitboard().And(new Square("A4"))
                 );
 
             var enemies = new Bitboard()
-                .Set(new Square("B5"));
+                .And(new Square("B5"));
 
             var moves = wp.GetCaptures(enemies);
             moves.Count().Should().Be(1);
@@ -261,11 +261,11 @@ namespace StrongChess.Model.Tests.Sets
         public void GetCaptures_H4EnemiesG5_ReturnsNormalH4G5()
         {
             var wp = new WhitePawns(
-                new Bitboard().Set(new Square("H4"))
+                new Bitboard().And(new Square("H4"))
                 );
 
             var enemies = new Bitboard()
-                .Set(new Square("G5"));
+                .And(new Square("G5"));
 
             var moves = wp.GetCaptures(enemies);
             moves.Count().Should().Be(1);

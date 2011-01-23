@@ -20,7 +20,7 @@ namespace StrongChess.Model.Pieces
 
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
-            return _Moves[from].Clear(friends);
+            return _Moves[from].Except(friends);
         }
 
         #region static
@@ -31,7 +31,7 @@ namespace StrongChess.Model.Pieces
             for (Square i = 0; i < 64; i++)
             {
                 var square = i.AsBoard;
-                var board = Bitboard.Empty.Set(
+                var board = Bitboard.Empty.And(
                     square.Shift(1, 2), square.Shift(1, -2),
                     square.Shift(2, 1), square.Shift(2, -1),
                     square.Shift(-1, 2), square.Shift(-1, -2),

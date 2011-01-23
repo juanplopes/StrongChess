@@ -33,17 +33,17 @@ namespace StrongChess.Model
         {
             for (Square sq = 0; sq < 64; sq++)
             {
-                masksN[sq] = sq.File.AsBoard.Shift(sq.Rank, 0).Clear(sq);
-                masksS[sq] = sq.File.AsBoard.Shift(sq.Rank - 7, 0).Clear(sq);
+                masksN[sq] = sq.File.AsBoard.Shift(sq.Rank, 0).Except(sq);
+                masksS[sq] = sq.File.AsBoard.Shift(sq.Rank - 7, 0).Except(sq);
 
-                masksE[sq] = sq.Rank.AsBoard.Shift(0, sq.File).Clear(sq);
-                masksW[sq] = sq.Rank.AsBoard.Shift(0, sq.File - 7).Clear(sq);
+                masksE[sq] = sq.Rank.AsBoard.Shift(0, sq.File).Except(sq);
+                masksW[sq] = sq.Rank.AsBoard.Shift(0, sq.File - 7).Except(sq);
 
-                masksNE[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank, sq.Rank).Clear(sq);
-                masksSW[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank - 7, sq.Rank - 7).Clear(sq);
+                masksNE[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank, sq.Rank).Except(sq);
+                masksSW[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank - 7, sq.Rank - 7).Except(sq);
 
-                masksNW[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank, -sq.Rank).Clear(sq);
-                masksSE[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank - 7, 7 - sq.Rank).Clear(sq);
+                masksNW[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank, -sq.Rank).Except(sq);
+                masksSE[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank - 7, 7 - sq.Rank).Except(sq);
             }
         }
         #endregion

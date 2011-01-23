@@ -14,6 +14,18 @@ namespace StrongChess.Model.Tests.Units
     public class BitboardTests
     {
         [Test]
+        public void EmptyBitboardHighestSquareIsA1()
+        {
+            new Bitboard().HighestSquare.Should().Be(new Square("A1"));
+        }
+
+        [Test]
+        public void EmptyBitboardLowestSquareIsH8()
+        {
+            new Bitboard().LowestSquare.Should().Be(new Square("H8"));
+        }
+
+        [Test]
         public void SizeOfBitboardShouldBe8()
         {
             Marshal.SizeOf(new Bitboard()).Should().Be(8);
@@ -22,7 +34,7 @@ namespace StrongChess.Model.Tests.Units
         [Test]
         public void Set_Rank2()
         {
-            var bitboard = new Bitboard().Set(new Rank("2"));
+            var bitboard = new Bitboard().And(new Rank("2"));
 
             bitboard.Value.Should().Be(0x000000000000FF00);
         }
@@ -32,10 +44,10 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
 
-            var bitboard = new Bitboard().Set(new File("D"), new File("E"));
+            var bitboard = new Bitboard().And(new File("D"), new File("E"));
             bitboard.Value.Should().Be(0x1818181818181818);
 
-            bitboard = bitboard.Clear(new File("D"));
+            bitboard = bitboard.Except(new File("D"));
             bitboard.Value.Should().Be(0x1010101010101010);
         }
 
@@ -43,7 +55,7 @@ namespace StrongChess.Model.Tests.Units
         public void ToString_SettedRank4And5()
         {
 
-            var bitboard = new Bitboard().Set(new Rank("4")).Set(new Rank("5"));
+            var bitboard = new Bitboard().And(new Rank("4")).And(new Rank("5"));
             bitboard.ToString().Should().Be("[A4; B4; C4; D4; E4; F4; G4; H4; A5; B5; C5; D5; E5; F5; G5; H5]");
         }
 
@@ -52,17 +64,17 @@ namespace StrongChess.Model.Tests.Units
         public void Clear_5_SettedRank4And5()
         {
 
-            var bitboard = new Bitboard().Set(new Rank("4")).Set(new Rank("5"));
+            var bitboard = new Bitboard().And(new Rank("4")).And(new Rank("5"));
             bitboard.Value.Should().Be(0x000000FFFF000000);
 
-            bitboard = bitboard.Clear(new Rank("5"));
+            bitboard = bitboard.Except(new Rank("5"));
             bitboard.Value.Should().Be(0x00000000FF000000);
         }
 
         [Test]
         public void Set_FileE()
         {
-            var bitboard = new Bitboard().Set(new File("E"));
+            var bitboard = new Bitboard().And(new File("E"));
             bitboard.Value.Should().Be(0x1010101010101010);
 
         }
@@ -70,7 +82,7 @@ namespace StrongChess.Model.Tests.Units
         [Test]
         public void Set_A1()
         {
-            var bitboard1 = new Bitboard().Set(new Square("A1"));
+            var bitboard1 = new Bitboard().And(new Square("A1"));
 
             bitboard1.Value.Should().Be(0x0000000000000001);
         }
@@ -78,8 +90,8 @@ namespace StrongChess.Model.Tests.Units
         [Test]
         public void Clear_A1()
         {
-            var bitboard1 = new Bitboard().Set(new Square("A1"));
-            var bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard1 = new Bitboard().And(new Square("A1"));
+            var bitboard2 = bitboard1.Except(new Square("A1"));
 
             bitboard1.Should().Not.Be(bitboard2);
             bitboard2.IsEmpty.Should().Be.True();
@@ -88,8 +100,8 @@ namespace StrongChess.Model.Tests.Units
         [Test]
         public void IsSet_SettedA1_ReturnsTrue()
         {
-            var bitboard1 = new Bitboard().Set(new Square("A1"));
-            var bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard1 = new Bitboard().And(new Square("A1"));
+            var bitboard2 = bitboard1.Except(new Square("A1"));
 
             // assert
             bitboard1.IsSet(new Square("A1")).Should().Be.True();
@@ -101,8 +113,8 @@ namespace StrongChess.Model.Tests.Units
         {
 
             // act
-            var bitboard1 = new Bitboard().Set(new Square("A1"));
-            var bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard1 = new Bitboard().And(new Square("A1"));
+            var bitboard2 = bitboard1.Except(new Square("A1"));
 
             // assert
             bitboard1.IsClear(new Square("A1")).Should().Be.False();
@@ -113,7 +125,7 @@ namespace StrongChess.Model.Tests.Units
         public void Set_F5()
         {
             // act
-            var bitboard1 = new Bitboard().Set(new Square("F5"));
+            var bitboard1 = new Bitboard().And(new Square("F5"));
 
             bitboard1.Value.Should().Be(1ul << 4 * 8 + 5);
         }
@@ -122,8 +134,8 @@ namespace StrongChess.Model.Tests.Units
         public void Clear_F5()
         {
             // act
-            var bitboard1 = new Bitboard().Set(new Square("F5"));
-            var bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().And(new Square("F5"));
+            var bitboard2 = bitboard1.Except(new Square("F5"));
 
             bitboard2.Value.Should().Be(0);
         }
@@ -132,8 +144,8 @@ namespace StrongChess.Model.Tests.Units
         public void IsSet_SettedF5_ReturnsTrue()
         {
             // act
-            var bitboard1 = new Bitboard().Set(new Square("F5"));
-            var bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().And(new Square("F5"));
+            var bitboard2 = bitboard1.Except(new Square("F5"));
 
             // assert
             bitboard1.IsSet(new Square("F5")).Should().Be.True();
@@ -146,8 +158,8 @@ namespace StrongChess.Model.Tests.Units
             // arrange
 
             // act
-            var bitboard1 = new Bitboard().Set(new Square("F5"));
-            var bitboard2 = bitboard1.Clear(new Square("F5"));
+            var bitboard1 = new Bitboard().And(new Square("F5"));
+            var bitboard2 = bitboard1.Except(new Square("F5"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
@@ -161,10 +173,10 @@ namespace StrongChess.Model.Tests.Units
 
             // act
             var bitboard1 = new Bitboard()
-                   .Set(new Square("F5"))
-                   .Set(new Square("A1"));
+                   .And(new Square("F5"))
+                   .And(new Square("A1"));
 
-            var bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard2 = bitboard1.Except(new Square("A1"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("A1")));
@@ -178,10 +190,10 @@ namespace StrongChess.Model.Tests.Units
 
             // act
             var bitboard1 = new Bitboard()
-                   .Set(new Square("F5"))
-                   .Set(new Square("A1"));
+                   .And(new Square("F5"))
+                   .And(new Square("A1"));
 
-            var bitboard2 = bitboard1.Clear(new Square("A1"));
+            var bitboard2 = bitboard1.Except(new Square("A1"));
 
             // assert
             Assert.IsFalse(bitboard1.IsClear(new Square("F5")));
@@ -194,7 +206,7 @@ namespace StrongChess.Model.Tests.Units
         public void GetLeadingSquare_SettedA1_ReturnsA1()
         {
             // arrange
-            var bitboard = new Bitboard().Set(new Square("A1"));
+            var bitboard = new Bitboard().And(new Square("A1"));
 
             // act
             var result = bitboard.Squares.First();
@@ -207,7 +219,7 @@ namespace StrongChess.Model.Tests.Units
         public void GetLeadingSquare_SettedB1_ReturnsB1()
         {
             // arrange
-            var bitboard = new Bitboard().Set(new Square("B1"));
+            var bitboard = new Bitboard().And(new Square("B1"));
 
             // act
             var result = bitboard.Squares.First();
@@ -220,7 +232,7 @@ namespace StrongChess.Model.Tests.Units
         public void GetLeadingSquare_SettedA1andB1_ReturnsA1()
         {
             // arrange
-            var bitboard = new Bitboard().Set(new Square("A1"), new Square("B1"));
+            var bitboard = new Bitboard().And(new Square("A1"), new Square("B1"));
 
             // act
             var result = bitboard.Squares.First();
@@ -234,8 +246,8 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A1"))
-                .Set(new Square("H2"));
+                .And(new Square("A1"))
+                .And(new Square("H2"));
 
             // act
             var result = bitboard.Squares.First();
@@ -249,8 +261,8 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A3"))
-                .Set(new Square("H2"));
+                .And(new Square("A3"))
+                .And(new Square("H2"));
 
             // act
             var result = bitboard.Squares.First();
@@ -264,8 +276,8 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A5"))
-                .Set(new Square("H4"));
+                .And(new Square("A5"))
+                .And(new Square("H4"));
 
             // act
             var result = bitboard.Squares.First();
@@ -279,9 +291,9 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A7"))
-                .Set(new Square("E8"))
-                .Set(new Square("H6"));
+                .And(new Square("A7"))
+                .And(new Square("E8"))
+                .And(new Square("H6"));
 
             // act
             var result = bitboard.Squares.First();
@@ -295,8 +307,8 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A1"))
-                .Set(new Square("D5"));
+                .And(new Square("A1"))
+                .And(new Square("D5"));
 
             // act
             var result = bitboard.Squares.First();
@@ -313,7 +325,7 @@ namespace StrongChess.Model.Tests.Units
             for (int i = 63; i >= 0; i--)
             {
                 var sq = new Square(i);
-                var bitboard = new Bitboard().Set(sq);
+                var bitboard = new Bitboard().And(sq);
                 Assert.AreEqual(sq, bitboard.Squares.First());
             }
         }
@@ -331,7 +343,7 @@ namespace StrongChess.Model.Tests.Units
             for (int i = 63; i >=0; i--)
             {
                 var sq = new Square(i);
-                bitboard = bitboard.Set(sq);
+                bitboard = bitboard.And(sq);
                 bitboard.Squares.First().Should().Be(sq);
             }
         }
@@ -344,7 +356,7 @@ namespace StrongChess.Model.Tests.Units
             for (int i = 0; i < 64; i++)
             {
                 var sq = new Square(i);
-                bitboard = bitboard.Set(sq);
+                bitboard = bitboard.And(sq);
                 bitboard.BitCount.Should().Be(i + 1);
             }
         }
@@ -356,7 +368,7 @@ namespace StrongChess.Model.Tests.Units
             for (int i = 63; i >= 0; i--)
             {
                 var sq = new Square(i);
-                bitboard = bitboard.Set(sq);
+                bitboard = bitboard.And(sq);
                 Assert.AreEqual(64 - i, bitboard.BitCount);
             }
         }
@@ -366,8 +378,8 @@ namespace StrongChess.Model.Tests.Units
         {
             // arrange
             var bitboard = new Bitboard()
-                .Set(new Square("A1"))
-                .Set(new Square("D5"));
+                .And(new Square("A1"))
+                .And(new Square("D5"));
 
             // act
             var result = bitboard.BitCount;

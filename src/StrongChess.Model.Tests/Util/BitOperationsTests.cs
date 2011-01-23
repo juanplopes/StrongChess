@@ -30,57 +30,51 @@ namespace StrongChess.Model.Tests.Util
         }
 
         [Test]
-        public void BitScanForwardOf0IsMinus0()
+        public void BitScanReverseOf0Is0()
         {
-            BitOperations.BitScanReverse(0).Should().Be(-1);
-        }
-
-        [Test]
-        public void BitScanForwardOf1Is0()
-        {
-            BitOperations.BitScanReverse(1).Should().Be(0);
-        }
-
-        [Test]
-        public void BitScanForwardOf3Is1()
-        {
-            BitOperations.BitScanReverse(3).Should().Be(1);
-        }
-
-        [Test]
-        public void BitScanForwardOfNotZeroIs63()
-        {
-            BitOperations.BitScanReverse(~0ul).Should().Be(63);
-        }
-
-        [Test]
-        public void BitScanForwardOfNotZero0IsMinus1()
-        {
-            BitOperations.BitScanReverse(0).Should().Be(-1);
+            BitOperations.BitScanReverse(0).Should().Be(0);
         }
 
         [Test]
         public void BitScanReverseOf1Is0()
         {
-            BitOperations.BitScanForward(1).Should().Be(0);
+            BitOperations.BitScanReverse(1).Should().Be(0);
         }
 
         [Test]
         public void BitScanReverseOf3Is1()
         {
-            BitOperations.BitScanForward(3).Should().Be(0);
+            BitOperations.BitScanReverse(3).Should().Be(1);
         }
 
         [Test]
         public void BitScanReverseOfNotZeroIs63()
         {
+            BitOperations.BitScanReverse(~0ul).Should().Be(63);
+        }
+
+        [Test]
+        public void BitScanForwardOf1Is0()
+        {
+            BitOperations.BitScanForward(1).Should().Be(0);
+        }
+
+        [Test]
+        public void BitScanForwardOf3Is0()
+        {
+            BitOperations.BitScanForward(3).Should().Be(0);
+        }
+
+        [Test]
+        public void BitScanForwardOfNotZeroIs0()
+        {
             BitOperations.BitScanForward(~0ul).Should().Be(0);
         }
 
         [Test]
-        public void BitScanReverseOfZeroIsMinus1()
+        public void BitScanForwardOfZeroIs0()
         {
-            BitOperations.BitScanForward(0).Should().Be(-1);
+            BitOperations.BitScanForward(0).Should().Be(63);
         }
     }
 

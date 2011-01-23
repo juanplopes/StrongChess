@@ -30,8 +30,6 @@ namespace StrongChess.Model.Util
         {
             unchecked
             {
-                if (value == 0) return -1;
-
                 int r = 0;
 
                 if (value > 0x00000000FFFFFFFF) { value >>= 32; r += 32; }
@@ -62,8 +60,7 @@ namespace StrongChess.Model.Util
         {
             unchecked
             {
-                if (value == 0) return -1;
-                return index64[((value & ~value + 1) * 0x07EDD5E59A4E28C2ul) >> 58];
+                return index64[((value & (~value + 1)) * 0x07EDD5E59A4E28C2ul) >> 58];
             }
         }
     }

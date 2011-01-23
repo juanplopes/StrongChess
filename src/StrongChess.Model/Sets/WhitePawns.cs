@@ -63,7 +63,7 @@ namespace StrongChess.Model.Sets
             foreach(var to in b.Squares)
             {
                 Square from = to - 16;
-                b = b.Clear(to);
+                b = b.Except(to);
                 yield return new Move(from, to);
             }
         }
@@ -79,13 +79,13 @@ namespace StrongChess.Model.Sets
             (Bitboard enemies, Bitboard filterFrom, Bitboard filterTo, Square? enpassant = null)
         {
             if (enpassant != null)
-                enemies &= new Bitboard().Set((Square)enpassant);
+                enemies &= new Bitboard().And((Square)enpassant);
 
             enemies &= filterTo;
 
             Bitboard l = Locations.Intersect(filterFrom);
-            var bleft = l.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
-            var bright = l.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
+            var bleft = l.Except(new File(0)).Shift(1, -1).Intersect(enemies);
+            var bright = l.Except(new File(7)).Shift(1, 1).Intersect(enemies);
 
             return GetMoves(bleft, 7).Union(GetMoves(bright, 9));
 
@@ -125,10 +125,10 @@ namespace StrongChess.Model.Sets
         public Bitboard GetCapturesMoveBoard(Bitboard notblockers, Bitboard enemies, Square? enpassant)
         {
             if (enpassant != null)
-                enemies &= new Bitboard().Set((Square)enpassant);
+                enemies &= new Bitboard().And((Square)enpassant);
 
-            var bleft = Locations.Clear(new File(0)).Shift(1, -1).Intersect(enemies);
-            var bright = Locations.Clear(new File(7)).Shift(1, 1).Intersect(enemies);
+            var bleft = Locations.Except(new File(0)).Shift(1, -1).Intersect(enemies);
+            var bright = Locations.Except(new File(7)).Shift(1, 1).Intersect(enemies);
             return bleft | bright;
         }
 
@@ -139,7 +139,7 @@ namespace StrongChess.Model.Sets
             foreach (var to in b.Squares)
             {
                 Square from = to - offsetFrom;
-                b = b.Clear(to);
+                b = b.Except(to);
                 if (to >= 56)
                 {
                     yield return new Move(from, to, MoveTypes.PawnToQueenPromotion);

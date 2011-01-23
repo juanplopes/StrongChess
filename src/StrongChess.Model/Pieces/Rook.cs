@@ -19,22 +19,18 @@ namespace StrongChess.Model.Pieces
 
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
-            var allpieces = friends.Set(enemies);
+            var allpieces = friends.And(enemies);
 
-            var result = from.File.AsBoard.Set(from.Rank).Clear(from);
+            var result = from.File.AsBoard.And(from.Rank).Except(from);
 
             var rayTo = from.RayTo;
-            var n = rayTo.N.Intersect(allpieces).LowerSquare;
-            var s = rayTo.S.Intersect(allpieces).HigherSquare;
-            var e = rayTo.E.Intersect(allpieces).LowerSquare;
-            var w = rayTo.W.Intersect(allpieces).HigherSquare;
+            var n = rayTo.N.Intersect(allpieces).LowestSquare;
+            var s = rayTo.S.Intersect(allpieces).HighestSquare;
+            var e = rayTo.E.Intersect(allpieces).LowestSquare;
+            var w = rayTo.W.Intersect(allpieces).HighestSquare;
 
-            if (n.IsValid) result = result.Clear(n.RayTo.N);
-            if (s.IsValid) result = result.Clear(s.RayTo.S);
-            if (e.IsValid) result = result.Clear(e.RayTo.E);
-            if (w.IsValid) result = result.Clear(w.RayTo.W);
-
-            return result.Clear(friends);
+            return result.Except(friends,
+                n.RayTo.N, s.RayTo.S, e.RayTo.E, w.RayTo.W);
         }
 
     }

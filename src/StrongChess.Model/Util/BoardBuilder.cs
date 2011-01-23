@@ -24,7 +24,7 @@ namespace StrongChess.Model.Util
 
         public BoardBuilder And(IBoardUnit unit)
         {
-            return new BoardBuilder(result.Set(unit), inverted);
+            return new BoardBuilder(result.And(unit), inverted);
         }
 
         public BoardBuilder Except

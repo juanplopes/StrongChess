@@ -15,6 +15,19 @@ namespace StrongChess.Model.Tests.Pieces
     {
 
         [Test]
+        public void GetMoveBoard_BishopInB2_ReturnsA1H8AndC1A3ExceptB2()
+        {
+            // arrange
+            var expected = Bitboard.With.DiagonalA1H8.DiagonalC1A3.Except.B2.Build();
+
+            // act
+            Bitboard mb = Rules.For<Bishop>().GetMoveBoard("B2");
+
+            // assert
+            mb.Should().Be(expected);
+        }
+
+        [Test]
         public void GetMoveBoard_BishopInA1_ReturnsA1H8DgExceptA1()
         {
             // arrange

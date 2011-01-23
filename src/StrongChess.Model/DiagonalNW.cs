@@ -33,6 +33,15 @@ namespace StrongChess.Model
                 masks[i] = initial.Shift(0, i - 7);
 
         }
+        public static implicit operator int(DiagonalNW diagonal)
+        {
+            return diagonal.index;
+        }
+
+        public static implicit operator DiagonalNW(int index)
+        {
+            return new DiagonalNW(index);
+        }
 
         #endregion
     }

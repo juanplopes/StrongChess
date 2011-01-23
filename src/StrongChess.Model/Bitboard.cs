@@ -17,13 +17,13 @@ namespace StrongChess.Model
 
         public Bitboard(ulong value) : this() { this.value = value; }
 
-        public Bitboard Set(params IBoardUnit[] unit)
+        public Bitboard And(params IBoardUnit[] unit)
         {
             return value |
                 unit.Aggregate(0ul, (s, v) => s | v.AsBoard.value);
         }
 
-        public Bitboard Clear(params IBoardUnit[] unit)
+        public Bitboard Except(params IBoardUnit[] unit)
         {
             return value &
                 unit.Aggregate(~0ul, (s, v) => s & ~v.AsBoard.value);
@@ -36,12 +36,13 @@ namespace StrongChess.Model
 
         public bool IsSet(IBoardUnit unit)
         {
-            return (value & unit.AsBoard.value) != 0;
+            var board = unit.AsBoard;
+            return (value & board.value) == board.value;
         }
 
         public bool IsClear(IBoardUnit unit)
         {
-            return !IsSet(unit);
+            return !Contains(unit);
         }
 
         public bool Contains(IBoardUnit bu)
@@ -70,8 +71,8 @@ namespace StrongChess.Model
             get { return value.PopCount(); }
         }
 
-        public Square LowerSquare { get { return value.BitScanForward(); } }
-        public Square HigherSquare { get { return value.BitScanReverse(); } }
+        public Square LowestSquare { get { return value.BitScanForward(); } }
+        public Square HighestSquare { get { return value.BitScanReverse(); } }
 
         public IEnumerable<Square> Squares
         {

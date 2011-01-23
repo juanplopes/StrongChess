@@ -30,6 +30,16 @@ namespace StrongChess.Model
 
         }
 
+        public static implicit operator int(DiagonalNE diagonal)
+        {
+            return diagonal.index;
+        }
+
+        public static implicit operator DiagonalNE(int index)
+        {
+            return new DiagonalNE(index);
+        }
+
         #endregion
     }
 }
