@@ -14,7 +14,7 @@ namespace StrongChess.Model.Pieces
         }
 
         public static T For<T>()
-            where T : new()
+            where T : IPieceRule, new()
         {
             return Instances<T>.instance;
         }

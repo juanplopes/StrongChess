@@ -367,5 +367,68 @@ namespace StrongChess.Model.Tests.Sets
                 new Move("F6", "G5")
                 );
         }
+        
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookE1BishopE2TargetE7_AllBishopMoves()
+        {
+            // arrange
+            var s = new Side("A1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(new Square("E2")),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(new Square("E1")),
+                new WhitePawns()
+                );
+
+            var expected = new PieceSet<Bishop>(new Square("E2")).GetMoves(Bitboard.Empty, Bitboard.Empty);
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E7"), Bitboard.Empty);
+
+            // assert
+            result.Should().Have.SameSequenceAs(expected);
+        }
+
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookE1KnightE2TargetE7_AllKnightMoves()
+        {
+            // arrange
+            var s = new Side("A1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(new Square("E2")),
+                new PieceSet<Rook>(new Square("E1")),
+                new WhitePawns()
+                );
+
+            var expected = new PieceSet<Knight>(new Square("E2")).GetMoves(Bitboard.Empty, Bitboard.Empty);
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E7"), Bitboard.Empty);
+
+            // assert
+            result.Should().Have.SameSequenceAs(expected);
+        }
+
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookE1KingE3TargetE7()
+        {
+            // arrange
+            var s = new Side("E3",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(new Square("E1")),
+                new WhitePawns()
+                );
+
+            var expected = new PieceSet<King>(new Square("E3")).GetMoves(Bitboard.Empty, Bitboard.Empty, Bitboard.Full, ~Bitboard.With.FileE.Build());
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E7"), Bitboard.Empty);
+
+            // assert
+            result.Should().Have.SameSequenceAs(expected);
+        }
     }
 }

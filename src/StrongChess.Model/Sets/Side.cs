@@ -118,6 +118,29 @@ namespace StrongChess.Model.Sets
             return result;
         }
 
+        public IEnumerable<Move> GetDiscoverdStraightAttackMoves(Square target, Bitboard enemies, Square? enpassant = null)
+        {
+            var filterFrom = GetBlockersToStraightAttacks(target, enemies);
+
+            var result = Knights.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full)
+                .Union(Bishops.GetMoves(Occupation, enemies, filterFrom, Bitboard.Full));
+
+            if ((_King.Locations & filterFrom) > 0)
+            {
+                Bitboard filterTo;
+                if (KingLocation.File == target.File)
+                    filterTo = ~(target.File.AsBoard);
+                else
+                    filterTo = ~(target.Rank.AsBoard);
+
+                result = result.Union(_King.GetMoves(Occupation, enemies, filterFrom, filterTo));
+            }
+
+            //if (Pawns.Locations & filterFrom )
+
+            return result;
+        }
+
         public Bitboard GetBlockersToStraightAttacks(Square target, Bitboard enemies)
         {
             var allpieces = enemies | Occupation;
@@ -131,7 +154,7 @@ namespace StrongChess.Model.Sets
             var rayTo = target.RayTo;
             var n = rayTo.N;
             if ((n & checkers) == 0)
-                blockers &= ~n;
+                blockers &= ~n; 
 
             var s = rayTo.S;
             if ((s & checkers) == 0)
