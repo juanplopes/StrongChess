@@ -21,7 +21,7 @@ namespace StrongChess.Model.Pieces
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             var allpieces = friends.And(enemies);
-            var result = Bitboard.Empty.And(from.File, from.Rank).Except(from);
+            var result = Bitboard.Empty.And(from.DiagonalNW, from.DiagonalNE).Except(from);
 
             return result.Except(friends,
                 from.RayTo.NE.Intersect(allpieces).LowestSquare.RayTo.NE,
