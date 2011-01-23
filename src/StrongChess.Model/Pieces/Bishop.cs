@@ -7,7 +7,6 @@ namespace StrongChess.Model.Pieces
 {
     public struct Bishop : IPieceRule
     {
-
         public Bitboard GetMoveBoard(Square from)
         {
             return GetMoveBoard(from, 0);
@@ -21,9 +20,9 @@ namespace StrongChess.Model.Pieces
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
             var allpieces = friends.And(enemies);
-            var result = Bitboard.Empty.And(from.DiagonalNW, from.DiagonalNE).Except(from);
+            var result = Bitboard.Empty.And(from.DiagonalNW, from.DiagonalNE);
 
-            return result.Except(friends,
+            return result.Except(from, friends,
                 from.RayTo.NE.Intersect(allpieces).LowestSquare.RayTo.NE,
                 from.RayTo.NW.Intersect(allpieces).LowestSquare.RayTo.NW,
                 from.RayTo.SE.Intersect(allpieces).HighestSquare.RayTo.SE,
