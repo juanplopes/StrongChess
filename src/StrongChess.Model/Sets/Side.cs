@@ -136,7 +136,17 @@ namespace StrongChess.Model.Sets
                 result = result.Union(_King.GetMoves(Occupation, enemies, filterFrom, filterTo));
             }
 
-            //if (Pawns.Locations & filterFrom )
+            if ((Pawns.Locations & filterFrom) > 0)
+            {
+                Bitboard notblockers = ~(Occupation | enemies);
+                if ((Pawns.Locations & target.File.AsBoard) > 0)
+                    result = result.Union(Pawns.GetCaptures(enemies, Pawns.Locations & target.File.AsBoard, Bitboard.Full, enpassant));
+
+                if ((Pawns.Locations & target.Rank.AsBoard) > 0)
+                    result = result.Union(Pawns.GetCaptures(enemies, Pawns.Locations & target.Rank.AsBoard, Bitboard.Full, enpassant))
+                        .Union(Pawns.GetMovesOneSquareForward(notblockers, Pawns.Locations & target.Rank.AsBoard, Bitboard.Full))
+                        .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Pawns.Locations & target.Rank.AsBoard, Bitboard.Full));
+            }
 
             return result;
         }

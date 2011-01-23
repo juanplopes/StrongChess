@@ -430,5 +430,67 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             result.Should().Have.SameSequenceAs(expected);
         }
+
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookE1PawnE3TargetE7_ReturnsEmpty()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(new Square("E1")),
+                new WhitePawns(Bitboard.With.A3.Build())
+                );
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E7"), Bitboard.Empty);
+
+            // assert
+            result.Count().Should().Be(0);
+        }
+
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookE1PawnE3EnemyD4TargetE7_ReturnsE3D4()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(new Square("E1")),
+                new WhitePawns(Bitboard.With.Rank2.E3.Except.E2.Build())
+                );
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E7"), new Square("D4").AsBoard);
+
+            // assert
+            result.Should().Have.SameSequenceAs(
+                new Move("E3", "D4")
+                );
+        }
+
+        [Test]
+        public void GetDiscoveredStraightAttackMoves_RookA4PawnB4TargetE4_ReturnsB4B5()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(new Square("A4")),
+                new WhitePawns(Bitboard.With.Rank2.B4.Except.B2.Build())
+                );
+
+            // act
+            var result = s.GetDiscoverdStraightAttackMoves(new Square("E4"), Bitboard.Empty);
+
+            // assert
+            result.Should().Have.SameSequenceAs(
+                new Move("B4", "B5")
+                );
+
+        }
     }
 }
