@@ -67,7 +67,7 @@ namespace StrongChess.Model.Tests.Units
         public void Rank1ShouldContainAll1()
         {
             Rank rank = "1";
-            rank.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs(
+            rank.AsBoard.Squares.Should().Have.SameSequenceAs(
                 "A1", "B1", "C1", "D1", "E1", "F1", "G1", "H1");
         }
 
@@ -75,7 +75,7 @@ namespace StrongChess.Model.Tests.Units
         public void BitmaskForRank7()
         {
             Rank rank = "7";
-            rank.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs(
+            rank.AsBoard.Squares.Should().Have.SameSequenceAs(
                 "A7", "B7", "C7", "D7", "E7", "F7", "G7", "H7");
         }
 

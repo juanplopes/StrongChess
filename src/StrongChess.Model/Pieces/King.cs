@@ -27,21 +27,15 @@ namespace StrongChess.Model.Pieces
         static readonly Bitboard[] _Moves = new Bitboard[64];
         static King()
         {
-            int[] knightsq = new int[] { -9, -8, -7, -1, 1, 7, 8, 9 };
             for (Square i = 0; i < 64; i++)
             {
-                var bboard = new Bitboard();
-
-                for (int j = 0; j < 8; j++)
-                {
-                    Square target = i + knightsq[j];
-                    if (target.IsValid &&
-                        target.File.DistanceFrom(i.File) <= 1 &&
-                        target.Rank.DistanceFrom(i.Rank) <= 1)
-                        bboard = bboard.Set(target);
-                }
-
-                _Moves[i] = bboard;
+                var square = i.AsBoard;
+                var board = Bitboard.Empty.Set(
+                    square.Shift(0, 1), square.Shift(0, -1),
+                    square.Shift(1, 0), square.Shift(-1, 0),
+                    square.Shift(1, 1), square.Shift(1, -1),
+                    square.Shift(-1, 1), square.Shift(-1, -1));
+                _Moves[i] = board;
             }
         }
         #endregion

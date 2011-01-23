@@ -103,7 +103,7 @@ namespace StrongChess.Model.Sets
             Bitboard b = Locations.Intersect(new Rank(6)).Intersect(filterFrom);
             b = b.Shift(-1, 0).Intersect(notblockers);
             b = b.Shift(-1, 0).Intersect(notblockers).Intersect(filterTo);
-            foreach (var to in b.GetSettedSquares())
+            foreach (var to in b.Squares)
             {
                 Square from = to + 16;
                 b = b.Clear(to);
@@ -136,7 +136,7 @@ namespace StrongChess.Model.Sets
 
         private IEnumerable<Move> GetMoves(Bitboard b, int offsetFrom)
         {
-            foreach (var to in b.GetSettedSquares())
+            foreach (var to in b.Squares)
             {
                 Square from = to + offsetFrom;
                 b = b.Clear(to);

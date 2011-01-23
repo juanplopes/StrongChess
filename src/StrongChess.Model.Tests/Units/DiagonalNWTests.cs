@@ -16,7 +16,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.A8.B7.C6.D5.E4.F3.G2.H1.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 
@@ -25,7 +25,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.H4.G5.F6.E7.D8.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 
@@ -34,7 +34,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.H7.G8.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 
@@ -43,7 +43,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.E1.D2.C3.B4.A5.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 
@@ -52,7 +52,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.A1.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 
@@ -61,7 +61,7 @@ namespace StrongChess.Model.Tests.Units
         {
             var expected = Bitboard.With.H8.Build();
 
-            foreach (var square in expected.GetSettedSquares())
+            foreach (var square in expected.Squares)
                 square.DiagonalNW.AsBoard.Should().Be(expected);
         }
 

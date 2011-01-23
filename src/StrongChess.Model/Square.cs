@@ -18,7 +18,7 @@ namespace StrongChess.Model
 
         public bool IsValid
         {
-            get { return File.IsValid && Rank.IsValid; }
+            get { return index >= 0 && index <= 64; }
         }
 
         public Bitboard AsBoard { get { return masks[index]; } }

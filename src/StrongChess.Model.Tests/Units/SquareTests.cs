@@ -76,14 +76,14 @@ namespace StrongChess.Model.Tests.Units
         public void BitmaskForA1()
         {
             Square square = "A1";
-            square.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs("A1");
+            square.AsBoard.Squares.Should().Have.SameSequenceAs("A1");
         }
 
         [Test]
         public void BitmaskForH8()
         {
             Square square = "H8";
-            square.AsBoard.GetSettedSquares().Should().Have.SameSequenceAs("H8");
+            square.AsBoard.Squares.Should().Have.SameSequenceAs("H8");
         }
 
     }

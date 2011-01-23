@@ -70,15 +70,20 @@ namespace StrongChess.Model
             get { return value.PopCount(); }
         }
 
+        public Square LowerSquare { get { return value.BitScanForward(); } }
+        public Square HigherSquare { get { return value.BitScanReverse(); } }
 
-        public IEnumerable<Square> GetSettedSquares()
+        public IEnumerable<Square> Squares
         {
-            var bcopy = value;
-            while (bcopy != 0)
+            get
             {
-                Square lead = bcopy.BitScanForward();
-                yield return lead;
-                bcopy = bcopy & ~lead.AsBoard.value;
+                var bcopy = value;
+                while (bcopy != 0)
+                {
+                    Square lead = bcopy.BitScanForward();
+                    yield return lead;
+                    bcopy = bcopy & ~lead.AsBoard.value;
+                }
             }
         }
 
@@ -117,7 +122,7 @@ namespace StrongChess.Model
 
         public override string ToString()
         {
-            return "[" + string.Join("; ", GetSettedSquares().Select(x => x.ToString()).ToArray()) + "]";
+            return "[" + string.Join("; ", Squares.Select(x => x.ToString()).ToArray()) + "]";
         }
 
         #endregion

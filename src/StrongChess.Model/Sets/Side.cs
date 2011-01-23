@@ -9,23 +9,17 @@ namespace StrongChess.Model.Sets
 {
     public struct Side
     {
-        public PieceSet<Queen> Queens
-        { get; private set; }
-        public PieceSet<Rook> Rooks
-        { get; private set; }
-        public PieceSet<Bishop> Bishops
-        { get; private set; }
-        public PieceSet<Knight> Knights
-        { get; private set; }
-        public IPawns Pawns
-        { get; private set; }
-
+        public PieceSet<Queen> Queens { get; private set; }
+        public PieceSet<Rook> Rooks { get; private set; }
+        public PieceSet<Bishop> Bishops { get; private set; }
+        public PieceSet<Knight> Knights { get; private set; }
+        public IPawns Pawns { get; private set; }
 
         PieceSet<King> _King;
         public Square KingLocation
-        { get { return _King.Locations.GetSettedSquares().First(); } }
+        { get { return _King.Locations.Squares.First(); } }
 
-        public Bitboard Occupation 
+        public Bitboard Occupation
         { get; private set; }
 
         public Side(
@@ -35,7 +29,8 @@ namespace StrongChess.Model.Sets
             PieceSet<Knight> knights,
             PieceSet<Rook> rooks,
             IPawns pawns
-            ) : this()
+            )
+            : this()
         {
             _King = new PieceSet<King>(kingLocation.AsBoard);
             Queens = queens;
@@ -101,7 +96,7 @@ namespace StrongChess.Model.Sets
             if ((_King.Locations & filterFrom) > 0)
             {
                 var kl = KingLocation;
-                int offset = target - kl ;
+                int offset = target - kl;
                 Bitboard filterTo = Bitboard.Full;
 
                 if (offset % 9 == 0)
@@ -133,20 +128,20 @@ namespace StrongChess.Model.Sets
             var checkers = Rules.For<Rook>().GetMoveBoard(target, Bitboard.Empty, allpieces);
             checkers = checkers & (Rooks.Locations | Queens.Locations);
 
-            var rays = new Rays(target);
-            var n = rays.N;
+            var rayTo = target.RayTo;
+            var n = rayTo.N;
             if ((n & checkers) == 0)
                 blockers &= ~n;
 
-            var s = rays.S;
+            var s = rayTo.S;
             if ((s & checkers) == 0)
                 blockers &= ~s;
 
-            var e = rays.E;
+            var e = rayTo.E;
             if ((e & checkers) == 0)
                 blockers &= ~e;
 
-            var w = rays.W;
+            var w = rayTo.W;
             if ((w & checkers) == 0)
                 blockers &= ~w;
 

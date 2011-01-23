@@ -19,59 +19,22 @@ namespace StrongChess.Model.Pieces
 
         public Bitboard GetMoveBoard(Square from, Bitboard friends, Bitboard enemies)
         {
-            Bitboard allpieces = friends | enemies;
+            var allpieces = friends.Set(enemies);
 
-            Bitboard result = Bitboard.Empty;
+            var result = from.File.AsBoard.Set(from.Rank).Clear(from);
 
-            var file = from.File;
-            var rank = from.Rank;
-            var newSq = from.AsBoard;
-            while (true)
-            {
-                newSq = newSq << 8;
-                if (!file.AsBoard.Contains(newSq)) break;
-                //if (friends.Contains(newSq)) break;
-                result = result | newSq;
-                //if (enemies.Contains(newSq)) break;
-                if (allpieces.Contains(newSq)) break;
-            }
+            var rayTo = from.RayTo;
+            var n = rayTo.N.Intersect(allpieces).LowerSquare;
+            var s = rayTo.S.Intersect(allpieces).HigherSquare;
+            var e = rayTo.E.Intersect(allpieces).LowerSquare;
+            var w = rayTo.W.Intersect(allpieces).HigherSquare;
 
-            newSq = from.AsBoard;
-            while (true)
-            {
-                newSq = newSq >> 8;
-                if (!file.AsBoard.Contains(newSq)) break;
-                //if (friends.Contains(newSq)) break;
-                result = result | newSq;
-                //if (enemies.Contains(newSq)) break;
-                if (allpieces.Contains(newSq)) break;
-            }
+            if (n.IsValid) result = result.Clear(n.RayTo.N);
+            if (s.IsValid) result = result.Clear(s.RayTo.S);
+            if (e.IsValid) result = result.Clear(e.RayTo.E);
+            if (w.IsValid) result = result.Clear(w.RayTo.W);
 
-            newSq = from.AsBoard;
-            while (true)
-            {
-                newSq = newSq << 1;
-                if (!rank.AsBoard.Contains(newSq)) break;
-                //if (friends.Contains(newSq)) break;
-                result = result | newSq;
-                //if (enemies.Contains(newSq)) break;
-                if (allpieces.Contains(newSq)) break;
-            }
-
-            newSq = from.AsBoard;
-            while (true)
-            {
-                newSq = newSq >> 1;
-                if (!rank.AsBoard.Contains(newSq)) break;
-                //if (friends.Contains(newSq)) break;
-                result = result | newSq;
-                //if (enemies.Contains(newSq)) break;
-                if (allpieces.Contains(newSq)) break;
-            }
-
-            result = result & ~friends;
-
-            return result;
+            return result.Clear(friends);
         }
 
     }
