@@ -42,6 +42,36 @@ namespace StrongChess.Model.Sets
                 bishops.Locations | knights.Locations | pawns.Locations;
         }
 
+        public IEnumerable<Move> GetCheckMoves(Side opponent, Square? enpassant)
+        {
+            return GetDirectAttackMoves(opponent.KingLocation, opponent.Occupation, enpassant)
+                .Union(GetDiscoveredAttackMoves(opponent.KingLocation, opponent.Occupation, enpassant));
+        }
+
+        public IEnumerable<Move> GetDirectAttackMoves(Square target, Bitboard enemies, Square? enpassant = null, bool includeKingAttacks = false)
+        {
+            var t = target.AsBoard;
+            var notblockers = ~(this.Occupation | enemies);
+            Bitboard pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
+            
+            var result = Pawns.GetCaptures(enemies, Bitboard.Full, pawnsFilterTo, enpassant)
+                .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, pawnsFilterTo))
+                .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, pawnsFilterTo))
+                ;
+
+            result = result
+                .Union(Queens.GetDirectAttackMoves(target, Occupation, enemies))
+                .Union(Bishops.GetDirectAttackMoves(target, Occupation, enemies))
+                .Union(Knights.GetDirectAttackMoves(target, Occupation, enemies))
+                .Union(Rooks.GetDirectAttackMoves(target, Occupation, enemies));
+
+            if (includeKingAttacks)
+                result = result.Union(_King.GetDirectAttackMoves(target, Occupation, enemies));
+
+            return result;
+        }
+
+
         public Bitboard GetCapturesMoveBoard(Bitboard enemies, Square? enpassant)
         {
             var notblockers = ~(this.Occupation | enemies);
