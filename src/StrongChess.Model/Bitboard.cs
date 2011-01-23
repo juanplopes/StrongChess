@@ -99,7 +99,7 @@ namespace StrongChess.Model
         {
             get
             {
-                return new Bitboard(ulong.MaxValue);
+                return new Bitboard(~0ul);
             }
         }
 
@@ -107,7 +107,7 @@ namespace StrongChess.Model
         {
             get
             {
-                return new Bitboard(0);
+                return new Bitboard(0ul);
             }
         }
 
