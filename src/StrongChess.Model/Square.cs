@@ -14,6 +14,7 @@ namespace StrongChess.Model
         public File File { get { return index & 7; } }
         public DiagonalNE DiagonalNE { get { return new DiagonalNE(File - Rank + 7); } }
         public DiagonalNW DiagonalNW { get { return new DiagonalNW(File + Rank); } }
+        public Rays RayTo { get { return new Rays(this); } }
 
         public bool IsValid
         {

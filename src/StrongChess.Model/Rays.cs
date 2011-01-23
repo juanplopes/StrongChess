@@ -7,107 +7,43 @@ namespace StrongChess.Model
 {
     public struct Rays
     {
-        public Square Origin { get; private set; }
+        Square origin;
+        public Rays(Square origin) : this() { this.origin = origin; }
 
-        public Rays(Square origin)
-            : this()
-        { this.Origin = origin; }
-
-
-        public Bitboard N
-        { get { return _masksN[(int)Origin]; } }
-
-        public Bitboard S
-        { get { return _masksS[(int)Origin]; } }
-
-        public Bitboard E
-        { get { return _masksE[(int)Origin]; } }
-
-        public Bitboard W
-        { get { return _masksW[(int)Origin]; } }
-        
-        public Bitboard SE
-        { get { return _masksSE[(int)Origin]; } }
-
-        public Bitboard SW
-        { get { return _masksSW[(int)Origin]; } }
-
-        public Bitboard NE
-        { get { return _masksNE[(int)Origin]; } }
-        
-        public Bitboard NW
-        { get { return _masksNW[(int)Origin]; } }
-        
-        
+        public Bitboard N { get { return masksN[origin]; } }
+        public Bitboard S { get { return masksS[origin]; } }
+        public Bitboard E { get { return masksE[origin]; } }
+        public Bitboard W { get { return masksW[origin]; } }
+        public Bitboard SE { get { return masksSE[origin]; } }
+        public Bitboard SW { get { return masksSW[origin]; } }
+        public Bitboard NE { get { return masksNE[origin]; } }
+        public Bitboard NW { get { return masksNW[origin]; } }
 
         #region static
-        static Bitboard[] _masksN = new Bitboard[64];
-        static Bitboard[] _masksS = new Bitboard[64];
-        static Bitboard[] _masksE = new Bitboard[64];
-        static Bitboard[] _masksW = new Bitboard[64];
-        static Bitboard[] _masksSE = new Bitboard[64];
-        static Bitboard[] _masksNE = new Bitboard[64];
-        static Bitboard[] _masksNW = new Bitboard[64];
-        static Bitboard[] _masksSW = new Bitboard[64];
+        static Bitboard[] masksN = new Bitboard[64];
+        static Bitboard[] masksS = new Bitboard[64];
+        static Bitboard[] masksE = new Bitboard[64];
+        static Bitboard[] masksW = new Bitboard[64];
+        static Bitboard[] masksSE = new Bitboard[64];
+        static Bitboard[] masksNE = new Bitboard[64];
+        static Bitboard[] masksNW = new Bitboard[64];
+        static Bitboard[] masksSW = new Bitboard[64];
+
         static Rays()
         {
-            for (int i = 0; i < 64; i++)
+            for (Square sq = 0; sq < 64; sq++)
             {
-                Bitboard sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(1, 0);
-                    _masksN[i] |= sq;
-                }
+                masksN[sq] = sq.File.AsBoard.Shift(sq.Rank, 0).Clear(sq);
+                masksS[sq] = sq.File.AsBoard.Shift(sq.Rank - 7, 0).Clear(sq);
 
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(-1, 0);
-                    _masksS[i] |= sq;
-                }
+                masksE[sq] = sq.Rank.AsBoard.Shift(0, sq.File).Clear(sq);
+                masksW[sq] = sq.Rank.AsBoard.Shift(0, sq.File - 7).Clear(sq);
 
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(-1, 1);
-                    _masksSE[i] |= sq;
-                }
+                masksNE[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank, sq.Rank).Clear(sq);
+                masksSW[sq] = sq.DiagonalNE.AsBoard.Shift(sq.Rank - 7, sq.Rank - 7).Clear(sq);
 
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(1, 1);
-                    _masksNE[i] |= sq;
-                }
-
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(1, -1);
-                    _masksNW[i] |= sq;
-                }
-
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(-1, -1);
-                    _masksSW[i] |= sq;
-                }
-
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(0, 1);
-                    _masksE[i] |= sq;
-                }
-
-                sq = (1ul << i);
-                while (sq != 0)
-                {
-                    sq = sq.Shift(0, -1);
-                    _masksW[i] |= sq;
-                }
+                masksNW[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank, -sq.Rank).Clear(sq);
+                masksSE[sq] = sq.DiagonalNW.AsBoard.Shift(sq.Rank - 7, 7 - sq.Rank).Clear(sq);
             }
         }
         #endregion

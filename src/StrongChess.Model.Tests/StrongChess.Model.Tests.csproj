@@ -59,6 +59,7 @@
     <Compile Include="Sets\PieceSetTests.cs" />
     <Compile Include="Sets\SideTests.cs" />
     <Compile Include="Units\BitboardTests.cs" />
+    <Compile Include="Units\RaysTests.cs" />
     <Compile Include="Util\BitOperationsTests.cs" />
     <Compile Include="Sets\BlackPawnsTests.cs" />
     <Compile Include="Util\BoardBuilderTests.cs" />
