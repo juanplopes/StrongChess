@@ -95,21 +95,8 @@ namespace StrongChess.Model
             return board.value;
         }
 
-        public static Bitboard Full
-        {
-            get
-            {
-                return new Bitboard(~0ul);
-            }
-        }
-
-        public static Bitboard Empty
-        {
-            get
-            {
-                return new Bitboard(0ul);
-            }
-        }
+        public static Bitboard Full { get { return new Bitboard(~0ul); } }
+        public static Bitboard Empty { get { return new Bitboard(0ul); } }
 
         public static BoardBuilder With
         {
