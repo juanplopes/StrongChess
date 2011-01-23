@@ -118,6 +118,12 @@ namespace StrongChess.Model.Sets
             return result;
         }
 
+        public IEnumerable<Move> GetDiscoveredAttackMoves(Square target, Bitboard enemies, Square? enpassant)
+        {
+            return GetDiscoveredDiagonalAttackMoves(target, enemies, enpassant)
+                .Union(GetDiscoverdStraightAttackMoves(target, enemies, enpassant));
+        }
+
         public IEnumerable<Move> GetDiscoverdStraightAttackMoves(Square target, Bitboard enemies, Square? enpassant = null)
         {
             var filterFrom = GetBlockersToStraightAttacks(target, enemies);
