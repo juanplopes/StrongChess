@@ -277,10 +277,11 @@ namespace StrongChess.Model.Sets
                 
         }
         
-        public IEnumerable<Move> GetCheckEvasionMoves(Side enemy, Square? enpassant = null)
+        public IEnumerable<Move> GetCheckEvasionMoves(Side enemy)
         {
-            var result = this.GetCheckEvasionKingMoves(enemy);
-            return result;
+            return 
+                GetCheckEvasionKingMoves(enemy)
+                .Union(GetCheckEvasionPinningPiecesMoves(enemy));
         }
 
         public IEnumerable<Move> GetCheckEvasionKingMoves(Side enemy)
@@ -291,7 +292,7 @@ namespace StrongChess.Model.Sets
                     yield return new Move(KingLocation, sq);
         }
 
-        public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy, Square? enpassant = null)
+        public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy)
         {
             var black = enemy; var white = this;
             if (this.IsBlack) { black = this; white = enemy; }
@@ -301,11 +302,15 @@ namespace StrongChess.Model.Sets
             if ((checkers & Knights.Locations) != 0) return Enumerable.Empty<Move>();
 
             Bitboard path = new AttackPath(checkers.HighestSquare, KingLocation).AsBoard;
+            Bitboard notblockers = ~(this.Occupation | enemy.Occupation);
 
             return Knights.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path)
                 .Union(Bishops.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
                 .Union(Rooks.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
-                .Union(Queens.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path));
+                .Union(Queens.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, path))
+                .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, path));
+
         }
 
         #region static

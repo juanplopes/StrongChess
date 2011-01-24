@@ -681,7 +681,7 @@ namespace StrongChess.Model.Tests.Sets
                 new PieceSet<Bishop>(),
                 new PieceSet<Knight>(),
                 new PieceSet<Rook>(),
-                new BlackPawns());
+                new WhitePawns());
             
             var black = new Side("D8",
                 new PieceSet<Queen>(),
@@ -710,7 +710,7 @@ namespace StrongChess.Model.Tests.Sets
                 new PieceSet<Bishop>(),
                 new PieceSet<Knight>(),
                 new PieceSet<Rook>(),
-                new BlackPawns());
+                new WhitePawns());
 
             var black = new Side("D8",
                 new PieceSet<Queen>(),
@@ -737,7 +737,7 @@ namespace StrongChess.Model.Tests.Sets
                 new PieceSet<Bishop>(),
                 new PieceSet<Knight>(),
                 new PieceSet<Rook>(),
-                new BlackPawns());
+                new WhitePawns());
 
             var black = new Side("D8",
                 new PieceSet<Queen>(),
@@ -765,7 +765,7 @@ namespace StrongChess.Model.Tests.Sets
                 new PieceSet<Bishop>(),
                 new PieceSet<Knight>(),
                 new PieceSet<Rook>(),
-                new BlackPawns());
+                new WhitePawns());
 
             var black = new Side("D8",
                 new PieceSet<Queen>(Bitboard.With.B3.G7),
@@ -783,6 +783,60 @@ namespace StrongChess.Model.Tests.Sets
                 new Move("B3", "D5"),
                 new Move("G7", "D4"),
                 new Move("G7", "D7")
+                );
+        }
+
+        [Test]
+        public void GetCheckEvasionPinningPiecesMoves_PawnsTwoSquares()
+        {
+            // arrange
+            var white = new Side("G1",
+                new PieceSet<Queen>(Bitboard.With.A5),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns());
+
+            var black = new Side("H5",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new BlackPawns(Bitboard.With.G7));
+
+            // act
+            var moves = black.GetCheckEvasionPinningPiecesMoves(white);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("G7", "G5")
+                );
+        }
+
+        [Test]
+        public void GetCheckEvasionPinningPiecesMoves_PawnsOneSquare()
+        {
+            // arrange
+            var white = new Side("G1",
+                new PieceSet<Queen>(Bitboard.With.A5),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns());
+
+            var black = new Side("H5",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new BlackPawns(Bitboard.With.G6));
+
+            // act
+            var moves = black.GetCheckEvasionPinningPiecesMoves(white);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("G6", "G5")
                 );
         }
     }
