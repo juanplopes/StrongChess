@@ -293,15 +293,19 @@ namespace StrongChess.Model.Sets
 
         public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy, Square? enpassant = null)
         {
-            //Side white, black;
-            //if (this.IsBlack) { black = this; white = enemy; }
-            //else if (this.IsWhite) { black = enemy; white = this; }
-            ////Bitboard checkers = KingLocation.AttackedFrom(white, black) & this.Occupation;
-            
-            //if (checkers.BitCount != 1) yield break;
-            //if ((checkers & Knights.Locations) != 0) yield break;
-            return null;
+            var black = enemy; var white = this;
+            if (this.IsBlack) { black = this; white = enemy; }
+            Bitboard checkers = KingLocation.AttackedFrom(white, black) & enemy.Occupation;
 
+            if (checkers.BitCount != 1) return Enumerable.Empty<Move>();
+            if ((checkers & Knights.Locations) != 0) return Enumerable.Empty<Move>();
+
+            Bitboard path = new AttackPath(checkers.HighestSquare, KingLocation).AsBoard;
+
+            return Knights.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path)
+                .Union(Bishops.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Rooks.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Queens.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path));
         }
 
         #region static
