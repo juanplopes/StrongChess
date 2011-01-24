@@ -492,5 +492,29 @@ namespace StrongChess.Model.Tests.Sets
                 );
 
         }
+
+        [Test]
+        public void GetDirectAttackMoves_WhitePawnsD4G4G2EnemyF5TargetE6()
+        {
+            // arrange
+            var s = new Side("G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns(Bitboard.With.D4.G4)
+                );
+
+            var enemy = new Square("F5").AsBoard;
+
+            // act
+            var result = s.GetDirectAttackMoves("E6", enemy);
+
+            // assert
+            result.Should().Have.SameSequenceAs(
+                new Move("G4", "F5"),
+                new Move("D4", "D5")
+                );
+        }
     }
 }
