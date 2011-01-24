@@ -32,6 +32,8 @@ namespace StrongChess.Model
             return File.ToString() + Rank.ToString();
         }
 
+        //public Bitboard AttackedFrom
+
         #region static
         public static int IndexOf(Rank rank, File file)
         {

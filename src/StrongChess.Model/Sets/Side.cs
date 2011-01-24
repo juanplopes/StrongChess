@@ -247,6 +247,11 @@ namespace StrongChess.Model.Sets
             return blockers;
         }
 
+        //public IEnumerable<Move> GetCheckEvasionMoves(Bitboard enemies, Square? enpassant = null)
+        //{
+
+        //}
+
         #region static
         public static Side WhiteInitialPosition
         {

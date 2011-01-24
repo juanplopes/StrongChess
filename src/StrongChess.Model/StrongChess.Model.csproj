@@ -43,9 +43,12 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="AttackMasks.cs" />
+    <Compile Include="BishopPath.cs" />
     <Compile Include="Bitboard.cs" />
     <Compile Include="Rays.cs" />
     <Compile Include="Pieces\Rules.cs" />
+    <Compile Include="RookPath.cs" />
     <Compile Include="Sets\PieceSet.cs" />
     <Compile Include="Sets\Side.cs" />
     <Compile Include="Util\BoardBuilder.cs" />
