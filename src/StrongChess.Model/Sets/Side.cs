@@ -277,11 +277,11 @@ namespace StrongChess.Model.Sets
                 
         }
         
-        public IEnumerable<Move> GetCheckEvasionMoves(Side enemy)
+        public IEnumerable<Move> GetCheckEvasionMoves(Side enemy, Square? enpassant = null)
         {
             return 
                 GetCheckEvasionKingMoves(enemy)
-                .Union(GetCheckEvasionPinningPiecesMoves(enemy));
+                .Union(GetCheckEvasionPinningPiecesMoves(enemy, enpassant));
         }
 
         public IEnumerable<Move> GetCheckEvasionKingMoves(Side enemy)
@@ -292,7 +292,7 @@ namespace StrongChess.Model.Sets
                     yield return new Move(KingLocation, sq);
         }
 
-        public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy)
+        public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy, Square? enpassant = null)
         {
             var black = enemy; var white = this;
             if (this.IsBlack) { black = this; white = enemy; }
@@ -301,7 +301,9 @@ namespace StrongChess.Model.Sets
             if (checkers.BitCount != 1) return Enumerable.Empty<Move>();
             if ((checkers & Knights.Locations) != 0) return Enumerable.Empty<Move>();
 
-            Bitboard path = new AttackPath(checkers.HighestSquare, KingLocation).AsBoard;
+            Bitboard path = new AttackPath(checkers.HighestSquare, KingLocation).AsBoard
+             | checkers.HighestSquare.AsBoard;
+
             Bitboard notblockers = ~(this.Occupation | enemy.Occupation);
 
             return Knights.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path)
@@ -309,7 +311,9 @@ namespace StrongChess.Model.Sets
                 .Union(Rooks.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
                 .Union(Queens.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
                 .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, path))
-                .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, path));
+                .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, path))
+                .Union(Pawns.GetCaptures(enemy.Occupation, Bitboard.Full, path, enpassant));
+                
 
         }
 

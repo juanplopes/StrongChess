@@ -724,6 +724,7 @@ namespace StrongChess.Model.Tests.Sets
 
             // assert
             moves.Should().Have.SameSequenceAs(
+                new Move("B3", "D1"),
                 new Move("B3", "D5")
                 );
         }
@@ -743,7 +744,7 @@ namespace StrongChess.Model.Tests.Sets
                 new PieceSet<Queen>(),
                 new PieceSet<Bishop>(),
                 new PieceSet<Knight>(),
-                new PieceSet<Rook>(Bitboard.With.B3.G7),
+                new PieceSet<Rook>(Bitboard.With.B3.G7.A1),
                 new BlackPawns());
 
             // act
@@ -751,6 +752,7 @@ namespace StrongChess.Model.Tests.Sets
 
             // assert
             moves.Should().Have.SameSequenceAs(
+                new Move("A1", "D1"),
                 new Move("B3", "D3"),
                 new Move("G7", "D7")
                 );
@@ -779,6 +781,7 @@ namespace StrongChess.Model.Tests.Sets
 
             // assert
             moves.Should().Have.SameSequenceAs(
+                new Move("B3", "D1"),
                 new Move("B3", "D3"),
                 new Move("B3", "D5"),
                 new Move("G7", "D4"),
@@ -837,6 +840,34 @@ namespace StrongChess.Model.Tests.Sets
             // assert
             moves.Should().Have.SameSequenceAs(
                 new Move("G6", "G5")
+                );
+        }
+
+        [Test]
+        public void GetCheckEvasionPinningPiecesMoves_PawnsCapture()
+        {
+            // arrange
+            var white = new Side("G1",
+                new PieceSet<Queen>(Bitboard.With.A5),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new WhitePawns());
+
+            var black = new Side("H5",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(),
+                new BlackPawns(Bitboard.With.B6));
+
+            // act
+            var moves = black.GetCheckEvasionPinningPiecesMoves(white);
+
+            // assert
+            moves.Should().Have.SameSequenceAs(
+                new Move("B6", "B5"),
+                new Move("B6", "A5")
                 );
         }
     }
