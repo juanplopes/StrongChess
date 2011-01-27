@@ -60,7 +60,11 @@ namespace StrongChess.Model.Sets
         {
             var t = target.AsBoard;
             var notblockers = ~(this.Occupation | enemies);
-            Bitboard pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
+            Bitboard pawnsFilterTo;
+            if (this.IsWhite)
+                pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
+            else 
+                pawnsFilterTo = t.Shift(1, -1).And(t.Shift(1, 1));
             
             var result = Pawns.GetCaptures(enemies, Bitboard.Full, pawnsFilterTo, enpassant)
                 .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, pawnsFilterTo))
@@ -313,8 +317,6 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, path))
                 .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, path))
                 .Union(Pawns.GetCaptures(enemy.Occupation, Bitboard.Full, path, enpassant));
-                
-
         }
 
         #region static
