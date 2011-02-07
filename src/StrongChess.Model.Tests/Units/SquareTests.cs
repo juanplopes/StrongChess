@@ -5,6 +5,8 @@ using System.Text;
 using NUnit.Framework;
 using SharpTestsEx;
 using System.Runtime.InteropServices;
+using StrongChess.Model.Sets;
+using StrongChess.Model.Pieces;
 
 namespace StrongChess.Model.Tests.Units
 {
@@ -84,6 +86,70 @@ namespace StrongChess.Model.Tests.Units
         {
             Square square = "H8";
             square.AsBoard.Squares.Should().Have.SameSequenceAs("H8");
+        }
+
+        [Test]
+        public void AttackedFrom_WhteRookE1KnightC3C4BlackRookA4TargetE4_ReturnsBitboardC3E1()
+        {
+            // arrange
+            var white = new Side(
+                "G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(Bitboard.With.C3.C4),
+                new PieceSet<Rook>(Bitboard.With.E1),
+                new WhitePawns()
+                );
+
+            var black = new Side(
+                "G8",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(Bitboard.With.A4),
+                new BlackPawns()
+                );
+
+            var target = new Square("E4");
+            var expected = Bitboard.With.C3.E1.Build();
+
+            // act
+            var result = target.AttackedFrom(white, black);
+
+            // assert
+            result.Should().Be(expected);
+        }
+
+        [Test]
+        public void AttackedFrom_WhteRookE1KnightC3BlackRookA4TargetE4_ReturnsBitboardC3E1A4()
+        {
+            // arrange
+            var white = new Side(
+                "G1",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(Bitboard.With.C3),
+                new PieceSet<Rook>(Bitboard.With.E1),
+                new WhitePawns()
+                );
+
+            var black = new Side(
+                "G8",
+                new PieceSet<Queen>(),
+                new PieceSet<Bishop>(),
+                new PieceSet<Knight>(),
+                new PieceSet<Rook>(Bitboard.With.A4),
+                new BlackPawns()
+                );
+
+            var target = new Square("E4");
+            var expected = Bitboard.With.A4.C3.E1.Build();
+
+            // act
+            var result = target.AttackedFrom(white, black);
+
+            // assert
+            result.Should().Be(expected);
         }
 
     }

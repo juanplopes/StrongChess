@@ -57,6 +57,8 @@
     <Compile Include="Pieces\BishopTests.cs" />
     <Compile Include="Sets\PieceSetTests.cs" />
     <Compile Include="Sets\SideTests.cs" />
+    <Compile Include="Units\AttackMasksTests.cs" />
+    <Compile Include="Units\AttackPathTests.cs" />
     <Compile Include="Units\BitboardTests.cs" />
     <Compile Include="Units\RaysTests.cs" />
     <Compile Include="Util\BitOperationsTests.cs" />

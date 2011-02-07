@@ -19,6 +19,14 @@ namespace StrongChess.Model.Sets
         public Square KingLocation
         { get { return _King.Locations.Squares.First(); } }
 
+        public Boolean IsWhite 
+        {get { return Pawns.GetType() == typeof(WhitePawns); } }
+
+        public Boolean IsBlack
+        { get { return Pawns.GetType() == typeof(BlackPawns); } }
+
+
+
         public Bitboard Occupation
         { get; private set; }
 
@@ -52,7 +60,11 @@ namespace StrongChess.Model.Sets
         {
             var t = target.AsBoard;
             var notblockers = ~(this.Occupation | enemies);
-            Bitboard pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
+            Bitboard pawnsFilterTo;
+            if (this.IsWhite)
+                pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
+            else 
+                pawnsFilterTo = t.Shift(1, -1).And(t.Shift(1, 1));
             
             var result = Pawns.GetCaptures(enemies, Bitboard.Full, pawnsFilterTo, enpassant)
                 .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, pawnsFilterTo))
@@ -245,6 +257,66 @@ namespace StrongChess.Model.Sets
                 blockers &= ~sw;
 
             return blockers;
+        }
+
+        public bool Attacks(Square target, Bitboard enemies)
+        {
+            AttackMasks m = new AttackMasks(target);
+            if (this.IsWhite && ((m.WhitePawns & this.Pawns.Locations) != 0)) return true;
+            if (this.IsBlack && ((m.BlackPawns & this.Pawns.Locations) != 0)) return true;
+
+            if ((m.Knights & Knights.Locations) != 0) return true;
+
+            var allpieces = this.Occupation | enemies;
+            
+            Bitboard bsliders = (Bishops.Locations | Queens.Locations) & m.Bishops;
+            if (bsliders != Bitboard.Empty)
+                if ((bsliders & Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces)) > 0) return true;
+
+            Bitboard rsliders = (Rooks.Locations | Queens.Locations) & m.Rooks;
+            if (rsliders != Bitboard.Empty)
+                if ((rsliders & Rules.For<Rook>().GetMoveBoard(target, Bitboard.Empty, allpieces)) > 0) return true;
+
+            return false;
+                
+        }
+        
+        public IEnumerable<Move> GetCheckEvasionMoves(Side enemy, Square? enpassant = null)
+        {
+            return 
+                GetCheckEvasionKingMoves(enemy)
+                .Union(GetCheckEvasionPinningPiecesMoves(enemy, enpassant));
+        }
+
+        public IEnumerable<Move> GetCheckEvasionKingMoves(Side enemy)
+        {
+            var alternatives = Rules.For<King>().GetMoveBoard(KingLocation, this.Occupation, enemy.Occupation);
+            foreach (var sq in alternatives.Squares)
+                if (!enemy.Attacks(sq, this.Occupation))
+                    yield return new Move(KingLocation, sq);
+        }
+
+        public IEnumerable<Move> GetCheckEvasionPinningPiecesMoves(Side enemy, Square? enpassant = null)
+        {
+            var black = enemy; var white = this;
+            if (this.IsBlack) { black = this; white = enemy; }
+            Bitboard checkers = KingLocation.AttackedFrom(white, black) & enemy.Occupation;
+
+            if (checkers.BitCount != 1) return Enumerable.Empty<Move>();
+            if ((checkers & Knights.Locations) != 0) return Enumerable.Empty<Move>();
+
+            Bitboard path = new AttackPath(checkers.HighestSquare, KingLocation).AsBoard
+             | checkers.HighestSquare.AsBoard;
+
+            Bitboard notblockers = ~(this.Occupation | enemy.Occupation);
+
+            return Knights.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path)
+                .Union(Bishops.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Rooks.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Queens.GetMoves(this.Occupation, enemy.Occupation, Bitboard.Full, path))
+                .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, path))
+                .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, path))
+                .Union(Pawns.GetCaptures(enemy.Occupation, Bitboard.Full, path, enpassant));
         }
 
         #region static

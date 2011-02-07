@@ -43,6 +43,8 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="AttackMasks.cs" />
+    <Compile Include="AttackPath.cs" />
     <Compile Include="Bitboard.cs" />
     <Compile Include="Rays.cs" />
     <Compile Include="Pieces\Rules.cs" />

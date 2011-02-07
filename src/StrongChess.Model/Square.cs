@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using StrongChess.Model.Sets;
+using StrongChess.Model.Pieces;
 
 namespace StrongChess.Model
 {
@@ -30,6 +32,32 @@ namespace StrongChess.Model
         public override string ToString()
         {
             return File.ToString() + Rank.ToString();
+        }
+
+        public Bitboard AttackedFrom(Side white, Side black)
+        {
+            var allpieces = white.Occupation | black.Occupation;
+            AttackMasks m = new AttackMasks(this);
+
+            Bitboard result =
+                (white.Pawns.Locations & m.WhitePawns) |
+                (black.Pawns.Locations & m.BlackPawns);
+
+            result |= (m.Knights & (white.Knights.Locations | black.Knights.Locations));
+
+            Bitboard bsliders = (white.Bishops.Locations | black.Bishops.Locations |
+                white.Queens.Locations | black.Queens.Locations) & m.Bishops;
+
+            Bitboard rsliders = (white.Rooks.Locations | black.Rooks.Locations |
+                white.Queens.Locations | black.Queens.Locations) & m.Rooks;
+
+            if (bsliders != Bitboard.Empty)
+                result |= (bsliders & Rules.For<Bishop>().GetMoveBoard(this, Bitboard.Empty, allpieces));
+
+            if (rsliders != Bitboard.Empty)
+                result |= (rsliders & Rules.For<Rook>().GetMoveBoard(this, Bitboard.Empty, allpieces));
+
+            return result;
         }
 
         #region static
