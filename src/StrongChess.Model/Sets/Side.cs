@@ -83,7 +83,6 @@ namespace StrongChess.Model.Sets
             return result;
         }
 
-
         public Bitboard GetCapturesMoveBoard(Bitboard enemies, Square? enpassant)
         {
             var notblockers = ~(this.Occupation | enemies);
@@ -319,6 +318,23 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemy.Occupation, Bitboard.Full, path, enpassant));
         }
 
+
+        public ChessPieces GetPieceAt(Square sq)
+        {
+            if (!this.Occupation.Contains(sq))
+                return ChessPieces.None;
+            else if (this.Queens.Locations.Contains(sq))
+                return ChessPieces.Queen;
+            else if (this.Bishops.Locations.Contains(sq))
+                return ChessPieces.Bishop;
+            else if (this.Knights.Locations.Contains(sq))
+                return ChessPieces.Knight;
+            else if (this.Rooks.Locations.Contains(sq))
+                return ChessPieces.Rook;
+            
+            return ChessPieces.King;
+        }
+
         #region static
         public static Side WhiteInitialPosition
         {
@@ -335,7 +351,7 @@ namespace StrongChess.Model.Sets
             }
         }
 
-        public static Side BlackInicialPosition
+        public static Side BlackInitialPosition
         {
             get
             {
