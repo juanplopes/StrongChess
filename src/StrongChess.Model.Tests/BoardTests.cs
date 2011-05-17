@@ -34,13 +34,13 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
-        public void NewGame_IsWhiteToMove_ReturnsTrue()
+        public void NewGame_IsWhiteTurn_ReturnsTrue()
         {
             // arrange
             var b = Board.NewGame();
             //act
             // assert
-            b.IsWhiteToMove.Should().Be(true);
+            b.IsWhiteTurn.Should().Be(true);
         }
 
         [Test]
@@ -187,7 +187,7 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
-        public void MakeMove_InitialPositionE2E4_IsWhiteToMoveShouldBeFalse()
+        public void MakeMove_InitialPositionE2E4_IsWhiteTurnShouldBeFalse()
         {
             // arrange
             var board = Board.NewGame();
@@ -196,7 +196,7 @@ namespace StrongChess.Model.Tests
             var result = board.MakeMove(new Move("E2", "E4"));
 
             // assert
-            result.IsWhiteToMove.Should().Be(false);
+            result.IsWhiteTurn.Should().Be(false);
         }
 
         [Test]

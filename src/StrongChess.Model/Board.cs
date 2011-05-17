@@ -14,7 +14,7 @@ namespace StrongChess.Model
         public Side White { get; private set; }
         public Side Black { get; private set; }
         public int NoPawnMovesCount { get; private set; }
-        public bool IsWhiteToMove { get; private set; }
+        public bool IsWhiteTurn { get; private set; }
         public Square? Enpassant { get; private set; }
 
         public Bitboard Occupation
@@ -34,7 +34,7 @@ namespace StrongChess.Model
             this.White = white;
             this.Black = black;
             this.NoPawnMovesCount = noPawnMovesCount;
-            this.IsWhiteToMove = isWhiteToMove;
+            this.IsWhiteTurn = isWhiteToMove;
             this.Enpassant = enpassant;
         }
         
@@ -45,7 +45,7 @@ namespace StrongChess.Model
             result.White = Side.WhiteInitialPosition;
             result.Black = Side.BlackInitialPosition;
 
-            result.IsWhiteToMove = true;
+            result.IsWhiteTurn = true;
             result.NoPawnMovesCount = 0;
             
             return result;
@@ -55,8 +55,8 @@ namespace StrongChess.Model
         {
             Square? enpassant = null;
 
-            var moving = (this.IsWhiteToMove ? White : Black);
-            var notmoving = (this.IsWhiteToMove ? Black : White);
+            var moving = (this.IsWhiteTurn ? White : Black);
+            var notmoving = (this.IsWhiteTurn ? Black : White);
 
             if (moving.GetPieceAt(move.From) == ChessPieces.Pawn)
             {
@@ -73,7 +73,7 @@ namespace StrongChess.Model
                     & (~move.From.AsBoard)
                     | move.To.AsBoard;
 
-                IPawns pawns = IsWhiteToMove ? 
+                IPawns pawns = IsWhiteTurn ? 
                     (IPawns) new WhitePawns(locations) :
                     (IPawns) new BlackPawns(locations);
 
@@ -108,7 +108,7 @@ namespace StrongChess.Model
                     new PieceSet<Bishop>(notmoving.Bishops.Locations & negative),
                     new PieceSet<Knight>(notmoving.Knights.Locations & negative),
                     new PieceSet<Rook>(notmoving.Rooks.Locations & negative),
-                    (IsWhiteToMove ?
+                    (IsWhiteTurn ?
                         (IPawns)new BlackPawns(notmoving.Pawns.Locations & negative)
                         :
                         (IPawns)new WhitePawns(notmoving.Pawns.Locations & negative)
@@ -122,10 +122,10 @@ namespace StrongChess.Model
                     );
             }
 
-            var white = (this.IsWhiteToMove ? moving : notmoving);
-            var black = (this.IsWhiteToMove ? notmoving : moving);
+            var white = (this.IsWhiteTurn ? moving : notmoving);
+            var black = (this.IsWhiteTurn ? notmoving : moving);
             
-            return new Board(white, black, 0, !IsWhiteToMove, enpassant);
+            return new Board(white, black, 0, !IsWhiteTurn, enpassant);
         }
         
     }
