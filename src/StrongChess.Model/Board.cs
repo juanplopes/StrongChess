@@ -77,6 +77,10 @@ namespace StrongChess.Model
                     );
             }
 
+            notmoving = notmoving.RemovePieces(
+                GetCapturedSquare(move)
+                );
+
             var white = (this.IsWhiteTurn ? moving : notmoving);
             var black = (this.IsWhiteTurn ? notmoving : moving);
             
@@ -157,16 +161,19 @@ namespace StrongChess.Model
                 pawns
                 );
 
-            Square capturedSquare;
-            if (move.To != Enpassant)
-                capturedSquare = move.To;
-            else if (move.To.Rank == 6)
-                capturedSquare = new Square(5, move.To.File);
-            else
-                capturedSquare = new Square(4, move.To.File);
-
-            notmoving = notmoving.RemovePieces(capturedSquare);
             
+            
+        }
+
+        private Square GetCapturedSquare(Move move)
+        {
+            if (move.To != Enpassant)
+                return move.To;
+            
+            if (move.To.Rank == 6)
+                return new Square(5, move.To.File);
+            
+            return new Square(4, move.To.File);
         }
         
     }
