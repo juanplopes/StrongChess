@@ -117,47 +117,25 @@ namespace StrongChess.Model
                 (IPawns)new WhitePawns(locations) :
                 (IPawns)new BlackPawns(locations);
 
-            if (move.From.File == move.To.File &&
-                Math.Abs(move.From.Rank - move.To.Rank) > 1)
+            bool isPawnFirstTwoSquaresMove =
+                (move.From.File == move.To.File &&
+                Math.Abs(move.From.Rank - move.To.Rank) > 1);
+
+            if (isPawnFirstTwoSquaresMove)
                 enpassant = new Square(
                     (move.From.Rank + move.To.Rank) / 2,
                     move.From.File
                     );
 
-            var queens = moving.Queens;
-            if (move.Type == MoveTypes.PawnToQueenPromotion)
-                queens = new PieceSet<Queen>(
-                    moving.Queens.Locations |
-                    move.To.AsBoard
-                    );
-
-            var bishops = moving.Bishops;
-            if (move.Type == MoveTypes.PawnToBishopPromotion)
-                bishops = new PieceSet<Bishop>(
-                    moving.Bishops.Locations |
-                    move.To.AsBoard
-                    );
-
-            var knights = moving.Knights;
-            if (move.Type == MoveTypes.PawnToKnightPromotion)
-                knights = new PieceSet<Knight>(
-                    moving.Knights.Locations |
-                    move.To.AsBoard
-                    );
-
-            var rooks = moving.Rooks;
-            if (move.Type == MoveTypes.PawnToRookPromotion)
-                rooks = new PieceSet<Rook>(
-                    moving.Rooks.Locations |
-                    move.To.AsBoard
-                    );
+            if (isPromotion)
+                moving = moving.AddPieces(move.Type, move.To.AsBoard);
 
             moving = new Side(
                 moving.KingLocation,
-                queens,
-                bishops,
-                knights,
-                rooks,
+                moving.Queens,
+                moving.Bishops,
+                moving.Knights,
+                moving.Rooks,
                 pawns
                 );
 
