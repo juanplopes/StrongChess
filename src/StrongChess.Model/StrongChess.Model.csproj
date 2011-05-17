@@ -47,6 +47,7 @@
     <Compile Include="AttackPath.cs" />
     <Compile Include="Bitboard.cs" />
     <Compile Include="Board.cs" />
+    <Compile Include="Exceptions\InvalidMoveException.cs" />
     <Compile Include="Pieces\ChessPieces.cs" />
     <Compile Include="Rays.cs" />
     <Compile Include="Pieces\Rules.cs" />

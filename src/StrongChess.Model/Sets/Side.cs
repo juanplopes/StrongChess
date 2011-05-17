@@ -323,6 +323,8 @@ namespace StrongChess.Model.Sets
         {
             if (!this.Occupation.Contains(sq))
                 return ChessPieces.None;
+            else if (this.Pawns.Locations.Contains(sq))
+                return ChessPieces.Pawn;
             else if (this.Queens.Locations.Contains(sq))
                 return ChessPieces.Queen;
             else if (this.Bishops.Locations.Contains(sq))

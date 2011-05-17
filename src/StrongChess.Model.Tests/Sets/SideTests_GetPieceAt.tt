@@ -24,6 +24,28 @@ namespace StrongChess.Model.Tests.Sets
 		#>
 		
 		[Test]
+        public void GetPieceAt_<#= files[i] #>2InWhiteInitialPosition_ReturnsPawn()
+        {
+            // arrange
+            var side = Side.WhiteInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>2");
+            // assert
+            piece.Should().Be(ChessPieces.Pawn);
+        }
+		
+		[Test]
+        public void GetPieceAt_<#= files[i] #>7InWhiteInitialPosition_ReturnsPawn()
+        {
+            // arrange
+            var side = Side.BlackInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>7");
+            // assert
+            piece.Should().Be(ChessPieces.Pawn);
+        }
+		
+		[Test]
         public void GetPieceAt_<#= files[i] #>1InWhiteInitialPosition_Returns<#= pieces[i] #>()
         {
             // arrange
