@@ -93,20 +93,10 @@ namespace StrongChess.Model
             ref Side moving, 
             ref Side notmoving)
         {
-            bool isPromotion =
+            EnsureValidPawnMove(move, moving, notmoving);
+
+            bool isPromotion = 
                 (move.To.Rank.Index == 7 || move.To.Rank.Index == 0);
-
-            if (move.Type == MoveTypes.Normal && isPromotion)
-                throw new InvalidMoveException(move, this);
-
-            var isvalid = moving.Pawns
-                .GetAllMoves(~Occupation, notmoving.Occupation,
-                this.Enpassant)
-                .Count(m => m.From == move.From && m.To == move.To)
-                > 0;
-
-            if (!isvalid)
-                throw new InvalidMoveException(move, this);
 
             var locations = moving.Pawns.Locations
                 & (~move.From.AsBoard);
@@ -130,6 +120,22 @@ namespace StrongChess.Model
                 moving.Rooks,
                 pawns
                 );
+        }
+
+        private void EnsureValidPawnMove(Move move, Side moving, Side notmoving)
+        {
+            if (move.Type == MoveTypes.Normal)
+                if (move.To.Rank.Index == 7 || move.To.Rank.Index == 0)
+                    throw new InvalidMoveException(move, this);
+
+            var isvalid = moving.Pawns
+                .GetAllMoves(~Occupation, notmoving.Occupation,
+                this.Enpassant)
+                .Count(m => m.From == move.From && m.To == move.To)
+                > 0;
+
+            if (!isvalid)
+                throw new InvalidMoveException(move, this);
         }
 
         private static Square? ComputeEnpassantSquare(Move move)
