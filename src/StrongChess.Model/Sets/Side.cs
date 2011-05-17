@@ -337,6 +337,24 @@ namespace StrongChess.Model.Sets
             return ChessPieces.King;
         }
 
+        public Side RemovePieces(IBoardUnit bu)
+        {
+            var negative = ~bu.AsBoard;
+
+            return  new Side(
+                KingLocation,
+                new PieceSet<Queen>(Queens.Locations & negative),
+                new PieceSet<Bishop>(Bishops.Locations & negative),
+                new PieceSet<Knight>(Knights.Locations & negative),
+                new PieceSet<Rook>(Rooks.Locations & negative),
+                (IsWhite ?
+                    (IPawns)new WhitePawns(Pawns.Locations & negative)
+                    :
+                    (IPawns)new BlackPawns(Pawns.Locations & negative)
+                  )
+                );
+        }
+
         #region static
         public static Side WhiteInitialPosition
         {

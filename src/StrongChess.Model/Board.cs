@@ -157,26 +157,16 @@ namespace StrongChess.Model
                 pawns
                 );
 
-            Bitboard negative;
+            Square capturedSquare;
             if (move.To != Enpassant)
-                negative = ~move.To.AsBoard;
+                capturedSquare = move.To;
             else if (move.To.Rank == 6)
-                negative = ~(new Square(5, move.To.File).AsBoard);
+                capturedSquare = new Square(5, move.To.File);
             else
-                negative = ~(new Square(4, move.To.File).AsBoard);
+                capturedSquare = new Square(4, move.To.File);
 
-            notmoving = new Side(
-                notmoving.KingLocation,
-                new PieceSet<Queen>(notmoving.Queens.Locations & negative),
-                new PieceSet<Bishop>(notmoving.Bishops.Locations & negative),
-                new PieceSet<Knight>(notmoving.Knights.Locations & negative),
-                new PieceSet<Rook>(notmoving.Rooks.Locations & negative),
-                (IsWhiteTurn ?
-                    (IPawns)new BlackPawns(notmoving.Pawns.Locations & negative)
-                    :
-                    (IPawns)new WhitePawns(notmoving.Pawns.Locations & negative)
-                  )
-                );
+            notmoving = notmoving.RemovePieces(capturedSquare);
+            
         }
         
     }
