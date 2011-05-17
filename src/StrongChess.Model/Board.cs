@@ -62,7 +62,7 @@ namespace StrongChess.Model
             switch (moving.GetPieceAt(move.From))
             {
                 case ChessPieces.Pawn:
-                    MakePawnMove(move, ref moving, ref notmoving);
+                    MakePawnMove(move, ref moving, notmoving);
                     enpassant = ComputeEnpassantSquare(move);
                     break;
                 case ChessPieces.King:
@@ -91,7 +91,7 @@ namespace StrongChess.Model
 
         private void MakePawnMove(Move move, 
             ref Side moving, 
-            ref Side notmoving)
+            Side notmoving)
         {
             EnsureValidPawnMove(move, moving, notmoving);
 
