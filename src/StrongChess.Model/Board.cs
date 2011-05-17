@@ -65,12 +65,6 @@ namespace StrongChess.Model
                     MakePawnMove(move, ref moving, notmoving);
                     enpassant = ComputeEnpassantSquare(move);
                     break;
-                case ChessPieces.King:
-                case ChessPieces.Queen:
-                case ChessPieces.Bishop:
-                case ChessPieces.Knight:
-                case ChessPieces.Rook:
-                case ChessPieces.None:
                 default:
                     throw new NotImplementedException(
                         string.Format("There is no support to {0} moves", 
