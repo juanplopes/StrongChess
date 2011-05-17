@@ -15,7 +15,8 @@ namespace StrongChess.Model.Tests.Sets
 	{
 				
 		[Test]
-        public void GetPieceAt_A2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_A2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -26,7 +27,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_A7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_A7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -37,7 +39,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_A1InWhiteInitialPosition_ReturnsRook()
+        public void 
+		GetPieceAt_A1InWhiteInitialPosition_ReturnsRook()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -48,7 +51,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_A8InBlackInitialPosition_ReturnsRook()
+		public void 
+		GetPieceAt_A8InBlackInitialPosition_ReturnsRook()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -59,7 +63,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_B2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_B2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -70,7 +75,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_B7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_B7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -81,7 +87,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_B1InWhiteInitialPosition_ReturnsKnight()
+        public void 
+		GetPieceAt_B1InWhiteInitialPosition_ReturnsKnight()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -92,7 +99,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_B8InBlackInitialPosition_ReturnsKnight()
+		public void 
+		GetPieceAt_B8InBlackInitialPosition_ReturnsKnight()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -103,7 +111,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_C2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_C2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -114,7 +123,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_C7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_C7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -125,7 +135,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_C1InWhiteInitialPosition_ReturnsBishop()
+        public void 
+		GetPieceAt_C1InWhiteInitialPosition_ReturnsBishop()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -136,7 +147,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_C8InBlackInitialPosition_ReturnsBishop()
+		public void 
+		GetPieceAt_C8InBlackInitialPosition_ReturnsBishop()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -147,7 +159,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_D2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_D2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -158,7 +171,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_D7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_D7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -169,7 +183,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_D1InWhiteInitialPosition_ReturnsQueen()
+        public void 
+		GetPieceAt_D1InWhiteInitialPosition_ReturnsQueen()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -180,7 +195,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_D8InBlackInitialPosition_ReturnsQueen()
+		public void 
+		GetPieceAt_D8InBlackInitialPosition_ReturnsQueen()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -191,7 +207,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_E2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_E2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -202,7 +219,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_E7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_E7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -213,7 +231,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_E1InWhiteInitialPosition_ReturnsKing()
+        public void 
+		GetPieceAt_E1InWhiteInitialPosition_ReturnsKing()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -224,7 +243,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_E8InBlackInitialPosition_ReturnsKing()
+		public void 
+		GetPieceAt_E8InBlackInitialPosition_ReturnsKing()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -235,7 +255,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_F2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_F2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -246,7 +267,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_F7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_F7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -257,7 +279,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_F1InWhiteInitialPosition_ReturnsBishop()
+        public void 
+		GetPieceAt_F1InWhiteInitialPosition_ReturnsBishop()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -268,7 +291,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_F8InBlackInitialPosition_ReturnsBishop()
+		public void 
+		GetPieceAt_F8InBlackInitialPosition_ReturnsBishop()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -279,7 +303,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_G2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_G2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -290,7 +315,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_G7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_G7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -301,7 +327,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_G1InWhiteInitialPosition_ReturnsKnight()
+        public void 
+		GetPieceAt_G1InWhiteInitialPosition_ReturnsKnight()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -312,7 +339,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_G8InBlackInitialPosition_ReturnsKnight()
+		public void 
+		GetPieceAt_G8InBlackInitialPosition_ReturnsKnight()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -323,7 +351,8 @@ namespace StrongChess.Model.Tests.Sets
         }
         		
 		[Test]
-        public void GetPieceAt_H2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_H2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -334,7 +363,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_H7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_H7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -345,7 +375,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_H1InWhiteInitialPosition_ReturnsRook()
+        public void 
+		GetPieceAt_H1InWhiteInitialPosition_ReturnsRook()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -356,7 +387,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_H8InBlackInitialPosition_ReturnsRook()
+		public void 
+		GetPieceAt_H8InBlackInitialPosition_ReturnsRook()
         {
             // arrange
             var side = Side.BlackInitialPosition;

@@ -9,6 +9,7 @@ namespace StrongChess.Model.Tests
     using SharpTestsEx;
     using StrongChess.Model.Sets;
     using StrongChess.Model.Exceptions;
+    using StrongChess.Model.Pieces;
 
     [TestFixture]
     public class BoardTests
@@ -219,8 +220,121 @@ namespace StrongChess.Model.Tests
             // act
 
             // assert
-            b.Occupation.Should().Be((Bitboard) (b.White.Occupation | b.Black.Occupation));
+            b.Occupation.Should().Be((Bitboard) 
+                (b.White.Occupation | b.Black.Occupation));
         }
+
+        [Test]
+        public void MakeMove_MovePawnToPromotionWithNoInformation_ThrowsInvalidMoveException()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+
+            Move m = new Move("A7", "A8");
+
+            // act
+            b.Executing( (board) => board.MakeMove(m))
+                .Throws<InvalidMoveException>();
+        }
+
+        [Test]
+        public void MakeMove_MovePawnToPromotionToQueen_PromotesToQueen()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+            Move m = new Move("A7", "A8", MoveTypes.PawnToQueenPromotion);
+
+            // act
+            var result = b.MakeMove(m);
+
+            // assert
+            result.White.Queens.Locations.IsSet(new Square("A8"))
+                .Should().Be(true);
+        }
+
+        [Test]
+        public void MakeMove_MovePawnToPromotionToBishop_PromotesToBishop()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+            Move m = new Move("A7", "A8", MoveTypes.PawnToBishopPromotion);
+
+            // act
+            var result = b.MakeMove(m);
+
+            // assert
+            result.White.Bishops.Locations.IsSet(new Square("A8"))
+                .Should().Be(true);
+        }
+
+        [Test]
+        public void MakeMove_MovePawnToPromotionToKnight_PromotesToKnight()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+            Move m = new Move("A7", "A8", MoveTypes.PawnToKnightPromotion);
+
+            // act
+            var result = b.MakeMove(m);
+
+            // assert
+            result.White.Knights.Locations.IsSet(new Square("A8"))
+                .Should().Be(true);
+        }
+
+
+        [Test]
+        public void MakeMove_MovePawnToPromotionToRook_PromotesToRook()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+            Move m = new Move("A7", "A8", MoveTypes.PawnToRookPromotion);
+
+            // act
+            var result = b.MakeMove(m);
+
+            // assert
+            result.White.Rooks.Locations.IsSet(new Square("A8"))
+                .Should().Be(true);
+        }
+
+        [Test]
+        public void MakeMove_MovePawnToPromotion_RemovesPromotedPawn()
+        {
+            // arrange
+            var b = CreatePromotionBoard();
+            Move m = new Move("A7", "A8", MoveTypes.PawnToQueenPromotion);
+
+            // act
+            var result = b.MakeMove(m);
+
+            // assert
+            result.White.Pawns.Locations.IsSet(new Square("A8"))
+                .Should().Be(false);
+        }
+
+        private static Board CreatePromotionBoard()
+        {
+            var b = new Board(
+                new Side(
+                    "E1",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.Empty),
+                    new WhitePawns(Bitboard.With.A7)
+                    ),
+                  new Side(
+                    "E8",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.Empty),
+                    new WhitePawns(Bitboard.Empty)
+                    ));
+            return b;
+        }
+
 
 
     }

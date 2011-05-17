@@ -8,6 +8,7 @@ namespace StrongChess.Model
     using StrongChess.Model.Sets;
     using StrongChess.Model.Pieces;
     using StrongChess.Model.Exceptions;
+    using System.Diagnostics;
 
     public struct Board
     {
@@ -60,6 +61,12 @@ namespace StrongChess.Model
 
             if (moving.GetPieceAt(move.From) == ChessPieces.Pawn)
             {
+                bool isPromotion = 
+                    (move.To.Rank.Index == 7 || move.To.Rank.Index == 0);
+
+                if (move.Type == MoveTypes.Normal && isPromotion)
+                    throw new InvalidMoveException(move, this);
+                
                 var isvalid = moving.Pawns
                     .GetAllMoves(~Occupation, notmoving.Occupation, 
                     this.Enpassant)
@@ -70,8 +77,10 @@ namespace StrongChess.Model
                     throw new InvalidMoveException(move, this);
 
                 var locations = moving.Pawns.Locations
-                    & (~move.From.AsBoard)
-                    | move.To.AsBoard;
+                    & (~move.From.AsBoard);
+
+                if (!isPromotion)
+                    locations |= move.To.AsBoard;
 
                 IPawns pawns = IsWhiteTurn ? 
                     (IPawns) new WhitePawns(locations) :
@@ -84,13 +93,40 @@ namespace StrongChess.Model
                         move.From.File
                         );
 
+                var queens = moving.Queens;
+                if (move.Type == MoveTypes.PawnToQueenPromotion)
+                    queens = new PieceSet<Queen>(
+                        moving.Queens.Locations |
+                        move.To.AsBoard
+                        );
+
+                var bishops = moving.Bishops;
+                if (move.Type == MoveTypes.PawnToBishopPromotion)
+                    bishops = new PieceSet<Bishop>(
+                        moving.Bishops.Locations |
+                        move.To.AsBoard
+                        );
+
+                var knights = moving.Knights;
+                if (move.Type == MoveTypes.PawnToKnightPromotion)
+                    knights = new PieceSet<Knight>(
+                        moving.Knights.Locations |
+                        move.To.AsBoard
+                        );
+
+                var rooks = moving.Rooks;
+                if (move.Type == MoveTypes.PawnToRookPromotion)
+                    rooks = new PieceSet<Rook>(
+                        moving.Rooks.Locations |
+                        move.To.AsBoard
+                        );
 
                 moving = new Side(
                     moving.KingLocation,
-                    moving.Queens,
-                    moving.Bishops,
-                    moving.Knights,
-                    moving.Rooks,
+                    queens,
+                    bishops,
+                    knights,
+                    rooks,
                     pawns
                     );
 

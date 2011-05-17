@@ -24,7 +24,8 @@ namespace StrongChess.Model.Tests.Sets
 		#>
 		
 		[Test]
-        public void GetPieceAt_<#= files[i] #>2InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_<#= files[i] #>2InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -35,7 +36,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_<#= files[i] #>7InWhiteInitialPosition_ReturnsPawn()
+        public void 
+		GetPieceAt_<#= files[i] #>7InWhiteInitialPosition_ReturnsPawn()
         {
             // arrange
             var side = Side.BlackInitialPosition;
@@ -46,7 +48,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-        public void GetPieceAt_<#= files[i] #>1InWhiteInitialPosition_Returns<#= pieces[i] #>()
+        public void 
+		GetPieceAt_<#= files[i] #>1InWhiteInitialPosition_Returns<#= pieces[i] #>()
         {
             // arrange
             var side = Side.WhiteInitialPosition;
@@ -57,7 +60,8 @@ namespace StrongChess.Model.Tests.Sets
         }
 		
 		[Test]
-		public void GetPieceAt_<#= files[i] #>8InBlackInitialPosition_Returns<#= pieces[i] #>()
+		public void 
+		GetPieceAt_<#= files[i] #>8InBlackInitialPosition_Returns<#= pieces[i] #>()
         {
             // arrange
             var side = Side.BlackInitialPosition;
