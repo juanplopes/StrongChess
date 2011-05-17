@@ -103,14 +103,12 @@ namespace StrongChess.Model
 
             if (!isPromotion)
                 locations |= move.To.AsBoard;
+            else
+                moving = moving.AddPieces(move.Type, move.To.AsBoard);
 
             IPawns pawns = IsWhiteTurn ?
                 (IPawns)new WhitePawns(locations) :
                 (IPawns)new BlackPawns(locations);
-
-
-            if (isPromotion)
-                moving = moving.AddPieces(move.Type, move.To.AsBoard);
 
             moving = new Side(
                 moving.KingLocation,
