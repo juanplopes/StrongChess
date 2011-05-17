@@ -62,7 +62,8 @@ namespace StrongChess.Model
             switch (moving.GetPieceAt(move.From))
             {
                 case ChessPieces.Pawn:
-                    MakePawnMove(move, ref enpassant, ref moving, ref notmoving);
+                    MakePawnMove(move, ref moving, ref notmoving);
+                    enpassant = ComputeEnpassantSquare(move);
                     break;
                 case ChessPieces.King:
                 case ChessPieces.Queen:
@@ -84,11 +85,11 @@ namespace StrongChess.Model
             var white = (this.IsWhiteTurn ? moving : notmoving);
             var black = (this.IsWhiteTurn ? notmoving : moving);
             
-            return new Board(white, black, 0, !IsWhiteTurn, enpassant);
+            return new Board(white, black, 0, !IsWhiteTurn, 
+                enpassant);
         }
 
         private void MakePawnMove(Move move, 
-            ref Square? enpassant, 
             ref Side moving, 
             ref Side notmoving)
         {
@@ -117,15 +118,6 @@ namespace StrongChess.Model
                 (IPawns)new WhitePawns(locations) :
                 (IPawns)new BlackPawns(locations);
 
-            bool isPawnFirstTwoSquaresMove =
-                (move.From.File == move.To.File &&
-                Math.Abs(move.From.Rank - move.To.Rank) > 1);
-
-            if (isPawnFirstTwoSquaresMove)
-                enpassant = new Square(
-                    (move.From.Rank + move.To.Rank) / 2,
-                    move.From.File
-                    );
 
             if (isPromotion)
                 moving = moving.AddPieces(move.Type, move.To.AsBoard);
@@ -138,9 +130,21 @@ namespace StrongChess.Model
                 moving.Rooks,
                 pawns
                 );
+        }
 
+        private static Square? ComputeEnpassantSquare(Move move)
+        {
             
-            
+            bool isPawnFirstTwoSquaresMove =
+                (move.From.File == move.To.File &&
+                Math.Abs(move.From.Rank - move.To.Rank) > 1);
+
+            if (!isPawnFirstTwoSquaresMove) return null;
+                
+            return new Square(
+                (move.From.Rank + move.To.Rank) / 2,
+                move.From.File
+                );
         }
 
         private Square GetCapturedSquare(Move move)
