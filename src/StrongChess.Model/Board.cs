@@ -18,6 +18,8 @@ namespace StrongChess.Model
         public bool IsWhiteTurn { get; private set; }
         public Square? Enpassant { get; private set; }
 
+        public IEnumerable<Move> AvaliableMoves { get; private set; }
+
         public Bitboard Occupation
         {
             get
@@ -37,19 +39,26 @@ namespace StrongChess.Model
             this.NoPawnMovesCount = noPawnMovesCount;
             this.IsWhiteTurn = isWhiteToMove;
             this.Enpassant = enpassant;
+            ComputeAvaliableMoves();
+        }
+
+        private void ComputeAvaliableMoves()
+        {
+            var moving = (this.IsWhiteTurn ? White : Black);
+
+            var notmoving = (this.IsWhiteTurn ? Black : White);
+
+            this.AvaliableMoves = moving.GetMoves(notmoving.Occupation.AsBoard,
+                (Square?)Enpassant)
+                .ToArray();
         }
         
         public static Board NewGame()
         {
-            var result = new Board();
-
-            result.White = Side.WhiteInitialPosition;
-            result.Black = Side.BlackInitialPosition;
-
-            result.IsWhiteTurn = true;
-            result.NoPawnMovesCount = 0;
-            
-            return result;
+            return new Board(
+                Side.WhiteInitialPosition,
+                Side.BlackInitialPosition
+                );
         }
 
         public Board MakeMove(Square from, Square to, 
@@ -67,6 +76,9 @@ namespace StrongChess.Model
             var moving = (this.IsWhiteTurn ? White : Black);
             var notmoving = (this.IsWhiteTurn ? Black : White);
 
+            if (AvaliableMoves.Count(m => m == move) == 0)
+                throw new InvalidMoveException(move, this);
+
             switch (moving.GetPieceAt(move.From))
             {
                 case ChessPieces.Pawn:
@@ -74,16 +86,6 @@ namespace StrongChess.Model
                     enpassant = ComputeEnpassantSquare(move);
                     break;
                 case ChessPieces.Knight:
-                    var isValid = moving.Knights.GetMoves(
-                        moving.Occupation,
-                        notmoving.Occupation
-                        )
-                        .Count(m => m == move) > 0;
-
-
-                    if (!isValid)
-                        throw new InvalidMoveException(move, this);
-
                     moving = moving
                         .RemovePieces(move.From)
                         .AddPieces(ChessPieces.Knight, move.To.AsBoard);
@@ -95,9 +97,16 @@ namespace StrongChess.Model
                     );
             }
 
+
             notmoving = notmoving.RemovePieces(
                 GetCapturedSquare(move)
                 );
+
+            if (notmoving.Attacks(
+                moving.KingLocation, 
+                moving.Occupation.AsBoard
+                ))
+                throw new InvalidMoveException(move, this);
 
             var white = (this.IsWhiteTurn ? moving : notmoving);
             var black = (this.IsWhiteTurn ? notmoving : moving);
@@ -110,8 +119,6 @@ namespace StrongChess.Model
             ref Side moving, 
             Side notmoving)
         {
-            EnsureValidPawnMove(move, moving, notmoving);
-
             var locations = moving.Pawns.Locations
                 & (~move.From.AsBoard);
 
@@ -132,17 +139,6 @@ namespace StrongChess.Model
                 moving.Rooks,
                 pawns
                 );
-        }
-
-        private void EnsureValidPawnMove(Move move, Side moving, Side notmoving)
-        {
-            var isvalid = moving.Pawns
-                .GetAllMoves(~Occupation, notmoving.Occupation,
-                this.Enpassant)
-                .Count( m => m == move ) > 0;
-
-            if (!isvalid)
-                throw new InvalidMoveException(move, this);
         }
 
         private static Square? ComputeEnpassantSquare(Move move)
@@ -170,6 +166,5 @@ namespace StrongChess.Model
             
             return new Square(4, move.To.File);
         }
-        
     }
 }

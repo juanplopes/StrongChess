@@ -385,6 +385,33 @@ namespace StrongChess.Model.Tests
                 .Throws<InvalidMoveException>();
         }
 
+        [Test]
+        public void MakeMove_AdvancePawnDiscoveringKing_ThrowsInvalidMoveException()
+        {
+            // arrange
+            var board = new Board(
+                new Side(
+                    "E5",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.Empty),
+                    new WhitePawns(Bitboard.With.D5)
+                    ),
+                  new Side(
+                    "E8",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.With.C5.Build()),
+                    new WhitePawns(Bitboard.Empty)
+                    ));
+
+            // act
+            board.Executing(b => b.MakeMove("D5", "D6", MoveTypes.Normal))
+                .Throws<InvalidMoveException>();
+        }
+
 
     }
 }
