@@ -52,6 +52,14 @@ namespace StrongChess.Model
             return result;
         }
 
+        public Board MakeMove(Square from, Square to, 
+            MoveTypes type = MoveTypes.Normal)
+        {
+            return this.MakeMove(
+                new Move(from, to, type)
+                );
+        }
+
         public Board MakeMove(Move move)
         {
             Square? enpassant = null;

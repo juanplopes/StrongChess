@@ -359,6 +359,22 @@ namespace StrongChess.Model.Tests
                 new Square("F3")).Should().Be(true);
         }
 
+        [Test]
+        public void MakeMoveG1F3AndE7E5AndF3E5_KnightCapturesPawn()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board
+                .MakeMove("G1", "F3")
+                .MakeMove("E7", "E5")
+                .MakeMove("F3", "E5");
+            // assert
+            result.White.GetPieceAt("E5").Should().Be(ChessPieces.Knight);
+            result.Black.Pawns.Locations.Should().Be
+                (Bitboard.With.A7.B7.C7.D7.F7.G7.H7.Build());
+        }
+
 
     }
 }
