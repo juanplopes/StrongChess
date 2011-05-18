@@ -74,6 +74,20 @@ namespace StrongChess.Model
                     enpassant = ComputeEnpassantSquare(move);
                     break;
                 case ChessPieces.Knight:
+                    var isValid = moving.Knights.GetMoves(
+                        moving.Occupation,
+                        notmoving.Occupation
+                        )
+                        .Count(m =>
+                            m.From == move.From &&
+                            m.To == move.To &&
+                            m.Type == move.Type
+                        ) > 0;
+
+
+                    if (!isValid)
+                        throw new InvalidMoveException(move, this);
+
                     moving = moving
                         .RemovePieces(move.From)
                         .AddPieces(ChessPieces.Knight, move.To.AsBoard);

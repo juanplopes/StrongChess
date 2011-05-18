@@ -360,7 +360,7 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
-        public void MakeMoveG1F3AndE7E5AndF3E5_KnightCapturesPawn()
+        public void MakeMove_G1F3AndE7E5AndF3E5_KnightCapturesPawn()
         {
             // arrange
             var board = Board.NewGame();
@@ -373,6 +373,16 @@ namespace StrongChess.Model.Tests
             result.White.GetPieceAt("E5").Should().Be(ChessPieces.Knight);
             result.Black.Pawns.Locations.Should().Be
                 (Bitboard.With.A7.B7.C7.D7.F7.G7.H7.Build());
+        }
+
+        [Test]
+        public void MakeMove_G1F4_ThrowsInvalidMoveException()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            board.Executing(b => b.MakeMove("G1", "F4", MoveTypes.Normal))
+                .Throws<InvalidMoveException>();
         }
 
 
