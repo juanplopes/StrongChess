@@ -65,6 +65,11 @@ namespace StrongChess.Model
                     MakePawnMove(move, ref moving, notmoving);
                     enpassant = ComputeEnpassantSquare(move);
                     break;
+                case ChessPieces.Knight:
+                    moving = moving
+                        .RemovePieces(move.From)
+                        .AddPieces(ChessPieces.Knight, move.To.AsBoard);
+                    break;
                 default:
                     throw new NotImplementedException(
                         string.Format("There is no support to {0} moves", 

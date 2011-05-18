@@ -335,6 +335,29 @@ namespace StrongChess.Model.Tests
             return b;
         }
 
+        [Test]
+        public void MakeMove_G1F3_RemovesKnightFromG1()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board.MakeMove(new Move("G1", "F3"));
+            // assert
+            result.White.Knights.Locations.Contains(
+                new Square("G1")).Should().Be(false);
+        }
+
+        [Test]
+        public void MakeMove_G1F3_PutsKnightOnF3()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board.MakeMove(new Move("G1", "F3"));
+            // assert
+            result.White.Knights.Locations.Contains(
+                new Square("F3")).Should().Be(true);
+        }
 
 
     }
