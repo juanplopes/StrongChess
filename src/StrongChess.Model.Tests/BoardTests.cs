@@ -376,6 +376,51 @@ namespace StrongChess.Model.Tests
         }
 
         [Test]
+        public void MakeMove_E4andE5andF1C4_MovesBishopToC4()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board
+                .MakeMove("E2", "E4")
+                .MakeMove("E7", "E5")
+                .MakeMove("F1", "C4");
+            // assert
+            result.White.GetPieceAt("C4").Should().Be(ChessPieces.Bishop);
+            result.White.GetPieceAt("F1").Should().Be(ChessPieces.None);
+        }
+
+        [Test]
+        public void MakeMove_A4andE5andA1A3_MovesRookToA3()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board
+                .MakeMove("A2", "A4")
+                .MakeMove("E7", "E5")
+                .MakeMove("A1", "A3");
+            // assert
+            result.White.GetPieceAt("A3").Should().Be(ChessPieces.Rook);
+            result.White.GetPieceAt("A1").Should().Be(ChessPieces.None);
+        }
+
+        [Test]
+        public void MakeMove_E4andE5andD1F3_MovesQueenToF3()
+        {
+            // arrange
+            var board = Board.NewGame();
+            // act
+            var result = board
+                .MakeMove("E2", "E4")
+                .MakeMove("E7", "E5")
+                .MakeMove("D1", "F3");
+            // assert
+            result.White.GetPieceAt("F3").Should().Be(ChessPieces.Queen);
+            result.White.GetPieceAt("D1").Should().Be(ChessPieces.None);
+        }
+
+        [Test]
         public void MakeMove_G1F4_ThrowsInvalidMoveException()
         {
             // arrange

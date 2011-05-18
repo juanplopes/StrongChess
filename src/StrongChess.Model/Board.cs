@@ -79,16 +79,20 @@ namespace StrongChess.Model
             if (AvaliableMoves.Count(m => m == move) == 0)
                 throw new InvalidMoveException(move, this);
 
-            switch (moving.GetPieceAt(move.From))
+            var piece = moving.GetPieceAt(move.From);
+            switch (piece)
             {
                 case ChessPieces.Pawn:
                     MakePawnMove(move, ref moving, notmoving);
                     enpassant = ComputeEnpassantSquare(move);
                     break;
+                case ChessPieces.Queen:
+                case ChessPieces.Rook:
+                case ChessPieces.Bishop:
                 case ChessPieces.Knight:
                     moving = moving
                         .RemovePieces(move.From)
-                        .AddPieces(ChessPieces.Knight, move.To.AsBoard);
+                        .AddPieces(piece, move.To.AsBoard);
                     break;
                 default:
                     throw new NotImplementedException(
@@ -96,7 +100,6 @@ namespace StrongChess.Model
                         moving.GetPieceAt(move.From))
                     );
             }
-
 
             notmoving = notmoving.RemovePieces(
                 GetCapturedSquare(move)
