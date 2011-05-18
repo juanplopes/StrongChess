@@ -94,6 +94,16 @@ namespace StrongChess.Model
                         .RemovePieces(move.From)
                         .AddPieces(piece, move.To.AsBoard);
                     break;
+                case ChessPieces.King:
+                    moving = new Side(
+                        move.To,
+                        moving.Queens,
+                        moving.Bishops,
+                        moving.Knights,
+                        moving.Rooks,
+                        moving.Pawns
+                        );
+                    break;
                 default:
                     throw new NotImplementedException(
                         string.Format("There is no support to {0} moves", 

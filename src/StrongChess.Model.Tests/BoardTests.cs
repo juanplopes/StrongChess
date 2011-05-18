@@ -457,6 +457,37 @@ namespace StrongChess.Model.Tests
                 .Throws<InvalidMoveException>();
         }
 
+        [Test]
+        public void MakeMove_MovingKingE1E2()
+        {
+            // arrange
+            var board = new Board(
+                new Side(
+                    "E1",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.Empty),
+                    new WhitePawns(Bitboard.Empty)
+                    ),
+                  new Side(
+                    "E8",
+                    new PieceSet<Queen>(Bitboard.Empty),
+                    new PieceSet<Bishop>(Bitboard.Empty),
+                    new PieceSet<Knight>(Bitboard.Empty),
+                    new PieceSet<Rook>(Bitboard.Empty),
+                    new WhitePawns(Bitboard.Empty)
+                    ));
+
+            // act
+            var result = board.MakeMove("E1", "E2");
+            
+            // assert
+            result.White.KingLocation.Should().Be(
+                new Square("E2")
+                );
+        }
+
 
     }
 }
