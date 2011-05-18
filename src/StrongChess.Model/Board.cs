@@ -89,13 +89,10 @@ namespace StrongChess.Model
         {
             EnsureValidPawnMove(move, moving, notmoving);
 
-            bool isPromotion = 
-                (move.To.Rank.Index == 7 || move.To.Rank.Index == 0);
-
             var locations = moving.Pawns.Locations
                 & (~move.From.AsBoard);
 
-            if (!isPromotion)
+            if (move.Type == MoveTypes.Normal)
                 locations |= move.To.AsBoard;
             else
                 moving = moving.AddPieces(move.Type, move.To.AsBoard);
@@ -116,14 +113,14 @@ namespace StrongChess.Model
 
         private void EnsureValidPawnMove(Move move, Side moving, Side notmoving)
         {
-            if (move.Type == MoveTypes.Normal)
-                if (move.To.Rank.Index == 7 || move.To.Rank.Index == 0)
-                    throw new InvalidMoveException(move, this);
-
             var isvalid = moving.Pawns
                 .GetAllMoves(~Occupation, notmoving.Occupation,
                 this.Enpassant)
-                .Count(m => m.From == move.From && m.To == move.To)
+                .Count( m =>
+                    m.Type == move.Type &&
+                    m.From == move.From && 
+                    m.To == move.To 
+                    )
                 > 0;
 
             if (!isvalid)
