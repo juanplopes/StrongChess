@@ -17,7 +17,6 @@ namespace StrongChess.Model
         public int NoPawnMovesCount { get; private set; }
         public bool IsWhiteTurn { get; private set; }
         public Square? Enpassant { get; private set; }
-
         public IEnumerable<Move> AvaliableMoves { get; private set; }
 
         public Bitboard Occupation
@@ -45,7 +44,6 @@ namespace StrongChess.Model
         private void ComputeAvaliableMoves()
         {
             var moving = (this.IsWhiteTurn ? White : Black);
-
             var notmoving = (this.IsWhiteTurn ? Black : White);
 
             this.AvaliableMoves = moving.GetMoves(notmoving.Occupation.AsBoard,
@@ -86,14 +84,6 @@ namespace StrongChess.Model
                     MakePawnMove(move, ref moving, notmoving);
                     enpassant = ComputeEnpassantSquare(move);
                     break;
-                case ChessPieces.Queen:
-                case ChessPieces.Rook:
-                case ChessPieces.Bishop:
-                case ChessPieces.Knight:
-                    moving = moving
-                        .RemovePieces(move.From)
-                        .AddPieces(piece, move.To.AsBoard);
-                    break;
                 case ChessPieces.King:
                     moving = new Side(
                         move.To,
@@ -105,10 +95,10 @@ namespace StrongChess.Model
                         );
                     break;
                 default:
-                    throw new NotImplementedException(
-                        string.Format("There is no support to {0} moves", 
-                        moving.GetPieceAt(move.From))
-                    );
+                    moving = moving
+                        .RemovePieces(move.From)
+                        .AddPieces(piece, move.To.AsBoard);
+                    break;
             }
 
             notmoving = notmoving.RemovePieces(
