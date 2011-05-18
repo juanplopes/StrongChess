@@ -78,11 +78,7 @@ namespace StrongChess.Model
                         moving.Occupation,
                         notmoving.Occupation
                         )
-                        .Count(m =>
-                            m.From == move.From &&
-                            m.To == move.To &&
-                            m.Type == move.Type
-                        ) > 0;
+                        .Count(m => m == move) > 0;
 
 
                     if (!isValid)
@@ -143,12 +139,7 @@ namespace StrongChess.Model
             var isvalid = moving.Pawns
                 .GetAllMoves(~Occupation, notmoving.Occupation,
                 this.Enpassant)
-                .Count( m =>
-                    m.Type == move.Type &&
-                    m.From == move.From && 
-                    m.To == move.To 
-                    )
-                > 0;
+                .Count( m => m == move ) > 0;
 
             if (!isvalid)
                 throw new InvalidMoveException(move, this);

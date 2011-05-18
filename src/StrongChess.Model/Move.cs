@@ -44,6 +44,31 @@ namespace StrongChess.Model
         {
             return string.Format("{0} > {1} ({2})", From, To, Type);
         }
+
+        public static bool operator ==(Move move1, Move move2)
+        {
+            return move1.From == move2.From &&
+                move1.To == move2.To &&
+                move1.Type == move2.Type;
+        }
+
+        public static bool operator !=(Move move1, Move move2)
+        {
+            return move1.From != move2.From ||
+                move1.To != move2.To ||
+                move1.Type != move2.Type;
+        }
+
+        public override bool Equals(object obj)
+        {
+            if (!(obj is Move)) return false;
+            return this == (Move) obj;
+        }
+
+        public override int GetHashCode()
+        {
+            return base.GetHashCode();
+        }
     }
 
     public static class MoveExtensionMethods
