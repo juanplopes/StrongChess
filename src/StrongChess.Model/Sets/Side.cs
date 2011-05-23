@@ -19,8 +19,8 @@ namespace StrongChess.Model.Sets
         public Square KingLocation
         { get { return _King.Locations.Squares.First(); } }
 
-        public Boolean IsWhite 
-        {get { return Pawns.GetType() == typeof(WhitePawns); } }
+        public Boolean IsWhite
+        { get { return Pawns.GetType() == typeof(WhitePawns); } }
 
         public Boolean IsBlack
         { get { return Pawns.GetType() == typeof(BlackPawns); } }
@@ -63,9 +63,9 @@ namespace StrongChess.Model.Sets
             Bitboard pawnsFilterTo;
             if (this.IsWhite)
                 pawnsFilterTo = t.Shift(-1, -1).And(t.Shift(-1, 1));
-            else 
+            else
                 pawnsFilterTo = t.Shift(1, -1).And(t.Shift(1, 1));
-            
+
             var result = Pawns.GetCaptures(enemies, Bitboard.Full, pawnsFilterTo, enpassant)
                 .Union(Pawns.GetMovesOneSquareForward(notblockers, Bitboard.Full, pawnsFilterTo))
                 .Union(Pawns.GetMovesTwoSquaresForward(notblockers, Bitboard.Full, pawnsFilterTo))
@@ -82,7 +82,6 @@ namespace StrongChess.Model.Sets
 
             return result;
         }
-
 
         public Bitboard GetCapturesMoveBoard(Bitboard enemies, Square? enpassant)
         {
@@ -212,7 +211,7 @@ namespace StrongChess.Model.Sets
             var rayTo = target.RayTo;
             var n = rayTo.N;
             if ((n & checkers) == 0)
-                blockers &= ~n; 
+                blockers &= ~n;
 
             var s = rayTo.S;
             if ((s & checkers) == 0)
@@ -268,7 +267,7 @@ namespace StrongChess.Model.Sets
             if ((m.Knights & Knights.Locations) != 0) return true;
 
             var allpieces = this.Occupation | enemies;
-            
+
             Bitboard bsliders = (Bishops.Locations | Queens.Locations) & m.Bishops;
             if (bsliders != Bitboard.Empty)
                 if ((bsliders & Rules.For<Bishop>().GetMoveBoard(target, Bitboard.Empty, allpieces)) > 0) return true;
@@ -278,12 +277,12 @@ namespace StrongChess.Model.Sets
                 if ((rsliders & Rules.For<Rook>().GetMoveBoard(target, Bitboard.Empty, allpieces)) > 0) return true;
 
             return false;
-                
+
         }
-        
+
         public IEnumerable<Move> GetCheckEvasionMoves(Side enemy, Square? enpassant = null)
         {
-            return 
+            return
                 GetCheckEvasionKingMoves(enemy)
                 .Union(GetCheckEvasionPinningPiecesMoves(enemy, enpassant));
         }
@@ -319,6 +318,89 @@ namespace StrongChess.Model.Sets
                 .Union(Pawns.GetCaptures(enemy.Occupation, Bitboard.Full, path, enpassant));
         }
 
+
+        public ChessPieces GetPieceAt(Square sq)
+        {
+            if (!this.Occupation.Contains(sq))
+                return ChessPieces.None;
+            else if (this.Pawns.Locations.Contains(sq))
+                return ChessPieces.Pawn;
+            else if (this.Queens.Locations.Contains(sq))
+                return ChessPieces.Queen;
+            else if (this.Bishops.Locations.Contains(sq))
+                return ChessPieces.Bishop;
+            else if (this.Knights.Locations.Contains(sq))
+                return ChessPieces.Knight;
+            else if (this.Rooks.Locations.Contains(sq))
+                return ChessPieces.Rook;
+
+            return ChessPieces.King;
+        }
+
+        public Side RemovePieces(IBoardUnit bu)
+        {
+            var negative = ~bu.AsBoard;
+
+            return new Side(
+                KingLocation,
+                new PieceSet<Queen>(Queens.Locations & negative),
+                new PieceSet<Bishop>(Bishops.Locations & negative),
+                new PieceSet<Knight>(Knights.Locations & negative),
+                new PieceSet<Rook>(Rooks.Locations & negative),
+                (IsWhite ?
+                    (IPawns)new WhitePawns(Pawns.Locations & negative)
+                    :
+                    (IPawns)new BlackPawns(Pawns.Locations & negative)
+                  )
+                );
+        }
+
+        public Side AddPieces(ChessPieces piece, Bitboard b)
+        {
+            var queens = Queens;
+            var bishops = Bishops;
+            var knights = Knights;
+            var rooks = Rooks;
+
+            switch (piece)
+            {
+                case ChessPieces.Queen:
+                    queens = new PieceSet<Queen>(queens.Locations | b);
+                    break;
+                case ChessPieces.Bishop:
+                    bishops = new PieceSet<Bishop>(bishops.Locations | b);
+                    break;
+                case ChessPieces.Knight:
+                    knights = new PieceSet<Knight>(knights.Locations | b);
+                    break;
+                case ChessPieces.Rook:
+                    rooks = new PieceSet<Rook>(rooks.Locations | b);
+                    break;
+                default:
+                    throw new NotSupportedException();
+            }
+
+            return new Side(
+                KingLocation,
+                queens, bishops, knights,
+                rooks, this.Pawns
+                );
+        }
+
+        public Side AddPieces(MoveTypes type, Bitboard b)
+        {
+            if (type == MoveTypes.PawnToQueenPromotion)
+                return AddPieces(ChessPieces.Queen, b);
+
+            if (type == MoveTypes.PawnToBishopPromotion)
+                return AddPieces(ChessPieces.Bishop, b);
+            
+            if (type == MoveTypes.PawnToKnightPromotion)
+                return AddPieces(ChessPieces.Knight, b);
+
+            return AddPieces(ChessPieces.Rook, b);
+        }
+
         #region static
         public static Side WhiteInitialPosition
         {
@@ -335,7 +417,7 @@ namespace StrongChess.Model.Sets
             }
         }
 
-        public static Side BlackInicialPosition
+        public static Side BlackInitialPosition
         {
             get
             {

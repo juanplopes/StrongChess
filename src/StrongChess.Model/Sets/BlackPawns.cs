@@ -57,7 +57,7 @@ namespace StrongChess.Model.Sets
             (Bitboard enemies, Bitboard filterFrom, Bitboard filterTo, Square? enpassant = null)
         {
             if (enpassant != null)
-                enemies &= new Bitboard().And((Square)enpassant);
+                enemies |= new Bitboard().And((Square)enpassant);
 
             enemies &= filterTo;
             Bitboard l = Locations.Intersect(filterFrom);

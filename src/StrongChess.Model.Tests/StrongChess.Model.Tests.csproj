@@ -54,9 +54,15 @@
     <Compile Include="..\GlobalInfo.cs">
       <Link>Properties\GlobalInfo.cs</Link>
     </Compile>
+    <Compile Include="BoardTests.cs" />
     <Compile Include="Pieces\BishopTests.cs" />
     <Compile Include="Sets\PieceSetTests.cs" />
     <Compile Include="Sets\SideTests.cs" />
+    <Compile Include="Sets\SideTests_GetPieceAt.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>SideTests_GetPieceAt.tt</DependentUpon>
+    </Compile>
     <Compile Include="Units\AttackMasksTests.cs" />
     <Compile Include="Units\AttackPathTests.cs" />
     <Compile Include="Units\BitboardTests.cs" />
@@ -82,6 +88,15 @@
       <Project>{4ED0D29E-8F23-4306-B72B-417011B5A6BF}</Project>
       <Name>StrongChess.Model</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Sets\SideTests_GetPieceAt.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>SideTests_GetPieceAt.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

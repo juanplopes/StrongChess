@@ -57,7 +57,7 @@ namespace StrongChess.Model.Tests.Sets
         public void BlackInitalPosition_Occupation_Rank7Rank8()
         {
             // arrange
-            var b = Side.BlackInicialPosition;
+            var b = Side.BlackInitialPosition;
 
             // act
 
@@ -69,7 +69,7 @@ namespace StrongChess.Model.Tests.Sets
         public void GetMoves_BlackInitialPosition_ConvertsRanks5And6()
         {
             // arrange
-            var b = Side.BlackInicialPosition;
+            var b = Side.BlackInitialPosition;
             var expected = Bitboard.With.Rank5.Rank6.Build();
 
             // act 
@@ -894,5 +894,8 @@ namespace StrongChess.Model.Tests.Sets
                 new Move("B6", "A5")
                 );
         }
+
+        
+        
     }
 }

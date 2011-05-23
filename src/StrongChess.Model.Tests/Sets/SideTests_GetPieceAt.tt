@@ -1,0 +1,86 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+
+namespace StrongChess.Model.Tests.Sets
+{
+	using NUnit.Framework;
+	using SharpTestsEx;
+	using StrongChess.Model.Sets;
+	using StrongChess.Model.Pieces;
+
+	[TestFixture]
+	class SideTests_GetPieceAt
+	{
+		<#
+		var pieces = new [] { "Rook", "Knight", "Bishop", 
+						"Queen", "King",
+						"Bishop", "Knight", "Rook" };
+			
+		var files = new [] {"A", "B", "C", "D", "E", "F", "G", "H"};
+		for (int i = 0; i < 8; i++)
+		{
+		#>
+		
+		[Test]
+        public void 
+		GetPieceAt_<#= files[i] #>2InWhiteInitialPosition_ReturnsPawn()
+        {
+            // arrange
+            var side = Side.WhiteInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>2");
+            // assert
+            piece.Should().Be(ChessPieces.Pawn);
+        }
+		
+		[Test]
+        public void 
+		GetPieceAt_<#= files[i] #>7InWhiteInitialPosition_ReturnsPawn()
+        {
+            // arrange
+            var side = Side.BlackInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>7");
+            // assert
+            piece.Should().Be(ChessPieces.Pawn);
+        }
+		
+		[Test]
+        public void 
+		GetPieceAt_<#= files[i] #>1InWhiteInitialPosition_Returns<#= pieces[i] #>()
+        {
+            // arrange
+            var side = Side.WhiteInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>1");
+            // assert
+            piece.Should().Be(ChessPieces.<#= pieces[i] #>);
+        }
+		
+		[Test]
+		public void 
+		GetPieceAt_<#= files[i] #>8InBlackInitialPosition_Returns<#= pieces[i] #>()
+        {
+            // arrange
+            var side = Side.BlackInitialPosition;
+            // act
+            var piece = side.GetPieceAt("<#= files[i] #>8");
+            // assert
+            piece.Should().Be(ChessPieces.<#= pieces[i] #>);
+        }
+        <# } #>
+		
+		[Test]
+        public void GetPieceAt_E4InWhiteInitialPosition_ReturnsNone()
+        {
+            // arrange
+            var side = Side.WhiteInitialPosition;
+            // act
+            var piece = side.GetPieceAt("E4");
+            // assert
+            piece.Should().Be(ChessPieces.None);
+        }
+	}
+}
